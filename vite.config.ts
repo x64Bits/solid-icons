@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [solidPlugin()],
   root: "src/templates",
   build: {
-    outDir: "../dist/lib",
+    outDir: "../../dist/lib",
     target: "esnext",
     polyfillDynamicImport: false,
     lib: {

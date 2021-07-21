@@ -5,8 +5,8 @@
   "description": "A SolidJS SVG icons pack",
   "license": "MIT",
   "scripts": {
-    "submodule": "git submodule update --init",
-    "generate": "node scripts/build.js && vite build",
+    "submodule": "git submodule update --init --depth 1",
+    "generate": "rm -rf ./dist && vite build && node scripts/build.js",
     "build": "vite build"
   },
   "devDependencies": {
