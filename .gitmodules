@@ -1,56 +1,42 @@
 [submodule "src/icons/ant-design-icons"]
 	path = src/icons/ant-design-icons
 	url = https://github.com/ant-design/ant-design-icons.git
-	ignore = all
 [submodule "src/icons/weather-icons"]
 	path = src/icons/weather-icons
 	url = https://github.com/erikflowers/weather-icons.git
-	ignore = all
 [submodule "src/icons/Font-Awesome"]
 	path = src/icons/Font-Awesome
 	url = https://github.com/FortAwesome/Font-Awesome.git
-	ignore = all
 [submodule "src/icons/feather"]
 	path = src/icons/feather
 	url = https://github.com/feathericons/feather.git
-	ignore = all
 [submodule "src/icons/vscode-codicons"]
 	path = src/icons/vscode-codicons
 	url = https://github.com/microsoft/vscode-codicons.git
-	ignore = all
 [submodule "src/icons/icons"]
 	path = src/icons/icons
 	url = https://github.com/twbs/icons.git
-	ignore = all
 [submodule "src/icons/boxicons"]
 	path = src/icons/boxicons
 	url = https://github.com/atisawd/boxicons.git
-	ignore = all
 [submodule "src/icons/IcoMoon-Free"]
 	path = src/icons/IcoMoon-Free
 	url = https://github.com/Keyamoon/IcoMoon-Free.git
-	ignore = all
 [submodule "src/icons/ionicons"]
 	path = src/icons/ionicons
 	url = https://github.com/ionic-team/ionicons.git
-	ignore = all
 [submodule "src/icons/RemixIcon"]
 	path = src/icons/RemixIcon
 	url = https://github.com/Remix-Design/RemixIcon.git
-	ignore = all
 [submodule "src/icons/simple-icons"]
 	path = src/icons/simple-icons
 	url = https://github.com/simple-icons/simple-icons.git
-	ignore = all
 [submodule "src/icons/typicons.font"]
 	path = src/icons/typicons.font
 	url = https://github.com/stephenhutchings/typicons.font.git
-	ignore = all
 [submodule "src/icons/heroicons"]
 	path = src/icons/heroicons
 	url = https://github.com/tailwindlabs/heroicons.git
-	ignore = all
 [submodule "src/icons/css.gg"]
 	path = src/icons/css.gg
 	url = https://github.com/astrit/css.gg.git
-	ignore = all

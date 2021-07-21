@@ -4,13 +4,13 @@ import path from "path";
 
 export default defineConfig({
   plugins: [solidPlugin()],
-  root: "templates",
+  root: "src/templates",
   build: {
     outDir: "../dist/lib",
     target: "esnext",
     polyfillDynamicImport: false,
     lib: {
-      entry: path.resolve(__dirname, "templates/IconTemplate.jsx"),
+      entry: path.resolve(__dirname, "src/templates/IconTemplate.jsx"),
       name: "solidjs-icons",
       fileName: "main",
     },
