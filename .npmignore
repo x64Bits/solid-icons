@@ -1,0 +1,10 @@
+node_modules
+.DS_Store
+.vscode
+*.log
+src
+scripts
+templates
+.gitmodules
+manifest.json
+manifest.js

@@ -1,0 +1,30 @@
+{
+  "name": "solidjs-icons",
+  "author": "Ignacio Zsabo",
+  "version": "0.0.1",
+  "description": "A SolidJS SVG icons pack",
+  "license": "MIT",
+  "scripts": {
+    "submodule": "git submodule update --init",
+    "generate": "node scripts/build.js && vite build",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "javascript-stringify": "^2.0.1",
+    "rimraf": "^3.0.2",
+    "vite": "^2.3.8",
+    "vite-plugin-solid": "^2.0.0"
+  },
+  "dependencies": {
+    "solid-js": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x64Bits/solidjs-icons"
+  },
+  "bugs": {
+    "url": "https://github.com/x64Bits/solidjs-icons/issuess"
+  },
+  "homepage": "https://github.com/x64Bits/solidjs-icons#readme"
+}
