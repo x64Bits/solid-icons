@@ -72,6 +72,11 @@ import AiFillAccountBook from "solidjs-icons/ai/AiFillAccountBook";
 | `class` | `undefined`           |                   |
 | `title` | `undefined`           | A icon title a11y |
 
+## Demo
+
+This repository I make use of this library:
+[PayPal fee calculator](https://github.com/x64Bits/paypal-fee-solid)
+
 ## Licence
 
 MIT

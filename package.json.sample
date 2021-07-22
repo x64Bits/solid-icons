@@ -1,7 +1,7 @@
 {
-  "name": "solidjs-icons",
+  "name": "solid-icons",
   "author": "Ignacio Zsabo",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A SolidJS SVG icons pack",
   "license": "MIT",
   "peerDependencies": {
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/x64Bits/solidjs-icons"
+    "url": "https://github.com/x64Bits/solid-icons"
   },
   "bugs": {
-    "url": "https://github.com/x64Bits/solidjs-icons/issuess"
+    "url": "https://github.com/x64Bits/solid-icons/issuess"
   },
-  "homepage": "https://github.com/x64Bits/solidjs-icons#readme"
+  "homepage": "https://github.com/x64Bits/solid-icons#readme"
 }
