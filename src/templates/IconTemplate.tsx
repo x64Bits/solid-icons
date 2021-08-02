@@ -15,7 +15,7 @@ export interface IconBaseProps extends JSX.SvgSVGAttributes<SVGElement> {
 }
 
 export default function IconTemplate(props: IconBaseProps): JSX.Element {
-  const { src, size, title, color = "#000", ...svgProps } = props;
+  const { src, size, title, color, ...svgProps } = props;
   const computedSize = size || "1em";
 
   const trimmedEl = src.c.trim();

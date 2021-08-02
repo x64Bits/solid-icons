@@ -1,7 +1,7 @@
 {
   "name": "solid-icons",
   "author": "Ignacio Zsabo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A SolidJS SVG icons pack",
   "license": "MIT",
   "peerDependencies": {
