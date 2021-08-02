@@ -7,26 +7,21 @@ An svg icon pack to use in your projects built with [SolidJS](https://solidjs.co
 ### Yarn
 
 ```bash
-yarn add solidjs-icons
+yarn add solid-icons
 ```
 
 ### NPM
 
 ```bash
-npm install solidjs-icons --save
+npm install solid-icons --save
 ```
 
 ## Usage
 
 ```jsx
-import AiFillAccountBook from "solidjs-icons/ai/AiFillAccountBook";
+import { BiCompass } from "solidjs-icons/bi";
 
-<AiFillAccountBook
-  color="lavender"
-  size="64px"
-  class="custom-icon"
-  title="Custom icon params"
-/>;
+<BiCompass color="lavender" size="64px" />;
 ```
 
 ## Included icons pack
@@ -55,14 +50,9 @@ You can add more icons by submitting pull requests or creating issues.
 You can configure icons props using
 
 ```jsx
-import AiFillAccountBook from "solidjs-icons/ai/AiFillAccountBook";
+import { BiCompass } from "solidjs-icons/bi";
 
-<AiFillAccountBook
-  color="lavender"
-  size="64px"
-  className="custom-icon"
-  title="Custom icon params"
-/>;
+<BiCompass color="lavender" size="64px" className="custom-icon" title="a11y" />;
 ```
 
 | Key     | Default               | Notes             |
@@ -74,7 +64,7 @@ import AiFillAccountBook from "solidjs-icons/ai/AiFillAccountBook";
 
 ## Demo
 
-This repository I make use of this library:
+An example of using this library in this repository:
 [PayPal fee calculator](https://github.com/x64Bits/paypal-fee-solid)
 
 ## Licence
@@ -83,4 +73,7 @@ MIT
 
 - Icons are taken from the other projects so please check each project licences accordingly.
 
-Based on https://github.com/leshak/svelte-icons-pack
+Based on :
+
+- [svelte-icons-pack](https://github.com/leshak/svelte-icons-pack),
+- [react-icons](https://github.com/react-icons/react-icons)

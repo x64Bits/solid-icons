@@ -15,6 +15,28 @@ const outDir = path.resolve(__dirname, "../dist");
 const packageJsonPath = path.resolve(projectPath, "package.json.sample");
 const packageJsonTo = path.resolve(outDir, "package.json");
 
+// lib/package.json
+const libPackageJsonFrom = path.resolve(
+  `${projectPath}/src/templates`,
+  "build.package.json"
+);
+const libPackageJsonTo = path.resolve(`${outDir}/lib`, "package.json");
+
+const indexTypeFrom = path.resolve(`${projectPath}/src/templates`, "main.d.ts");
+
+const indexTypeTo = path.resolve(`${outDir}/lib`, "main.d.ts");
+
+const iconTypeFrom = path.resolve(
+  `${projectPath}/src/templates`,
+  "IconTemplate.d.ts"
+);
+
+const iconTypeTo = path.resolve(`${outDir}/lib`, "IconTemplate.d.ts");
+
+const indexRootFrom = path.resolve(`${projectPath}/src/templates`, "index.js");
+
+const indexRootTo = path.resolve(`${outDir}`, "index.js");
+
 // LICENSE
 const licenseFrom = path.resolve(projectPath, "LICENSE");
 const licenseTo = path.resolve(outDir, "LICENSE");
@@ -111,12 +133,9 @@ function generateSvgIconInfo(fileName, iconData) {
       .filter((x) => !!x)
       .join(""),
   };
-  return `// ${fileName}\nimport Icon from "../lib/main.es";
-
-export default function ${fileName}(props) {
-  return Icon({src: ${stringify(comressed, null, 2)}, ...props})
-}
-  `;
+  return `\nexport function ${fileName}(props) {
+  return IconTemplate({src: ${stringify(comressed, null, 2)}, ...props})
+}`;
   //`// ${fileName}\nexport default ${stringify(comressed, null, 2)};`;
 }
 
@@ -184,8 +203,8 @@ async function generateSvg(iconPack, svgItem) {
 }
 
 async function loadPack(iconPack) {
-  console.log(" ...load:", iconPack.packName);
-  console.log(" ...create folder:", iconPack.shortName);
+  console.log("current load:", iconPack.packName);
+  console.log("created folder for:", iconPack.shortName);
 
   // appendFile(gitignoreFile, `${iconPack.shortName}\n`);
 
@@ -199,6 +218,14 @@ async function loadPack(iconPack) {
 
   const packFolder = path.resolve(outDir, iconPack.shortName);
   await mkdir(packFolder);
+
+  // Icon File
+  const headerFile = `import IconTemplate from "../lib/main.es";`;
+  appendFile(path.resolve(packFolder, `index.js`), headerFile);
+
+  // TS File
+  const headerTsFile = `import { IconType } from '../lib/IconTemplate'`;
+  appendFile(path.resolve(packFolder, `index.d.ts`), headerTsFile);
 
   const baseFolder = path.resolve(__dirname, "../", iconPack.iconsPath);
 
@@ -224,7 +251,7 @@ async function loadPack(iconPack) {
     });
   }
 
-  console.log(` ...generate solid componets for: "${iconPack.packName}"`);
+  console.log(`${iconPack.packName} package has been generated ✓`);
 
   for (const item of folders) {
     const svgList = await loadSvgFilesList(item, iconPack);
@@ -235,7 +262,12 @@ async function loadPack(iconPack) {
       const iconData = await generateSvg(iconPack, svgFile);
       const svgAsJs = generateSvgIconInfo(svgFile.svgName, iconData);
 
-      writeFile(path.resolve(packFolder, `${svgFile.svgName}.js`), svgAsJs);
+      // Icon File
+      appendFile(path.resolve(packFolder, `index.js`), svgAsJs);
+
+      // TS File
+      const contentTsFile = `\nexport declare const ${svgFile.svgName}: IconType;`;
+      appendFile(path.resolve(packFolder, `index.d.ts`), contentTsFile);
 
       // await appendFile(
       //   manifestFile,
@@ -246,21 +278,21 @@ async function loadPack(iconPack) {
 }
 
 async function init() {
+  await copyFile(indexTypeFrom, indexTypeTo);
+
+  await copyFile(iconTypeFrom, iconTypeTo);
+
+  await copyFile(indexRootFrom, indexRootTo);
+
   await copyFile(packageJsonPath, packageJsonTo);
-  console.log("package.json copied");
+
+  await copyFile(libPackageJsonFrom, libPackageJsonTo);
 
   await copyFile(licenseFrom, licenseTo);
-  console.log("LICENSE copied");
 
   await copyFile(readmeFrom, readmeTo);
-  console.log("README.md copied");
 
-  // clean folders from manifest
-  console.log("Clean icons pack folders");
-  for (const iconPack of iconManifest) {
-    console.log(" ...remove:", iconPack.shortName);
-    await rimrafFolder(iconPack.shortName);
-  }
+  console.log("Artifacts files has been copied");
 }
 
 async function main() {

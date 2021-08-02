@@ -10,9 +10,10 @@ export default defineConfig({
     target: "esnext",
     polyfillDynamicImport: false,
     lib: {
-      entry: path.resolve(__dirname, "src/templates/IconTemplate.jsx"),
-      name: "solidjs-icons",
+      entry: path.resolve(__dirname, "src/templates/IconTemplate.tsx"),
+      name: "solid-icons",
       fileName: "main",
+      formats: ["es"],
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

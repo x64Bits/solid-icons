@@ -1,5 +1,21 @@
-export default function IconTemplate(props) {
-  const { src, attr, size, title, color, ...svgProps } = props;
+import { JSX } from "solid-js";
+
+export interface IconTree {
+  a: {
+    [key: string]: string;
+  };
+  c: string;
+}
+
+export interface IconBaseProps extends JSX.SvgSVGAttributes<SVGElement> {
+  src: IconTree;
+  size?: string | number;
+  color?: string;
+  title?: string;
+}
+
+export default function IconTemplate(props: IconBaseProps): JSX.Element {
+  const { src, size, title, color = "#000", ...svgProps } = props;
   const computedSize = size || "1em";
 
   const trimmedEl = src.c.trim();
@@ -8,7 +24,10 @@ export default function IconTemplate(props) {
   if (props.className)
     className = (className ? className + " " : "") + props.className;
 
-  let innerAttr = attr || {};
+  let innerAttr = {
+    stroke: "#000",
+    fill: "#000",
+  };
   if (color) {
     if (src.a.stroke !== "none") {
       innerAttr.stroke = color;
@@ -28,7 +47,7 @@ export default function IconTemplate(props) {
       className={className}
       style={{
         overflow: "visible",
-        color: props.color,
+        color: color,
         ...props.style,
       }}
       height={computedSize}
