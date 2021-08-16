@@ -4,9 +4,6 @@
   "version": "0.2.0",
   "description": "A SolidJS SVG icons pack",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
   "main": "esm/IconWrapper.js",
   "module": "esm/IconWrapper.js",
   "types": "types/IconWrapper.d.ts",
