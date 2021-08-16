@@ -1,30 +1,45 @@
 {
   "name": "solid-icons",
   "author": "Ignacio Zsabo",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A SolidJS SVG icons pack",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "main": "esm/IconWrapper.js",
+  "module": "esm/IconWrapper.js",
+  "types": "types/IconWrapper.d.ts",
   "scripts": {
     "submodule": "git submodule update --init --depth 1",
-    "generate": "rm -rf ./dist && vite build && node scripts/build.js",
-    "build": "vite build"
+    "build": "node scripts/build.js",
+    "build-lib": "rollup -c"
   },
+  "keywords": [
+    "icons",
+    "svg",
+    "pack",
+    "solidjs"
+  ],
   "devDependencies": {
     "cheerio": "^1.0.0-rc.3",
     "javascript-stringify": "^2.0.1",
     "rimraf": "^3.0.2",
-    "vite": "^2.3.8",
-    "vite-plugin-solid": "^2.0.0"
+    "rollup": "^2.56.2",
+    "rollup-preset-solid": "^1.0.1",
+    "solid-js": "^1.1.0",
+    "typescript": "^4.3.5"
   },
-  "dependencies": {
-    "solid-js": "^1.0.0"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/x64Bits/solid-icons"
+    "url": "https://github.com/x64Bits/solid-icons.git"
   },
   "bugs": {
     "url": "https://github.com/x64Bits/solid-icons/issuess"
   },
-  "homepage": "https://github.com/x64Bits/solid-icons#readme"
+  "homepage": "https://github.com/x64Bits/solid-icons#readme",
+  "peerDependencies": {
+    "solid-js": "*"
+  }
 }

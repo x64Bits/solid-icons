@@ -1,41 +1,22 @@
-const cheerio = require("cheerio");
+var cheerio = require("cheerio");
+if (typeof cheerio != "function") cheerio = require("cheerio").default;
 const path = require("path");
 const fs = require("fs");
+const fsPromise = require("fs").promises;
 const rimraf = require("rimraf");
 const { stringify } = require("javascript-stringify");
 const { promisify } = require("util");
+const exec = promisify(require("child_process").exec);
 
-const iconManifest = require("../manifest.json");
+const viewBoxes = {
+  bi: "0 0 24 24",
+  vsc: "0 0 16 16",
+};
+
+const _rootDir = path.resolve(__dirname, "../");
 
 const projectPath = path.resolve(__dirname, "../");
 const outDir = path.resolve(__dirname, "../dist");
-
-// ============== Files paths ==============
-// package.json
-const packageJsonPath = path.resolve(projectPath, "package.json.sample");
-const packageJsonTo = path.resolve(outDir, "package.json");
-
-// lib/package.json
-const libPackageJsonFrom = path.resolve(
-  `${projectPath}/src/templates`,
-  "build.package.json"
-);
-const libPackageJsonTo = path.resolve(`${outDir}/lib`, "package.json");
-
-const indexTypeFrom = path.resolve(`${projectPath}/src/templates`, "main.d.ts");
-
-const indexTypeTo = path.resolve(`${outDir}/lib`, "main.d.ts");
-
-const iconTypeFrom = path.resolve(
-  `${projectPath}/src/templates`,
-  "IconTemplate.d.ts"
-);
-
-const iconTypeTo = path.resolve(`${outDir}/lib`, "IconTemplate.d.ts");
-
-const indexRootFrom = path.resolve(`${projectPath}/src/templates`, "index.js");
-
-const indexRootTo = path.resolve(`${outDir}`, "index.js");
 
 // LICENSE
 const licenseFrom = path.resolve(projectPath, "LICENSE");
@@ -45,6 +26,9 @@ const licenseTo = path.resolve(outDir, "LICENSE");
 const readmeFrom = path.resolve(projectPath, "README.md");
 const readmeTo = path.resolve(outDir, "README.md");
 
+// Manifest
+const iconManifest = require("../manifest.json");
+const manifestFile = path.resolve(projectPath, "manifest.js");
 const manifestInfo = {};
 
 const mkdir = promisify(fs.mkdir);
@@ -125,7 +109,10 @@ function tagTreeToString(tagData) {
     .join("\n")}</${tagData.tag}>`;
 }
 
-function generateSvgIconInfo(fileName, iconData) {
+function generateSvgIconInfo(fileName, iconData, shortName) {
+  if (!iconData.attr.viewBox) {
+    iconData.attr.viewBox = viewBoxes[shortName];
+  }
   const comressed = {
     a: iconData.attr,
     c: (iconData.child || [])
@@ -134,9 +121,8 @@ function generateSvgIconInfo(fileName, iconData) {
       .join(""),
   };
   return `\nexport function ${fileName}(props) {
-  return IconTemplate({src: ${stringify(comressed, null, 2)}, ...props})
+  return IconWrapper({src: ${stringify(comressed, null, 2)}, ...props})
 }`;
-  //`// ${fileName}\nexport default ${stringify(comressed, null, 2)};`;
 }
 
 async function convertIconData(svg, multiColor) {
@@ -182,18 +168,25 @@ async function convertIconData(svg, multiColor) {
   const elementToTree = (/** @type {Cheerio} */ element) =>
     element
       .filter((_, e) => e.tagName && !["style"].includes(e.tagName))
-      .map((_, e) => ({
-        tag: e.tagName,
-        attr: attrConverter(e.attribs, e.tagName),
-        child:
-          e.children && e.children.length
-            ? elementToTree(cheerio(e.children))
-            : undefined,
-      }))
+      .map((_, e) => {
+        if (e.tagName === "path") {
+          if (e.attribs.stroke) {
+            e.attribs.stroke = "currentColor";
+          }
+        }
+        return {
+          tag: e.tagName,
+          attr: attrConverter(e.attribs, e.tagName),
+          child:
+            e.children && e.children.length
+              ? elementToTree(cheerio(e.children))
+              : undefined,
+        };
+      })
       .get();
 
   const tree = elementToTree($svg);
-  return tree[0]; // like: [ { tag: 'path', attr: { d: 'M436 160c6.6 ...', ... }, child: { ... } } ]
+  return tree[0];
 }
 
 async function generateSvg(iconPack, svgItem) {
@@ -220,12 +213,15 @@ async function loadPack(iconPack) {
   await mkdir(packFolder);
 
   // Icon File
-  const headerFile = `import IconTemplate from "../lib/main.es";`;
+  const headerFile = `import IconWrapper from "../esm/IconWrapper";`;
   appendFile(path.resolve(packFolder, `index.js`), headerFile);
 
   // TS File
-  const headerTsFile = `import { IconType } from '../lib/IconTemplate'`;
+  const headerTsFile = `import { IconTypes } from '../types/IconWrapper'`;
   appendFile(path.resolve(packFolder, `index.d.ts`), headerTsFile);
+
+  const packExport = `export * from './${iconPack.shortName}';\n`;
+  appendFile(path.resolve(outDir, `all.d.ts`), packExport);
 
   const baseFolder = path.resolve(__dirname, "../", iconPack.iconsPath);
 
@@ -260,33 +256,98 @@ async function loadPack(iconPack) {
       manifestInfo[iconPack.shortName].iconsList.push(svgFile.svgName);
 
       const iconData = await generateSvg(iconPack, svgFile);
-      const svgAsJs = generateSvgIconInfo(svgFile.svgName, iconData);
+      const svgAsJs = generateSvgIconInfo(
+        svgFile.svgName,
+        iconData,
+        iconPack.shortName
+      );
 
       // Icon File
       appendFile(path.resolve(packFolder, `index.js`), svgAsJs);
 
       // TS File
-      const contentTsFile = `\nexport declare const ${svgFile.svgName}: IconType;`;
+      const contentTsFile = `\nexport declare const ${svgFile.svgName}: IconTypes;`;
       appendFile(path.resolve(packFolder, `index.d.ts`), contentTsFile);
-
-      // await appendFile(
-      //   manifestFile,
-      //   `import ${svgFile.svgName} from './${iconPack.shortName}/${svgFile.svgName}';\n`
-      // );
     }
   }
 }
 
+async function buildLib() {
+  const execOpt = {
+    cwd: _rootDir,
+  };
+
+  await Promise.all([
+    exec("rollup -c", execOpt),
+    exec("rm -rf ./manifest.js && rm -rf ./manifest", execOpt),
+    exec("mkdir ./manifest"),
+  ]);
+}
+
+async function writePackageJson() {
+  const DIST = path.resolve(_rootDir, "dist");
+
+  const packageJsonStr = await fsPromise.readFile(
+    path.resolve(_rootDir, "package.json"),
+    "utf-8"
+  );
+  let packageJson = JSON.parse(packageJsonStr);
+
+  delete packageJson.private;
+  delete packageJson.dependencies;
+  delete packageJson.devDependencies;
+  delete packageJson.scripts;
+
+  packageJson = {
+    ...packageJson,
+  };
+
+  const editedPackageJsonStr = JSON.stringify(packageJson, null, 2);
+  await fsPromise.writeFile(
+    path.resolve(DIST, "package.json"),
+    editedPackageJsonStr
+  );
+}
+
+async function generateIconsManifest() {
+  await appendFile(
+    path.resolve(_rootDir, `manifest/meta.js`),
+    `export default [\n`,
+    "utf-8"
+  );
+  for (const pk of Object.keys(manifestInfo)) {
+    const pack = manifestInfo[pk];
+
+    for (const prop of Object.keys(pack)) {
+      if (prop === "iconsList") {
+        const dropIcons = {
+          name: pack.name,
+          path: pack.path,
+          license: pack.license,
+          sourceUrl: pack.sourceUrl,
+        };
+
+        await appendFile(
+          path.resolve(_rootDir, `manifest/${pack.path}.js`),
+          `export default ${JSON.stringify(pack)}`,
+          "utf-8"
+        );
+
+        await appendFile(
+          path.resolve(_rootDir, `manifest/meta.js`),
+          `${JSON.stringify(dropIcons)},`,
+          "utf-8"
+        );
+      }
+    }
+  }
+  await appendFile(path.resolve(_rootDir, `manifest/meta.js`), "]", "utf-8");
+}
+
 async function init() {
-  await copyFile(indexTypeFrom, indexTypeTo);
+  await buildLib();
 
-  await copyFile(iconTypeFrom, iconTypeTo);
-
-  await copyFile(indexRootFrom, indexRootTo);
-
-  await copyFile(packageJsonPath, packageJsonTo);
-
-  await copyFile(libPackageJsonFrom, libPackageJsonTo);
+  await writePackageJson();
 
   await copyFile(licenseFrom, licenseTo);
 
@@ -307,6 +368,8 @@ async function main() {
   })) {
     await loadPack(iconPack);
   }
+
+  await generateIconsManifest();
 
   console.log("Done!");
 }
