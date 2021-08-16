@@ -73,7 +73,18 @@ MIT
 
 - Icons are taken from the other projects so please check each project licences accordingly.
 
+## CHANGELOG 0.2.1:
+
+- Fix duplicate callback `onClick`
+- Fix icon types
+- Fixed default stroke/fill (Fill still persists in Heroicons and Ant Design icons pack)
+
+## TODO:
+
+- Fix default Heroicons and Ant Design fill/stroke
+- Lib website
+
 Based on :
 
-- [svelte-icons-pack](https://github.com/leshak/svelte-icons-pack),
+- [svelte-icons-pack](https://github.com/leshak/svelte-icons-pack)
 - [react-icons](https://github.com/react-icons/react-icons)
