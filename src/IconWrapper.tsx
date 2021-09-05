@@ -1,4 +1,4 @@
-import { JSX } from "solid-js";
+import { JSX, splitProps } from "solid-js";
 
 declare global {
   namespace JSX {
@@ -51,32 +51,27 @@ export interface IconBaseProps extends IconProps {
 export declare type IconTypes = (props: IconProps) => JSX.Element;
 
 export default function IconTemplate(props: IconBaseProps): JSX.Element {
-  const { src, size, title, color, ...svgProps } = props;
-  const computedSize = size || "1em";
-
-  const trimmedEl = src.c.trim();
-
-  const withStroke = src.a.stroke && src.a.stroke !== "none";
+  const [split, rest] = splitProps(props, ["src"]);
 
   return (
     <svg
-      stroke={withStroke ? "currentColor" : "none"}
+      stroke={split.src.a.stroke}
       fill="currentColor"
       strokeWidth="0"
-      {...svgProps}
-      className={props.className}
-      {...src.a}
+      {...rest}
+      className={rest.className}
+      {...split.src.a}
       style={{
         overflow: "visible",
-        color: color,
-        ...props.style,
+        color: rest.color,
+        ...rest.style,
       }}
-      height={computedSize}
-      width={computedSize}
-      innerHTML={trimmedEl}
+      height={rest.size || "1em"}
+      width={rest.size || "1em"}
+      innerHTML={split.src.c}
       xmlns="http://www.w3.org/2000/svg"
     >
-      {title && <title>{title}</title>}
+      {rest.title && <title>{rest.title}</title>}
     </svg>
   );
 }
