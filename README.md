@@ -2,6 +2,8 @@
 
 An svg icon pack to use in your projects built with [SolidJS](https://solidjs.com)
 
+The website to search for icons is now available: [Icons web](https://solid-icons-web.vercel.app/)
+
 ## Installation
 
 ### Yarn
@@ -76,7 +78,7 @@ MIT
 ## CHANGELOG 0.3.0:
 
 - Fix Heroicons and Ant Design fill/stroke
-- Icons showcase website is live 🚀
+- [Icons showcase website](https://solid-icons-web.vercel.app/) is live 🚀
 - IconWrapper main component accept reactive props
 - Most of the icon packs have been updated to the latest version.
 
