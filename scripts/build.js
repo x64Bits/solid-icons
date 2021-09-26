@@ -251,8 +251,9 @@ async function loadPack(iconPack) {
   const headerTsFile = `import { IconTypes } from '../types/IconWrapper'`;
   appendFile(path.resolve(packFolder, `index.d.ts`), headerTsFile);
 
-  const packExport = `export * from './${iconPack.shortName}';\n`;
-  appendFile(path.resolve(outDir, `all.d.ts`), packExport);
+  // All Types
+  const typeExport = `export * from './${iconPack.shortName}';\n`;
+  appendFile(path.resolve(outDir, `all.d.ts`), typeExport);
 
   const baseFolder = path.resolve(__dirname, "../", iconPack.iconsPath);
 
@@ -376,6 +377,9 @@ async function init() {
   await buildLib();
 
   await writePackageJson();
+
+  const typeExport = `// This file has been generated automatically\n\nexport * from './types/IconWrapper';\n\n`;
+  appendFile(path.resolve(outDir, `all.d.ts`), typeExport);
 
   await copyFile(licenseFrom, licenseTo);
 

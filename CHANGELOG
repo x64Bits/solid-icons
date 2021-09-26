@@ -1,3 +1,7 @@
+## CHANGELOG 0.3.2:
+
+- Improved import with autocomplete
+
 ## CHANGELOG 0.3.1:
 
 - Accept prop for external viewBox

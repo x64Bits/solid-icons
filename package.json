@@ -1,12 +1,12 @@
 {
   "name": "solid-icons",
   "author": "Ignacio Zsabo",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A SolidJS SVG icons pack",
   "license": "MIT",
   "main": "esm/IconWrapper.js",
   "module": "esm/IconWrapper.js",
-  "types": "types/IconWrapper.d.ts",
+  "types": "all.d.ts",
   "scripts": {
     "submodule": "git submodule update --init --depth 1",
     "build": "node scripts/build.js",
