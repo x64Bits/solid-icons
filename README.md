@@ -4,6 +4,11 @@ An svg icon pack to use in your projects built with [SolidJS](https://solidjs.co
 
 The website to search for icons is now available: [Icons web](https://solid-icons-web.vercel.app/)
 
+This library is based on the work of:
+
+- [svelte-icons-pack](https://github.com/leshak/svelte-icons-pack)
+- [react-icons](https://github.com/react-icons/react-icons)
+
 ## Installation
 
 ### Yarn
@@ -75,18 +80,6 @@ MIT
 
 - Icons are taken from the other projects so please check each project licences accordingly.
 
-## CHANGELOG 0.3.0:
-
-- Fix Heroicons and Ant Design fill/stroke
-- [Icons showcase website](https://solid-icons-web.vercel.app/) is live 🚀
-- IconWrapper main component accept reactive props
-- Most of the icon packs have been updated to the latest version.
-
 ## Known issues:
 
 - Ionicons: Most of the icons in this pack work fine but some with outline features have trouble displaying.
-
-This library is based on the work of:
-
-- [svelte-icons-pack](https://github.com/leshak/svelte-icons-pack)
-- [react-icons](https://github.com/react-icons/react-icons)
