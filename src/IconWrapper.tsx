@@ -1,4 +1,4 @@
-import { JSX, splitProps } from "solid-js";
+import { JSX, JSXElement, splitProps } from "solid-js";
 
 declare global {
   namespace JSX {
@@ -18,22 +18,11 @@ declare global {
   }
 }
 
-interface ViewBoxTypes {
-  bi?: string;
-  vsc?: string;
-}
-
-const viewBoxes: ViewBoxTypes = {
-  bi: "0 0 24 24",
-  vsc: "0 0 16 16",
-};
-
 export interface IconTree {
   a: {
     [key: string]: string;
   };
   c: string;
-  p: string;
 }
 
 export interface IconProps extends JSX.SvgSVGAttributes<SVGElement> {
@@ -42,36 +31,36 @@ export interface IconProps extends JSX.SvgSVGAttributes<SVGElement> {
   title?: string;
   style?: object;
   className?: string;
+  viewBox?: string;
 }
 
 export interface IconBaseProps extends IconProps {
   src: IconTree;
 }
 
-export declare type IconTypes = (props: IconProps) => JSX.Element;
+export declare type IconTypes = (props: IconProps) => JSXElement;
 
-export default function IconTemplate(props: IconBaseProps): JSX.Element {
-  const [split, rest] = splitProps(props, ["src"]);
+export default function IconTemplate(props: IconBaseProps): JSXElement {
+  const [content, innerProps] = splitProps(props, ["src"]);
 
   return (
     <svg
-      stroke={split.src.a.stroke}
+      stroke={content.src.a.stroke}
       fill="currentColor"
       strokeWidth="0"
-      {...rest}
-      className={rest.className}
-      {...split.src.a}
       style={{
         overflow: "visible",
-        color: rest.color,
-        ...rest.style,
+        color: innerProps.color,
+        ...innerProps.style,
       }}
-      height={rest.size || "1em"}
-      width={rest.size || "1em"}
-      innerHTML={split.src.c}
+      {...content.src.a}
+      {...innerProps}
+      height={innerProps.size || "1em"}
+      width={innerProps.size || "1em"}
+      innerHTML={content.src.c}
       xmlns="http://www.w3.org/2000/svg"
     >
-      {rest.title && <title>{rest.title}</title>}
+      {innerProps.title && <title>{innerProps.title}</title>}
     </svg>
   );
 }
