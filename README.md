@@ -26,7 +26,7 @@ npm install solid-icons --save
 ## Usage
 
 ```jsx
-import { BiCompass } from "solidjs-icons/bi";
+import { BiCompass } from "solid-icons/bi";
 
 <BiCompass color="lavender" size="64px" />;
 ```
@@ -57,7 +57,7 @@ You can add more icons by submitting pull requests or creating issues.
 You can configure icons props using
 
 ```jsx
-import { BiCompass } from "solidjs-icons/bi";
+import { BiCompass } from "solid-icons/bi";
 
 <BiCompass color="lavender" size="64px" className="custom-icon" title="a11y" />;
 ```
