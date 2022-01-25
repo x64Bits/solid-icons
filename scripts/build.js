@@ -237,23 +237,26 @@ async function loadPack(iconPack) {
     sourceUrl: iconPack.url,
   };
 
-  const packFolder = path.resolve(outDir, iconPack.shortName);
-  await mkdir(packFolder);
+  const packFolder = outDir; // path.resolve(outDir, iconPack.shortName);
+  // await mkdir(packFolder);
 
   const manifestPackFolder = path.resolve(MANIFEST_DIR, iconPack.shortName);
   await mkdir(manifestPackFolder);
 
   // Icon File
-  const headerFile = `import IconWrapper from "../esm/IconWrapper";`;
-  appendFile(path.resolve(packFolder, `index.js`), headerFile);
+  const headerFile = `import IconWrapper from "./esm/IconWrapper";`;
+  appendFile(path.resolve(packFolder, `${iconPack.shortName}.js`), headerFile);
 
   // TS File
-  const headerTsFile = `import { IconTypes } from '../types/IconWrapper'`;
-  appendFile(path.resolve(packFolder, `index.d.ts`), headerTsFile);
+  const headerTsFile = `import { IconTypes } from './types/IconWrapper'`;
+  appendFile(
+    path.resolve(packFolder, `${iconPack.shortName}.d.ts`),
+    headerTsFile
+  );
 
   // All Types
-  const typeExport = `export * from './${iconPack.shortName}';\n`;
-  appendFile(path.resolve(outDir, `all.d.ts`), typeExport);
+  // const typeExport = `export * from './${iconPack.shortName}';\n`;
+  // appendFile(path.resolve(outDir, `all.d.ts`), typeExport);
 
   const baseFolder = path.resolve(__dirname, "../", iconPack.iconsPath);
 
@@ -305,11 +308,14 @@ async function loadPack(iconPack) {
       await makeIconFile(defaultSvg, iconPack.shortName, svgFile.svgName);
 
       // Icon File
-      appendFile(path.resolve(packFolder, `index.js`), svgAsJs);
+      appendFile(path.resolve(packFolder, `${iconPack.shortName}.js`), svgAsJs);
 
       // TS File
       const contentTsFile = `\nexport declare const ${svgFile.svgName}: IconTypes;`;
-      appendFile(path.resolve(packFolder, `index.d.ts`), contentTsFile);
+      appendFile(
+        path.resolve(packFolder, `${iconPack.shortName}.d.ts`),
+        contentTsFile
+      );
     }
   }
 }
@@ -377,9 +383,6 @@ async function init() {
   await buildLib();
 
   await writePackageJson();
-
-  const typeExport = `// This file has been generated automatically\n\nexport * from './types/IconWrapper';\n\n`;
-  appendFile(path.resolve(outDir, `all.d.ts`), typeExport);
 
   await copyFile(licenseFrom, licenseTo);
 

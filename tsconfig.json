@@ -6,8 +6,9 @@
     "esModuleInterop": true,
     "declaration": true,
     "moduleResolution": "node",
-    "declarationDir": "./types",
+    "declarationDir": "./**/*.d.ts",
     "emitDeclarationOnly": true,
+    "declarationMap": true,
     "strict": true,
     "jsx": "preserve",
     "resolveJsonModule": true

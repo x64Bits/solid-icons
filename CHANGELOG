@@ -1,3 +1,18 @@
+## CHANGELOG 0.3.3:
+
+- The following icon libraries have been updated:
+  - ant-design-icons
+  - boxicons
+  - feather
+  - font-awesome
+  - heroicons
+  - bootstrap-icons
+  - simple-icons
+  - vscode-codicons
+  - weather-icons
+
+This update adds 398 new icons
+
 ## CHANGELOG 0.3.2:
 
 - Improved import with autocomplete
