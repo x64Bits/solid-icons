@@ -1,5 +1,14 @@
 ## CHANGELOG 0.3.3:
 
+- Fixed most of the ionicons icons that had problems.
+
+- The following icon libraries have been updated:
+  - ionicons
+
+This update adds 14 new icons
+
+## CHANGELOG 0.3.3:
+
 - The following icon libraries have been updated:
   - ant-design-icons
   - boxicons

@@ -3,17 +3,13 @@ if (typeof cheerio != "function") cheerio = require("cheerio").default;
 const path = require("path");
 const fs = require("fs");
 const fsPromise = require("fs").promises;
-const rimraf = require("rimraf");
-const { stringify } = require("javascript-stringify");
 const { promisify } = require("util");
 const exec = promisify(require("child_process").exec);
 
 const mkdir = promisify(fs.mkdir);
 const readdir = promisify(fs.readdir);
-const writeFile = promisify(fs.writeFile);
 const copyFile = promisify(fs.copyFile);
 const appendFile = promisify(fs.appendFile);
-const rimrafFolder = promisify(rimraf);
 
 // Utils
 const {
@@ -42,9 +38,8 @@ const readmeTo = path.resolve(outDir, "README.md");
 
 // Manifest
 const iconManifest = require("../manifest.json");
-const { MANIFEST_DIR, templateType } = require("./constants");
-const { NONAME } = require("dns");
-const manifestFile = path.resolve(projectPath, "manifest.js");
+const { templateType, WEB_DIR } = require("./constants");
+const { normalizeIcon } = require("./normalize");
 const manifestInfo = {};
 
 function capitalizeFirstLetter(_string) {
@@ -107,6 +102,11 @@ function filterAttr(attr) {
 }
 
 function replaceColor(attr, sn) {
+  const BLACK_COLOR = "#000";
+  if (attr.includes(BLACK_COLOR) && sn === "io") {
+    return attr.replace(BLACK_COLOR, "currentColor");
+  }
+
   if (attr.includes(`fill="#`)) {
     if (sn === "io") console.log(attr);
     return ` fill="currentColor"`;
@@ -127,7 +127,7 @@ function tagTreeToString(tagData, sn) {
     .join("\n")}</${tagData.tag}>`;
 }
 
-function generateSvgIconInfo(
+async function generateSvgIconInfo(
   fileName,
   iconData,
   shortName,
@@ -144,11 +144,26 @@ function generateSvgIconInfo(
     },
     c: (iconData.child || [])
       .map((t) => tagTreeToString(t, shortName))
+      .map((x) => {
+        if (shortName === "io" && x.includes("<line")) {
+          const lineFixed = x.replace("<line", '<line stroke="currentColor"');
+
+          return lineFixed;
+        }
+
+        return x;
+      })
       .filter((x) => !!x)
       .join(""),
   };
 
   const templateExport = templateType[exportType];
+
+  if (shortName === "io") {
+    const normalizedComressed = await normalizeIcon(comressed, fileName);
+
+    return templateExport(fileName, normalizedComressed);
+  }
 
   return templateExport(fileName, comressed);
 }
@@ -237,11 +252,10 @@ async function loadPack(iconPack) {
     sourceUrl: iconPack.url,
   };
 
-  const packFolder = outDir; // path.resolve(outDir, iconPack.shortName);
-  // await mkdir(packFolder);
+  const packFolder = outDir;
 
-  const manifestPackFolder = path.resolve(MANIFEST_DIR, iconPack.shortName);
-  await mkdir(manifestPackFolder);
+  const webPackFolder = path.resolve(`${WEB_DIR}/icons`, iconPack.shortName);
+  await mkdir(webPackFolder);
 
   // Icon File
   const headerFile = `import IconWrapper from "./esm/IconWrapper";`;
@@ -292,13 +306,13 @@ async function loadPack(iconPack) {
 
       const iconData = await generateSvg(iconPack, svgFile);
 
-      const svgAsJs = generateSvgIconInfo(
+      const svgAsJs = await generateSvgIconInfo(
         svgFile.svgName,
         iconData,
         iconPack.shortName
       );
 
-      const defaultSvg = generateSvgIconInfo(
+      const defaultSvg = await generateSvgIconInfo(
         svgFile.svgName,
         iconData,
         iconPack.shortName,
@@ -327,8 +341,9 @@ async function buildLib() {
 
   await Promise.all([
     exec("rollup -c", execOpt),
-    exec("rm -rf ./manifest.js", execOpt),
-    exec("rm -rf ./manifest && mkdir ./manifest"),
+    exec(`rm -rf ${WEB_DIR}/icons && mkdir ${WEB_DIR}/icons`),
+    exec(`rm -rf ${WEB_DIR}/search.js && touch ${WEB_DIR}/search.js`),
+    exec(`rm -rf ${WEB_DIR}/meta.js && touch ${WEB_DIR}/meta.js`),
   ]);
 }
 
@@ -359,7 +374,7 @@ async function writePackageJson() {
 
 async function generateIconsManifest() {
   await appendFile(
-    path.resolve(_rootDir, `manifest/meta.js`),
+    path.resolve(WEB_DIR, `meta.js`),
     `export default [\n`,
     "utf-8"
   );
@@ -370,13 +385,20 @@ async function generateIconsManifest() {
       if (prop === "iconsList") {
         await generateSearchFile(pack);
 
-        // await generatePackFile(pack);
-
         await generateMetaPackFile(pack);
       }
     }
   }
-  await appendFile(path.resolve(_rootDir, `manifest/meta.js`), "]", "utf-8");
+  await fsPromise
+    .readFile(path.resolve(WEB_DIR, `search.js`), "utf-8")
+    .then(async (file) => {
+      await fsPromise.writeFile(
+        path.resolve(WEB_DIR, `search.js`),
+        `export default ${file}`,
+        "utf-8"
+      );
+    });
+  await appendFile(path.resolve(WEB_DIR, `meta.js`), `]`, "utf-8");
 }
 
 async function init() {

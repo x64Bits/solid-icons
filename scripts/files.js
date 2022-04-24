@@ -1,16 +1,14 @@
 const path = require("path");
 const fsPromise = require("fs").promises;
 
-const {
-  SEARCH_FILE_PATH,
-  defaultSearchFile,
-  MANIFEST_DIR,
-} = require("./constants");
+const { SEARCH_FILE_PATH, defaultSearchFile, WEB_DIR } = require("./constants");
 
 async function generateSearchFile(pack) {
   const searchFile = await fsPromise
     .readFile(SEARCH_FILE_PATH, "utf-8")
-    .then((file) => JSON.parse(file))
+    .then((file) => {
+      return JSON.parse(file);
+    })
     .catch(async () => {
       await fsPromise.writeFile(
         SEARCH_FILE_PATH,
@@ -25,16 +23,8 @@ async function generateSearchFile(pack) {
   searchFile.icons = searchFile.icons.concat(pack.iconsList);
 
   await fsPromise.writeFile(
-    path.resolve(MANIFEST_DIR, `search.json`),
+    path.resolve(WEB_DIR, `search.js`),
     `${JSON.stringify(searchFile)}`,
-    "utf-8"
-  );
-}
-
-async function generatePackFile(pack) {
-  await fsPromise.appendFile(
-    path.resolve(MANIFEST_DIR, `${pack.path}.json`),
-    `${JSON.stringify(pack)}`,
     "utf-8"
   );
 }
@@ -48,16 +38,16 @@ async function generateMetaPackFile(pack) {
   };
 
   await fsPromise.appendFile(
-    path.resolve(MANIFEST_DIR, `meta.js`),
+    path.resolve(WEB_DIR, `meta.js`),
     `${JSON.stringify(dropIcons)},`,
     "utf-8"
   );
 }
 
-// Manifest json svg
+// populate website icons folder
 async function makeIconFile(content, packId, iconName) {
   await fsPromise.appendFile(
-    path.resolve(MANIFEST_DIR, `${packId}/${iconName}.js`),
+    path.resolve(WEB_DIR, `icons/${packId}/${iconName}.js`),
     content,
     "utf-8"
   );
@@ -65,7 +55,6 @@ async function makeIconFile(content, packId, iconName) {
 
 module.exports = {
   generateSearchFile,
-  generatePackFile,
   generateMetaPackFile,
   makeIconFile,
 };

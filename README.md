@@ -1,8 +1,8 @@
-# SolidJS svg icon pack
+# The standard for using icons in SolidJS
 
 An svg icon pack to use in your projects built with [SolidJS](https://solidjs.com)
 
-14142 icons ready to use [Icons explorer](https://solid-icons-web.vercel.app/)
+14156 icons ready to use [Icons explorer](https://solid-icons-web.vercel.app/)
 
 This library is based on the work of:
 
