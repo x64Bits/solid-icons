@@ -55,6 +55,7 @@ const fileNames = [
   "IoUnlinkSharp",
   "IoWalk",
   "IoWallet",
+  "IoToday",
 ];
 
 module.exports = {
