@@ -1,4 +1,5 @@
-import { JSX, JSXElement, splitProps } from "solid-js";
+import { splitProps } from "solid-js";
+import type { JSXElement, JSX } from "solid-js/types";
 
 declare global {
   namespace JSX {

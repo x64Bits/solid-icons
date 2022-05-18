@@ -11,6 +11,8 @@ const readdir = promisify(fs.readdir);
 const copyFile = promisify(fs.copyFile);
 const appendFile = promisify(fs.appendFile);
 
+let totalCount = 0;
+
 // Utils
 const {
   generateSearchFile,
@@ -330,6 +332,8 @@ async function loadPack(iconPack) {
         path.resolve(packFolder, `${iconPack.shortName}.d.ts`),
         contentTsFile
       );
+
+      totalCount++;
     }
   }
 }
@@ -428,6 +432,6 @@ async function main() {
 
   await generateIconsManifest();
 
-  console.log("Done!");
+  console.log(`${totalCount} icons has been generated 🥳`);
 }
 main();

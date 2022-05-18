@@ -1164,10 +1164,10 @@ side-channel@^1.0.4:
     get-intrinsic "^1.0.2"
     object-inspect "^1.9.0"
 
-solid-js@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.1.0.tgz#fe53d3c128832131ed41ee3a44df7e1d2b69378f"
-  integrity sha512-QcYxp0AnJW3luQKRF/vOhEC5G0ao/f5OqkRuY4JOEmSjWcl4fh8UGiaEOYnri+uJmfGo7KehTKC/+Se40Qh+Lg==
+solid-js@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.4.1.tgz#8714838a59e31695e7e6ecfe69494b1428d2dfb3"
+  integrity sha512-ts480PccmUW9WAludSXET2dbBevjv+l6XMmN/OyG/a/xA8ZQoX4hNBN3gGhW785ZZv90fowbUSuSQUwOISm3YA==
 
 source-map-support@~0.5.19:
   version "0.5.19"

@@ -1,4 +1,8 @@
-## CHANGELOG 0.3.3:
+## CHANGELOG 0.4.2:
+
+- Fixed a bug where the reactivity was not working when passing props.
+
+## CHANGELOG 0.4.1:
 
 - Fixed most of the ionicons icons that had problems.
 
