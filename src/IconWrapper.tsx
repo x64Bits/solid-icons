@@ -1,4 +1,3 @@
-import { splitProps } from "solid-js";
 import type { JSXElement, JSX } from "solid-js/types";
 
 declare global {
@@ -41,27 +40,28 @@ export interface IconBaseProps extends IconProps {
 
 export declare type IconTypes = (props: IconProps) => JSXElement;
 
-export default function IconTemplate(props: IconBaseProps): JSXElement {
-  const [content, innerProps] = splitProps(props, ["src"]);
-
+export default function IconTemplate(
+  iconSrc: IconTree,
+  props: IconProps
+): JSXElement {
   return (
     <svg
-      stroke={content.src.a.stroke}
+      stroke={iconSrc.a.stroke}
       fill="currentColor"
       strokeWidth="0"
       style={{
+        ...props.style,
         overflow: "visible",
-        color: innerProps.color,
-        ...innerProps.style,
+        color: props.color,
       }}
-      {...content.src.a}
-      {...innerProps}
-      height={innerProps.size || "1em"}
-      width={innerProps.size || "1em"}
-      innerHTML={content.src.c}
+      {...iconSrc.a}
+      {...props}
+      height={props.size || "1em"}
+      width={props.size || "1em"}
+      innerHTML={iconSrc.c}
       xmlns="http://www.w3.org/2000/svg"
     >
-      {innerProps.title && <title>{innerProps.title}</title>}
+      {props.title && <title>{props.title}</title>}
     </svg>
   );
 }
