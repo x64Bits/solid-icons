@@ -1,7 +1,7 @@
 {
   "name": "solid-icons",
   "author": "Ignacio Zsabo",
-  "version": "0.4.11",
+  "version": "0.4.12",
   "description": "The standard for using icons in SolidJS",
   "license": "MIT",
   "sideEffects": false,
@@ -37,6 +37,6 @@
   },
   "homepage": "https://github.com/x64Bits/solid-icons#readme",
   "peerDependencies": {
-    "solid-js": "1.4.1"
+    "solid-js": "^1.4.0"
   }
 }
