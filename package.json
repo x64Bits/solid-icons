@@ -37,6 +37,6 @@
   },
   "homepage": "https://github.com/x64Bits/solid-icons#readme",
   "peerDependencies": {
-    "solid-js": "^1.4.0"
+    "solid-js": "*"
   }
 }
