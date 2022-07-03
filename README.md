@@ -1,8 +1,8 @@
-# The standard for using icons in SolidJS
+# The easiest and most complete solution to use icons in SolidJS
 
 An svg icon pack to use in your projects built with [SolidJS](https://solidjs.com)
 
-14156 icons ready to use [Icons explorer](https://solid-icons-web.vercel.app/)
+16158 icons ready to use [Icons explorer](https://solid-icons-web.vercel.app/)
 
 This library is based on the work of:
 
@@ -49,6 +49,7 @@ import { BiCompass } from "solid-icons/bi";
 | [VS Code Icons](https://github.com/microsoft/vscode-codicons)      | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)               | 0.0.27  |
 | [Weather Icons](https://erikflowers.github.io/weather-icons/)      | [SIL OFL 1.1](http://scripts.sil.org/OFL)                               | 2.0.12  |
 | [css.gg](https://github.com/astrit/css.gg)                         | [MIT](https://opensource.org/licenses/MIT)                              | 2.0.0   |
+| [Tabler Icons](https://github.com/tabler/tabler-icons)             | [MIT](https://opensource.org/licenses/MIT)                              | 1.70.0  |
 
 You can add more icons by submitting pull requests or creating issues.
 
@@ -72,7 +73,7 @@ import { BiCompass } from "solid-icons/bi";
 ## Demo
 
 An example of using this library in this repository:
-[PayPal fee calculator](https://github.com/x64Bits/paypal-fee-solid)
+[Website icons explorer](https://solid-icons-web.vercel.app)
 
 ## Licence
 
