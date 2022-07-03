@@ -63,6 +63,17 @@ function concatSvgContent(contentData) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${contentData.a.viewBox}">${contentData.c}</svg>`;
 }
 
+function normalizeTbIcon(iconData) {
+  let stringContent = iconData.c;
+  stringContent = stringContent.replaceAll(
+    '<path stroke="currentColor"',
+    '<path stroke="none"'
+  );
+
+  return { ...iconData, c: stringContent };
+}
+
 module.exports = {
   normalizeIcon,
+  normalizeTbIcon,
 };

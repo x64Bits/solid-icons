@@ -113,5 +113,13 @@
     "url": "https://github.com/astrit/css.gg",
     "iconsPath": "./src/icons/css.gg/icons/svg",
     "subFolders": false
+  },
+  {
+    "shortName": "tb",
+    "packName": "Tabler Icons",
+    "license": "MIT",
+    "url": "https://github.com/tabler/tabler-icons",
+    "iconsPath": "./src/icons/tabler/icons",
+    "subFolders": false
   }
 ]

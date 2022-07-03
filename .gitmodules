@@ -40,3 +40,6 @@
 [submodule "src/icons/css.gg"]
 	path = src/icons/css.gg
 	url = https://github.com/astrit/css.gg.git
+[submodule "src/icons/tabler"]
+	path = src/icons/tabler
+	url = https://github.com/tabler/tabler-icons

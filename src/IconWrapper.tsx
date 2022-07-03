@@ -40,10 +40,7 @@ export interface IconBaseProps extends IconProps {
 
 export declare type IconTypes = (props: IconProps) => JSXElement;
 
-export default function IconTemplate(
-  iconSrc: IconTree,
-  props: IconProps
-): JSXElement {
+export function IconTemplate(iconSrc: IconTree, props: IconProps): JSXElement {
   return (
     <svg
       stroke={iconSrc.a.stroke}
@@ -61,6 +58,7 @@ export default function IconTemplate(
       innerHTML={iconSrc.c}
       xmlns="http://www.w3.org/2000/svg"
     >
+      {iconSrc.c}
       {props.title && <title>{props.title}</title>}
     </svg>
   );

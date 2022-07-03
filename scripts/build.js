@@ -5,6 +5,7 @@ const fs = require("fs");
 const fsPromise = require("fs").promises;
 const { promisify } = require("util");
 const exec = promisify(require("child_process").exec);
+const chalk = require("chalk");
 
 const mkdir = promisify(fs.mkdir);
 const readdir = promisify(fs.readdir);
@@ -12,6 +13,13 @@ const copyFile = promisify(fs.copyFile);
 const appendFile = promisify(fs.appendFile);
 
 let totalCount = 0;
+
+const {
+  templateType,
+  WEB_DIR,
+  PACKAGE_JSON_PACK,
+  OUT_DIR,
+} = require("./constants");
 
 // Utils
 const {
@@ -28,21 +36,22 @@ const viewBoxes = {
 const _rootDir = path.resolve(__dirname, "../");
 
 const projectPath = path.resolve(__dirname, "../");
-const outDir = path.resolve(__dirname, "../dist");
 
 // LICENSE
 const licenseFrom = path.resolve(projectPath, "LICENSE");
-const licenseTo = path.resolve(outDir, "LICENSE");
+const licenseTo = path.resolve(OUT_DIR, "LICENSE");
 
 // README.md
 const readmeFrom = path.resolve(projectPath, "README.md");
-const readmeTo = path.resolve(outDir, "README.md");
+const readmeTo = path.resolve(OUT_DIR, "README.md");
 
 // Manifest
 const iconManifest = require("../manifest.json");
-const { templateType, WEB_DIR } = require("./constants");
-const { normalizeIcon } = require("./normalize");
+
+const { normalizeIcon, normalizeTbIcon } = require("./normalize");
+const { moveLibraryArtifacts } = require("./lib");
 const manifestInfo = {};
+const log = console.log;
 
 function capitalizeFirstLetter(_string) {
   const fixName = {
@@ -161,13 +170,21 @@ async function generateSvgIconInfo(
 
   const templateExport = templateType[exportType];
 
-  if (shortName === "io") {
-    const normalizedComressed = await normalizeIcon(comressed, fileName);
+  switch (shortName) {
+    case "io": {
+      const normalizedIo = await normalizeIcon(comressed, fileName);
 
-    return templateExport(fileName, normalizedComressed);
+      return templateExport(fileName, normalizedIo);
+    }
+    case "tb": {
+      const normalizedTb = normalizeTbIcon(comressed);
+
+      return templateExport(fileName, normalizedTb);
+    }
+
+    default:
+      return templateExport(fileName, comressed);
   }
-
-  return templateExport(fileName, comressed);
 }
 
 async function convertIconData(svg, multiColor) {
@@ -241,11 +258,6 @@ async function generateSvg(iconPack, svgItem) {
 }
 
 async function loadPack(iconPack) {
-  console.log("current load:", iconPack.packName);
-  console.log("created folder for:", iconPack.shortName);
-
-  // appendFile(gitignoreFile, `${iconPack.shortName}\n`);
-
   manifestInfo[iconPack.shortName] = {
     iconsList: [],
     name: iconPack.packName,
@@ -254,25 +266,30 @@ async function loadPack(iconPack) {
     sourceUrl: iconPack.url,
   };
 
-  const packFolder = outDir;
+  const packFolder = path.resolve(`${OUT_DIR}/${iconPack.shortName}`);
+  await mkdir(packFolder);
 
+  const packPath = path.resolve(`${OUT_DIR}/${iconPack.shortName}`);
+
+  // Write webside artifacts
   const webPackFolder = path.resolve(`${WEB_DIR}/icons`, iconPack.shortName);
   await mkdir(webPackFolder);
 
+  // package.json pack
+
+  appendFile(path.resolve(packPath, "package.json"), PACKAGE_JSON_PACK);
+
   // Icon File
-  const headerFile = `import IconWrapper from "./esm/IconWrapper";`;
-  appendFile(path.resolve(packFolder, `${iconPack.shortName}.js`), headerFile);
+  const headerFile = `import { IconTemplate } from "../lib";`;
+  appendFile(path.resolve(packPath, `index.module.js`), headerFile);
+
+  // Icon CJS file
+  const headerCjsFile = `var IconTemplate = require('../lib').IconTemplate;`;
+  appendFile(path.resolve(packPath, `index.js`), headerCjsFile);
 
   // TS File
-  const headerTsFile = `import { IconTypes } from './types/IconWrapper'`;
-  appendFile(
-    path.resolve(packFolder, `${iconPack.shortName}.d.ts`),
-    headerTsFile
-  );
-
-  // All Types
-  // const typeExport = `export * from './${iconPack.shortName}';\n`;
-  // appendFile(path.resolve(outDir, `all.d.ts`), typeExport);
+  const headerTsFile = `import type { IconTypes } from '../lib/browser/IconWrapper'`;
+  appendFile(path.resolve(packPath, `index.d.ts`), headerTsFile);
 
   const baseFolder = path.resolve(__dirname, "../", iconPack.iconsPath);
 
@@ -298,7 +315,10 @@ async function loadPack(iconPack) {
     });
   }
 
-  console.log(`${iconPack.packName} package has been generated ✓`);
+  log(
+    chalk.dim(`${iconPack.packName} package has been generated`) +
+      chalk.green(" ✓")
+  );
 
   for (const item of folders) {
     const svgList = await loadSvgFilesList(item, iconPack);
@@ -314,6 +334,13 @@ async function loadPack(iconPack) {
         iconPack.shortName
       );
 
+      const svgAsCjs = await generateSvgIconInfo(
+        svgFile.svgName,
+        iconData,
+        iconPack.shortName,
+        "cjs"
+      );
+
       const defaultSvg = await generateSvgIconInfo(
         svgFile.svgName,
         iconData,
@@ -323,15 +350,15 @@ async function loadPack(iconPack) {
 
       await makeIconFile(defaultSvg, iconPack.shortName, svgFile.svgName);
 
-      // Icon File
-      appendFile(path.resolve(packFolder, `${iconPack.shortName}.js`), svgAsJs);
+      // Icon File ESM
+      appendFile(path.resolve(packPath, `index.module.js`), svgAsJs);
+
+      // Icon File Server side
+      appendFile(path.resolve(packPath, `index.js`), svgAsCjs);
 
       // TS File
       const contentTsFile = `\nexport declare const ${svgFile.svgName}: IconTypes;`;
-      appendFile(
-        path.resolve(packFolder, `${iconPack.shortName}.d.ts`),
-        contentTsFile
-      );
+      appendFile(path.resolve(packPath, `index.d.ts`), contentTsFile);
 
       totalCount++;
     }
@@ -349,6 +376,8 @@ async function buildLib() {
     exec(`rm -rf ${WEB_DIR}/search.js && touch ${WEB_DIR}/search.js`),
     exec(`rm -rf ${WEB_DIR}/meta.js && touch ${WEB_DIR}/meta.js`),
   ]);
+
+  await moveLibraryArtifacts();
 }
 
 async function writePackageJson() {
@@ -361,7 +390,6 @@ async function writePackageJson() {
   let packageJson = JSON.parse(packageJsonStr);
 
   delete packageJson.private;
-  delete packageJson.dependencies;
   delete packageJson.devDependencies;
   delete packageJson.scripts;
 
@@ -418,10 +446,9 @@ async function init() {
 }
 
 async function main() {
-  console.log("Init...");
+  console.log("Initializing");
   await init();
 
-  console.log("Start loading SVG icons...");
   for (const iconPack of iconManifest.sort((x1, x2) => {
     if (x1.packName > x2.packName) return 1;
     if (x1.packName < x2.packName) return -1;
@@ -432,6 +459,10 @@ async function main() {
 
   await generateIconsManifest();
 
-  console.log(`${totalCount} icons has been generated 🥳`);
+  log(" ");
+
+  log(chalk.green(`${totalCount}`) + chalk.dim(" icons has been generated"));
+
+  console.log(`  `);
 }
 main();

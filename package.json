@@ -1,12 +1,12 @@
 {
   "name": "solid-icons",
   "author": "Ignacio Zsabo",
-  "version": "0.4.12",
-  "description": "The standard for using icons in SolidJS",
+  "version": "0.4.45",
+  "description": "The easiest and most complete solution to use icons in SolidJS",
   "license": "MIT",
   "sideEffects": false,
-  "main": "esm/IconWrapper.js",
-  "types": "types/IconWrapper.d.ts",
+  "main": "./lib",
+  "types": "./browser/IconWrapper.d.ts",
   "scripts": {
     "submodule": "git submodule update --init --depth 1",
     "build": "node scripts/build.js",
@@ -19,14 +19,19 @@
     "solidjs"
   ],
   "devDependencies": {
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "chalk": "4.1.2",
     "cheerio": "^1.0.0-rc.3",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
     "javascript-stringify": "^2.0.1",
+    "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.56.2",
-    "rollup-preset-solid": "^1.0.1",
+    "rollup": "^2.75.7",
+    "rollup-preset-solid": "^1.4.0",
     "svgo": "1.3.2",
-    "typescript": "^4.3.5",
-    "solid-js": "^1.4.1"
+    "typescript": "^4.3.5"
   },
   "repository": {
     "type": "git",
@@ -37,6 +42,6 @@
   },
   "homepage": "https://github.com/x64Bits/solid-icons#readme",
   "peerDependencies": {
-    "solid-js": "*"
+    "solid-js": "^1.3.0"
   }
 }
