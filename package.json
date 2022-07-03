@@ -1,7 +1,7 @@
 {
   "name": "solid-icons",
   "author": "Ignacio Zsabo",
-  "version": "0.4.45",
+  "version": "0.5.0",
   "description": "The easiest and most complete solution to use icons in SolidJS",
   "license": "MIT",
   "sideEffects": false,
