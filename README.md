@@ -31,7 +31,7 @@ It's the way to use SVG icons in SolidJS applications
 - Compatible with [Solid Start](https://github.com/solidjs/solid-start) static generation and SSR.
 - Tree shakeable: What you take is what you get.
 - [Customizable](https://github.com/x64Bits/solid-icons#configuration) - receive props to extend their usefulness.
-- [Reactivity](https://vitest.dev/guide/features.html#watch-mode), take advantage of SolidJS to react to changes in props.
+- [Reactivity](https://www.youtube.com/watch?v=J70HXl1KhWE), take advantage of SolidJS to react to changes in props.
 - [Just import and declare](https://github.com/x64Bits/solid-icons#usage) in your JSX to work out-the-box
 - First class TypeScript support
 
