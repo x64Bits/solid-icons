@@ -1,37 +1,46 @@
 {
   "name": "solid-icons",
-  "author": "Ignacio Zsabo",
-  "version": "0.5.0",
-  "description": "The easiest and most complete solution to use icons in SolidJS",
-  "license": "MIT",
+  "version": "1.0.0",
+  "description": "Modern solution for use icons on SolidJS",
   "sideEffects": false,
-  "main": "./lib",
-  "types": "./browser/IconWrapper.d.ts",
+  "main": "./lib/index.module.js",
+  "types": "./lib/IconWrapper.d.ts",
+  "type": "module",
   "scripts": {
+    "dev": "onchange -i -k 'src/build/**/*.ts' -- yarn build",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "submodule": "git submodule update --init --depth 1",
-    "build": "node scripts/build.js",
-    "build-lib": "rollup -c"
+    "build": "node --no-warnings --loader ts-node/esm --experimental-specifier-resolution=node ./src/build/index.ts",
+    "build:lib": "rollup -c"
   },
   "keywords": [
+    "solidjs",
     "icons",
-    "svg",
     "pack",
-    "solidjs"
+    "svg",
+    "solid"
   ],
   "devDependencies": {
-    "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^22.0.1",
-    "chalk": "4.1.2",
-    "cheerio": "^1.0.0-rc.3",
+    "@types/node": "^18.0.3",
+    "@types/svg-parser": "^2.0.3",
+    "@types/svgo": "1.3.2",
+    "arg": "^5.0.2",
+    "chalk": "^5.0.1",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.0.1",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
-    "javascript-stringify": "^2.0.1",
-    "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
     "rollup": "^2.75.7",
+    "rollup-plugin-delete": "^2.0.0",
     "rollup-preset-solid": "^1.4.0",
+    "solid-js": "^1.3.0",
     "svgo": "1.3.2",
-    "typescript": "^4.3.5"
+    "ts-node": "^10.8.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.3.0"
   },
   "repository": {
     "type": "git",
@@ -40,8 +49,7 @@
   "bugs": {
     "url": "https://github.com/x64Bits/solid-icons/issues"
   },
-  "homepage": "https://github.com/x64Bits/solid-icons#readme",
-  "peerDependencies": {
-    "solid-js": "^1.3.0"
-  }
+  "homepage": "https://solid-icons-web.vercel.app/",
+  "author": "Ignacio Zsabo",
+  "license": "MIT"
 }

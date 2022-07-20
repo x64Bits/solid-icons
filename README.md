@@ -1,15 +1,41 @@
-# The easiest and most complete solution to use icons in SolidJS
+<p align="center">
+<img src="https://assets.solidjs.com/banner?project=icons" height="150">
+</p>
 
-An svg icon pack to use in your projects built with [SolidJS](https://solidjs.com)
+<h1 align="center">
+Solid Icons
+</h1>
+<p align="center">
+It's the way to use SVG icons in SolidJS applications
+<p>
 
-16158 icons ready to use [Icons explorer](https://solid-icons-web.vercel.app/)
+<p align="center">
+  <a href="https://www.npmjs.com/package/solid-icons?activeTab=versions"><img src="https://badgen.net/npm/v/solid-icons"></a>
+  <a href="https://github.com/x64Bits/solid-icons/blob/main/LICENSE"><img src="https://badgen.net/npm/license/solid-icons"></a>
+  <a href="https://www.npmjs.com/package/solid-icons"><img src="https://badgen.net/npm/dt/solid-icons"></a>
+<p>
 
-This library is based on the work of:
+<p align="center">
+ <a href="https://solid-icons-web.vercel.app/">Icons Explorer</a> | <a href="https://github.com/x64Bits/solid-icons-web">Example</a> 
+</p>
 
-- [svelte-icons-pack](https://github.com/leshak/svelte-icons-pack)
-- [react-icons](https://github.com/react-icons/react-icons)
+<h4 align="center">
 
-## Installation
+</h4>
+<br>
+<br>
+
+## ✨ Features
+
+- [16 Icon packs](https://github.com/x64Bits/solid-icons#included-icons-pack) totally ready to use.
+- Compatible with [Solid Start](https://github.com/solidjs/solid-start) static generation and SSR.
+- Tree shakeable: What you take is what you get.
+- [Customizable](https://github.com/x64Bits/solid-icons#configuration) - receive props to extend their usefulness.
+- [Reactivity](https://vitest.dev/guide/features.html#watch-mode), take advantage of SolidJS to react to changes in props.
+- [Just import and declare](https://github.com/x64Bits/solid-icons#usage) in your JSX to work out-the-box
+- First class TypeScript support
+
+## 📦 Installation
 
 ### Yarn
 
@@ -26,12 +52,12 @@ npm install solid-icons --save
 ## Usage
 
 ```jsx
-import { BiCompass } from "solid-icons/bi";
+import { SiJavascript } from "solid-icons/si";
 
-<BiCompass color="lavender" size="64px" />;
+<SiJavascript size={24} color="#2c4f7c" />;
 ```
 
-## Included icons pack
+## 🔋 Included icons pack
 
 | Icon Library                                                       | License                                                                 | Version |
 | ------------------------------------------------------------------ | ----------------------------------------------------------------------- | ------- |
@@ -50,17 +76,16 @@ import { BiCompass } from "solid-icons/bi";
 | [Weather Icons](https://erikflowers.github.io/weather-icons/)      | [SIL OFL 1.1](http://scripts.sil.org/OFL)                               | 2.0.12  |
 | [css.gg](https://github.com/astrit/css.gg)                         | [MIT](https://opensource.org/licenses/MIT)                              | 2.0.0   |
 | [Tabler Icons](https://github.com/tabler/tabler-icons)             | [MIT](https://opensource.org/licenses/MIT)                              | 1.70.0  |
+| [Github Octicons](https://github.com/primer/octicons)              | [MIT](https://opensource.org/licenses/MIT)                              | 17.3.0  |
 
-You can add more icons by submitting pull requests or creating issues.
+## ⚙️ Configuration
 
-## Configuration
-
-You can configure icons props using
+solid-icons components receive props like any SVG, you also have a few custom ones.
 
 ```jsx
-import { BiCompass } from "solid-icons/bi";
+import { SiJavascript } from "solid-icons/si";
 
-<BiCompass color="lavender" size="64px" className="custom-icon" title="a11y" />;
+<SiJavascript size={24} color="#2c4f7c" class="custom-icon" title="a11y" />;
 ```
 
 | Key     | Default                  | Notes             |
@@ -70,17 +95,47 @@ import { BiCompass } from "solid-icons/bi";
 | `class` | `undefined`              |                   |
 | `title` | `undefined`              | A icon title a11y |
 
-## Demo
+## 💻 Development
 
-An example of using this library in this repository:
-[Website icons explorer](https://solid-icons-web.vercel.app)
+requirements:
 
-## Licence
+node **^16.14.0**
+
+### Basic build
+
+You can locally clone this repository:
+
+```bash
+$ git clone https://github.com/x64Bits/solid-icons
+$ cd solid-icons
+$ yarn
+$ yarn build
+```
+
+### Build dev mode
+
+If you did the above steps and want to build while listening if the files change you can run:
+
+```bash
+$ yarn dev
+```
+
+### Supported arguments
+
+Isolate a single library, this allows you to avoid recompiling the entire library and thus optimize the result of a single one:
+
+```bash
+$ yarn dev --isolate="ai"
+```
+
+This command is used to build the files destined for web, if you want to change the path, in `src/build/constants.ts` you can modify the output of the files:
+
+```bash
+$ yarn dev --web
+```
+
+## 📝 Licence
 
 MIT
 
 - Icons are taken from the other projects so please check each project licences accordingly.
-
-## Known issues:
-
-- Ionicons: Most of the icons in this pack work fine but some with outline features have trouble displaying.

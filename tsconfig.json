@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "commonjs",
+    "module": "ESNext",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": true,
@@ -10,9 +10,15 @@
     "emitDeclarationOnly": true,
     "declarationMap": true,
     "strict": true,
-    "jsx": "preserve",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*", "scripts", "src/icons"]
+  "include": ["src/lib", "src/build"],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*",
+    "scripts",
+    "src/icons",
+    "src/build"
+  ]
 }
