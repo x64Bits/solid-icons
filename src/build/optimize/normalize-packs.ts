@@ -12,7 +12,7 @@ const aiReplacements = [
 ];
 
 export function normalizeTb(iconData: string): string {
-  const regex = /<path/gi;
+  const regex = /<path/i;
   const replacement = '<path stroke="none"';
 
   return iconData.replace(regex, replacement);
