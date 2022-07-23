@@ -16,7 +16,7 @@ It's the way to use SVG icons in SolidJS applications
 <p>
 
 <p align="center">
- <a href="https://solid-icons-web.vercel.app/">Icons Explorer</a> | <a href="https://github.com/x64Bits/solid-icons-web">Example</a> 
+ <a href="https://solid-icons.vercel.app/">Icons Explorer</a> | <a href="https://github.com/x64Bits/solid-icons-web">Example</a> 
 </p>
 
 <h4 align="center">
