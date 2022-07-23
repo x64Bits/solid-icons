@@ -49,8 +49,9 @@ export const NORMALIZE_PACK: Record<string, string> = {
   TB: "tb",
 };
 
-export const NORMALIZE_FILE_NAME: Record<string, string> = {
+export const NORMALIZE_FILE_NAME = {
   WI: "wi",
   IM: "im",
   BI: "bi",
+  OC: "oc",
 };
