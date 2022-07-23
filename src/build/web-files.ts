@@ -1,30 +1,19 @@
 import fs from "fs";
 import chalk from "chalk";
 import { promisify } from "util";
-import { exec } from "child_process";
 
-import {
-  DIST_PATH,
-  LIB_PACKAGE_JSON,
-  log,
-  PACK_PACKAGE_JSON,
-  includedFiles,
-  ROOT_PATH,
-  WEB_ICONS_PATH,
-  WEB_PATH,
-  ROOT_EXPORT,
-} from "./constants";
-import { fileTypes } from "./file-types";
-import { getFileByPath } from "./get-icons";
-import packages from "./packages.json" assert { type: "json" };
-import {
-  IconContent,
-  PackageJSONExport,
-  PackAttachedIcons,
-  PackItem,
-} from "./types";
+import { log, WEB_ICONS_PATH, WEB_PATH } from "./constants";
+import { IconContent, PackAttachedIcons } from "./types";
 
 const rmAsync = promisify(fs.rm);
+
+function attachCountIcons(packs: PackAttachedIcons[]) {
+  return packs.map((pack) => ({
+    ...pack,
+    count: pack.icons.length,
+    icons: undefined,
+  }));
+}
 
 export async function writeWebFiles(packs: PackAttachedIcons[]) {
   const iconNames = {
@@ -48,9 +37,11 @@ export async function writeWebFiles(packs: PackAttachedIcons[]) {
     `export default ${JSON.stringify(iconNames)}`
   );
 
+  const metaFile = attachCountIcons(packs);
+
   fs.appendFileSync(
     `${WEB_PATH}/meta.js`,
-    `export default ${JSON.stringify(packages)}`
+    `export default ${JSON.stringify(metaFile)}`
   );
 
   packs.forEach(writeEachWebFiles);

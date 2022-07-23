@@ -11,7 +11,10 @@
     "declarationMap": true,
     "strict": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "noUnusedLocals": true
   },
   "include": ["src/lib", "src/build"],
   "exclude": [

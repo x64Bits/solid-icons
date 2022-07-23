@@ -10,14 +10,11 @@ export interface PackItem {
   license: string;
   url: string;
   path: string;
-  subFolders?: boolean;
-  removeMainPrefix?: boolean;
-  removeFilePrefixes?: string[];
-  removeFirtsCharsFromFile?: number;
 }
 
 export interface PackAttachedIcons extends PackItem {
   icons: IconContent[];
+  count?: number;
 }
 
 export interface SVGAttribs {

@@ -14,19 +14,19 @@ export const WEB_ICONS_PATH = path.resolve(WEB_PATH, "icons");
 export const log = console.log;
 
 export const LIB_PACKAGE_JSON = /* javascript */ `{
-  "main": "./index.common.js",
-  "module": "./index.module.js"
+  "main": "./index.cjs",
+  "module": "./index.js"
 }`;
 
 export const PACK_PACKAGE_JSON = /* javascript */ `{
   "sideEffects": false,
-  "module": "./index.module.js"
+  "module": "./index.js"
 }`;
 
 export const ROOT_EXPORT = {
-  browser: "./lib/index.module.js",
-  node: "./lib/index.common.js",
-  default: "./lib/index.common.js",
+  browser: "./lib/index.js",
+  node: "./lib/index.cjs",
+  default: "./lib/index.cjs",
 };
 
 export const includedFiles = ["LICENSE", "README.md"];

@@ -1,0 +1,31 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "@typescript-eslint/quotes": ["error", "double"],
+    "quotes": ["error", "double"],
+    "no-unused-vars": ["warn"]
+  },
+  "overrides": [
+    {
+      "files": ["dist/**/*.js"],
+      "rules": {
+        "quotes": ["error", "double"]
+      }
+    }
+  ]
+}

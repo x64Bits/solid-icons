@@ -6,7 +6,6 @@ import { exec } from "child_process";
 import {
   DIST_PATH,
   log,
-  PACK_PACKAGE_JSON,
   includedFiles,
   ROOT_PATH,
   ROOT_EXPORT,
@@ -33,9 +32,9 @@ function getPackageExports(
   current: PackItem
 ): PackageJSONExport {
   const exportsPayload = JSON.parse(`{
-      "browser": "./${current.shortName}/index.module.js",
-      "node": "./${current.shortName}/index.js",
-      "default": "./${current.shortName}/index.js"
+      "browser": "./${current.shortName}/index.js",
+      "node": "./${current.shortName}/index.cjs",
+      "default": "./${current.shortName}/index.cjs"
     }`);
 
   return { ...previousValue, [`./${current.shortName}`]: exportsPayload };
@@ -66,7 +65,6 @@ function writeEachPack(pack: PackAttachedIcons) {
   const packFolder = `${DIST_PATH}/${pack.shortName}`;
 
   fs.mkdirSync(packFolder);
-  fs.appendFileSync(`${packFolder}/package.json`, PACK_PACKAGE_JSON);
 
   for (let index = 0; index < fileTypes.length; index++) {
     const type = fileTypes[index];

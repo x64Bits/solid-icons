@@ -28,22 +28,22 @@ export const fileTypes = [
   {
     type: "cjs",
     template: (iconContent: IconContent) => cjsTemplate(iconContent),
-    // eslint-disable-next-line quotes
-    header: /* javascript */ `var IconTemplate = require('../lib/index.common.js').IconTemplate;`,
-    fileName: "index.js",
+    // eslint-disable-next-line quotes, @typescript-eslint/quotes
+    header: /* javascript */ `var IconTemplate = require('../lib/index.cjs').IconTemplate;`,
+    fileName: "index.cjs",
   },
   {
     type: "mjs",
     template: (iconContent: IconContent) => moduleTemplate(iconContent),
-    // eslint-disable-next-line quotes
-    header: /* javascript */ `import { IconTemplate } from "../lib/index.module.js";`,
-    fileName: "index.module.js",
+    // eslint-disable-next-line quotes, @typescript-eslint/quotes
+    header: /* javascript */ `import { IconTemplate } from "../lib/index.js";`,
+    fileName: "index.js",
   },
   {
     type: "types",
     template: (iconContent: IconContent) => typesTemplate(iconContent),
-    // eslint-disable-next-line quotes
-    header: /* javascript */ `import type { IconTypes } from "../lib/IconWrapper.d.ts"\n`,
+    // eslint-disable-next-line quotes, @typescript-eslint/quotes
+    header: /* javascript */ `import type { IconTypes } from "../lib/index"\n`,
     fileName: "index.d.ts",
   },
 ];

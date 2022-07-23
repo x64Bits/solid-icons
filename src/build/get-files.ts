@@ -4,7 +4,7 @@ import path from "path";
 import { ROOT_PATH } from "./constants";
 
 export function getPackFiles(dirPath: string, files: string[] = []): string[] {
-  let paths = fs.readdirSync(dirPath);
+  const paths = fs.readdirSync(dirPath);
 
   for (let current = 0; current < paths.length; current++) {
     const file = paths[current];

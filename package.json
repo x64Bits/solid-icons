@@ -2,9 +2,11 @@
   "name": "solid-icons",
   "version": "1.0.0",
   "description": "Modern solution for use icons on SolidJS",
+  "author": "Ignacio Zsabo",
+  "license": "MIT",
   "sideEffects": false,
-  "main": "./lib/index.module.js",
-  "types": "./lib/IconWrapper.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "type": "module",
   "scripts": {
     "dev": "onchange -i -k 'src/build/**/*.ts' -- yarn build",
@@ -24,6 +26,8 @@
     "@types/node": "^18.0.3",
     "@types/svg-parser": "^2.0.3",
     "@types/svgo": "1.3.2",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
     "arg": "^5.0.2",
     "chalk": "^5.0.1",
     "cheerio": "^1.0.0-rc.12",
@@ -33,14 +37,17 @@
     "rollup": "^2.75.7",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-preset-solid": "^1.4.0",
-    "solid-js": "^1.3.0",
+    "solid-js": "^1.4.7",
     "svgo": "1.3.2",
     "ts-node": "^10.8.2",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
   },
+  "engines": {
+    "node": ">= 16"
+  },
   "peerDependencies": {
-    "solid-js": "^1.3.0"
+    "solid-js": "*"
   },
   "repository": {
     "type": "git",
@@ -49,7 +56,5 @@
   "bugs": {
     "url": "https://github.com/x64Bits/solid-icons/issues"
   },
-  "homepage": "https://solid-icons-web.vercel.app/",
-  "author": "Ignacio Zsabo",
-  "license": "MIT"
+  "homepage": "https://solid-icons-web.vercel.app/"
 }
