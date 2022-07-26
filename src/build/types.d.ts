@@ -10,6 +10,7 @@ export interface PackItem {
   license: string;
   url: string;
   path: string;
+  folderName?: string;
 }
 
 export interface PackAttachedIcons extends PackItem {
