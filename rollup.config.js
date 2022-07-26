@@ -1,17 +1,25 @@
 import withSolid from "rollup-preset-solid";
-import { babel } from "@rollup/plugin-babel";
-import commonjs from "@rollup/plugin-commonjs";
 
 export default withSolid([
   {
-    input: "src/IconWrapper.tsx",
-    mappingName: "browser",
+    input: "src/lib/index.tsx",
+    mappingName: "lib",
+    output: {
+      file: "./dist/lib/index.js",
+      format: "module",
+    },
   },
   {
-    input: "src/IconWrapper.tsx",
-    mappingName: "server",
-    solidOptions: { generate: "ssr", hydratable: false },
+    input: "src/lib/index.tsx",
+    mappingName: "lib",
+    solidOptions: {
+      generate: "ssr",
+      hydratable: false,
+    },
     targets: ["cjs"],
-    plugins: [commonjs(), babel({ babelHelpers: "bundled" })],
+    output: {
+      file: "./dist/lib/index.cjs",
+      format: "cjs",
+    },
   },
 ]);

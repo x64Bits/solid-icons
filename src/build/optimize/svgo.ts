@@ -1,6 +1,6 @@
-const SVGO = require("svgo");
+import SVGO from "svgo";
 
-const svgo = new SVGO({
+export const svgo = new SVGO({
   plugins: [
     {
       cleanupAttrs: true,
@@ -9,7 +9,7 @@ const svgo = new SVGO({
       removeDoctype: true,
     },
     {
-      removeXMLProcInst: true,
+      removeXMLProcInst: false,
     },
     {
       removeComments: true,
@@ -110,11 +110,7 @@ const svgo = new SVGO({
       },
     },
     {
-      removeAttrs: { attrs: "data.*" },
+      removeAttrs: { attrs: "data.*|class|xmlns" },
     },
   ],
 });
-
-module.exports = {
-  svgo,
-};

@@ -4,122 +4,111 @@
     "packName": "Ant Design SVG icons",
     "license": "MIT",
     "url": "https://github.com/ant-design/ant-design-icons",
-    "iconsPath": "./src/icons/ant-design-icons/packages/icons-svg/svg",
-    "subFolders": true
+    "path": "./src/icons/ant-design-icon/packages/icons-svg/svg"
   },
   {
     "shortName": "fa",
     "packName": "Font Awesome",
     "license": "CC BY 4.0 License",
     "url": "https://fontawesome.com/",
-    "iconsPath": "./src/icons/Font-Awesome/svgs",
-    "subFolders": true
+    "path": "./src/icons/Font-Awesome/svgs"
   },
   {
     "shortName": "wi",
     "packName": "Weather Icons",
     "license": "SIL OFL 1.1",
     "url": "https://erikflowers.github.io/weather-icons/",
-    "iconsPath": "./src/icons/weather-icons/svg",
-    "subFolders": false,
-    "removeMainPrefix": true
+    "path": "./src/icons/weather-icons/svg"
   },
   {
     "shortName": "fi",
     "packName": "Feather",
     "license": "MIT",
     "url": "https://feathericons.com/",
-    "iconsPath": "./src/icons/feather/icons",
-    "subFolders": false
+    "path": "./src/icons/feather/icons"
   },
   {
     "shortName": "vsc",
     "packName": "VS Code Icons",
     "license": "CC BY 4.0",
     "url": "https://github.com/microsoft/vscode-codicons",
-    "iconsPath": "./src/icons/vscode-codicons/src/icons",
-    "subFolders": false
+    "path": "./src/icons/vscode-codicons/src/icons"
   },
   {
     "shortName": "bs",
     "packName": "Bootstrap Icons",
     "license": "MIT",
     "url": "https://github.com/twbs/icons",
-    "iconsPath": "./src/icons/icons/icons",
-    "subFolders": false
+    "path": "./src/icons/icons/icons"
   },
   {
     "shortName": "bi",
     "packName": "BoxIcons",
     "license": "CC BY 4.0 License",
     "url": "https://github.com/atisawd/boxicons",
-    "iconsPath": "./src/icons/boxicons/svg",
-    "subFolders": true,
-    "removeFilePrefixes": ["bxl-", "bx-", "bxs-"]
+    "path": "./src/icons/boxicons/svg"
   },
   {
     "shortName": "im",
     "packName": "IcoMoon Free",
     "license": "CC BY 4.0 License",
     "url": "https://github.com/Keyamoon/IcoMoon-Free",
-    "iconsPath": "./src/icons/IcoMoon-Free/SVG",
-    "subFolders": false,
-    "removeFirtsCharsFromFile": 4
+    "path": "./src/icons/IcoMoon-Free/SVG"
   },
   {
     "shortName": "io",
     "packName": "Ionicons",
     "license": "MIT",
     "url": "https://ionicons.com/",
-    "iconsPath": "./src/icons/ionicons/src/svg",
-    "subFolders": false
+    "path": "./src/icons/ionicons/src/svg"
   },
   {
     "shortName": "ri",
     "packName": "Remix Icon",
     "license": "Apache License Version 2.0",
     "url": "https://github.com/Remix-Design/RemixIcon",
-    "iconsPath": "./src/icons/RemixIcon/icons",
-    "subFolders": true
+    "path": "./src/icons/RemixIcon/icons"
   },
   {
     "shortName": "si",
     "packName": "Simple Icons",
     "license": "CC0 1.0 Universal",
     "url": "https://simpleicons.org/",
-    "iconsPath": "./src/icons/simple-icons/icons",
-    "subFolders": false
+    "path": "./src/icons/simple-icons/icons"
   },
   {
     "shortName": "ti",
     "packName": "Typicons",
     "license": "CC BY-SA 3.0",
     "url": "http://s-ings.com/typicons/",
-    "iconsPath": "./src/icons/typicons.font/src/svg",
-    "subFolders": false
+    "path": "./src/icons/typicons.font/src/svg"
   },
   {
     "shortName": "hi",
     "packName": "Heroicons",
     "license": "MIT",
     "url": "https://github.com/refactoringui/heroicons",
-    "iconsPath": "./src/icons/heroicons/src",
-    "subFolders": true
+    "path": "./src/icons/heroicons/src"
   },
   {
     "shortName": "cg",
     "packName": "css.gg",
     "license": "MIT",
     "url": "https://github.com/astrit/css.gg",
-    "iconsPath": "./src/icons/css.gg/icons/svg",
-    "subFolders": false
+    "path": "./src/icons/css.gg/icons/svg"
   },
   {
     "shortName": "tb",
     "packName": "Tabler Icons",
     "license": "MIT",
     "url": "https://github.com/tabler/tabler-icons",
-    "iconsPath": "./src/icons/tabler/icons",
-    "subFolders": false
+    "path": "./src/icons/tabler/icons"
+  },
+  {
+    "shortName": "oc",
+    "packName": "Github Octicons",
+    "license": "MIT",
+    "url": "https://github.com/primer/octicons",
+    "path": "./src/icons/octicons/icons"
   }
 ]
