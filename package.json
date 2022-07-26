@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "onchange -i -k 'src/build/**/*.ts' -- yarn build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "submodule": "git submodule update --init --depth 1",
+    "submodule": "node --no-warnings --loader ts-node/esm --experimental-specifier-resolution=node ./src/build/submodule.ts",
     "build": "node --no-warnings --loader ts-node/esm --experimental-specifier-resolution=node ./src/build/index.ts",
     "build:lib": "rollup -c"
   },

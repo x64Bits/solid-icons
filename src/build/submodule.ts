@@ -1,9 +1,11 @@
 import { promisify } from "util";
 import { exec } from "child_process";
+import chalk from "chalk";
 
 import { ROOT_PATH } from "./constants";
 import packages from "./packages.json" assert { type: "json" };
 import { PackItem } from "./types";
+import { log } from "console";
 
 const execAsync = promisify(exec);
 
@@ -19,6 +21,12 @@ async function init() {
     const submodule = packages[index];
 
     await execCommand(submodule);
+
+    log(
+      chalk.white(`🔋 ${submodule.packName}`) +
+        chalk.dim(" has been added successfully") +
+        chalk.green(" ✓")
+    );
   }
 }
 
