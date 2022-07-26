@@ -28,7 +28,7 @@
     "path": "./src/icons/feather/icons"
   },
   {
-    "shortName": "vsc",
+    "shortName": "vs",
     "packName": "VS Code Icons",
     "license": "CC BY 4.0",
     "url": "https://github.com/microsoft/vscode-codicons",

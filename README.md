@@ -6,7 +6,7 @@
 Solid Icons
 </h1>
 <p align="center">
-It's the way to use SVG icons in SolidJS applications
+Modern solution for use icons on SolidJS
 <p>
 
 <p align="center">
