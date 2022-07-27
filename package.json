@@ -1,6 +1,6 @@
 {
   "name": "solid-icons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modern solution for use icons on SolidJS",
   "author": "Ignacio Zsabo",
   "license": "MIT",
@@ -56,5 +56,5 @@
   "bugs": {
     "url": "https://github.com/x64Bits/solid-icons/issues"
   },
-  "homepage": "https://solid-icons-web.vercel.app/"
+  "homepage": "https://solid-icons.vercel.app/"
 }
