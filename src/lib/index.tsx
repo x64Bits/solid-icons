@@ -1,4 +1,5 @@
 import type { JSX } from "solid-js";
+import { isServer } from "solid-js/web";
 
 export interface IconTree {
   a: JSX.SvgSVGAttributes<SVGSVGElement>;
@@ -27,7 +28,7 @@ export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
       style={{
         ...props.style,
         overflow: "visible",
-        color: props.color,
+        color: props.color || "currentColor",
       }}
       {...iconSrc.a}
       {...props}
@@ -36,6 +37,7 @@ export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
       innerHTML={iconSrc.c}
       xmlns="http://www.w3.org/2000/svg"
     >
+      {isServer && iconSrc.c}
       {props.title && <title>{props.title}</title>}
     </svg>
   );
