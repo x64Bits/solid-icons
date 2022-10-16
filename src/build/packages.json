@@ -1,7 +1,7 @@
 [
   {
     "shortName": "ai",
-    "packName": "Ant Design SVG icons",
+    "packName": "Ant Design Icons",
     "license": "MIT",
     "url": "https://github.com/ant-design/ant-design-icons",
     "path": "./src/icons/ant-design-icons/packages/icons-svg/svg",

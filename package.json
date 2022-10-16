@@ -1,6 +1,6 @@
 {
   "name": "solid-icons",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Modern solution for use icons on SolidJS",
   "author": "Ignacio Zsabo",
   "license": "MIT",
@@ -13,7 +13,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "submodule": "node --no-warnings --loader ts-node/esm --experimental-specifier-resolution=node ./src/build/submodule.ts",
     "build": "node --no-warnings --loader ts-node/esm --experimental-specifier-resolution=node ./src/build/index.ts",
-    "build:lib": "rollup -c"
+    "build:lib": "rollup -c",
+    "build:all": "rm -rf ./dist_all && mkdir ./dist_all && yarn build --web && cp ./all_package.json ./dist_all/package.json"
   },
   "keywords": [
     "solidjs",
@@ -56,5 +57,5 @@
   "bugs": {
     "url": "https://github.com/x64Bits/solid-icons/issues"
   },
-  "homepage": "https://solid-icons.vercel.app/"
+  "homepage": "https://solid-icons.vercel.app"
 }

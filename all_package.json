@@ -1,0 +1,18 @@
+{
+  "name": "solid-icons-all",
+  "version": "0.1.0",
+  "description": "Bundle for Solid icons explorer",
+  "author": "Ignacio Zsabo",
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "keywords": ["solidjs", "icons", "bundle", "svg", "all"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x64Bits/solid-icons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/x64Bits/solid-icons/issues"
+  },
+  "homepage": "https://solid-icons.vercel.app"
+}

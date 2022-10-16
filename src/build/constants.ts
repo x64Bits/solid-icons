@@ -10,7 +10,7 @@ export const WEB_PATH = path.resolve(
   ROOT_PATH,
   process.env.WEB_PATH || DEFAULT_WEB_PATH
 );
-export const WEB_ICONS_PATH = path.resolve(WEB_PATH, "icons");
+export const WEB_ICONS_PATH = path.resolve(WEB_PATH);
 export const log = console.log;
 
 export const LIB_PACKAGE_JSON = /* javascript */ `{
