@@ -27,12 +27,12 @@ Modern solution for use icons on SolidJS
 
 ## ✨ Features
 
-- [16 Icon packs](https://github.com/x64Bits/solid-icons#included-icons-pack) totally ready to use.
+- [16 Icon packs](#-included-icons-pack) totally ready to use.
 - Compatible with [Solid Start](https://github.com/solidjs/solid-start) static generation and SSR.
 - Tree shakeable: What you take is what you get.
-- [Customizable](https://github.com/x64Bits/solid-icons#configuration) - receive props to extend their usefulness.
+- [Customizable](#%EF%B8%8F-configuration) - receive props to extend their usefulness.
 - [Reactivity](https://www.youtube.com/watch?v=J70HXl1KhWE), take advantage of SolidJS to react to changes in props.
-- [Just import and declare](https://github.com/x64Bits/solid-icons#usage) in your JSX to work out-the-box
+- [Just import and declare](#usage) in your JSX to work out-the-box
 - First class TypeScript support
 
 ## 📦 Installation
@@ -65,7 +65,7 @@ import { SiJavascript } from "solid-icons/si";
 | [Bootstrap Icons](https://github.com/twbs/icons)                   | [MIT](https://opensource.org/licenses/MIT)                              | 1.7.2   |
 | [BoxIcons](https://github.com/atisawd/boxicons)                    | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 2.1.1   |
 | [Feather](https://feathericons.com/)                               | [MIT](https://github.com/feathericons/feather/blob/master/LICENSE)      | 4.28.0  |
-| [Font Awesome](https://fontawesome.com/)                           | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 5.15.4  |
+| [Font Awesome](https://fontawesome.com/)                           | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 6.1.2  |
 | [Heroicons](https://github.com/refactoringui/heroicons)            | [MIT](https://github.com/tailwindlabs/heroicons/blob/master/LICENSE)    | 1.0.3   |
 | [IcoMoon Free](https://github.com/Keyamoon/IcoMoon-Free)           | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 1.0.0   |
 | [Ionicons](https://ionicons.com/)                                  | [MIT](https://github.com/ionic-team/ionicons/blob/master/LICENSE)       | 5.5.2   |
