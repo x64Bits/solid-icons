@@ -1,5 +1,5 @@
 import type { JSX } from "solid-js";
-import { isServer } from "solid-js/web";
+import { isServer, mergeProps } from "solid-js/web";
 
 export interface IconTree {
   a: JSX.SvgSVGAttributes<SVGSVGElement>;
@@ -20,6 +20,8 @@ export interface IconBaseProps extends IconProps {
 export declare type IconTypes = (props: IconProps) => JSX.Element;
 
 export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
+  const mergedProps = mergeProps(iconSrc.a, props);
+
   return (
     <svg
       stroke={iconSrc.a.stroke}
@@ -30,8 +32,7 @@ export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
         overflow: "visible",
         color: props.color || "currentColor",
       }}
-      {...iconSrc.a}
-      {...props}
+      {...mergedProps}
       height={props.size || "1em"}
       width={props.size || "1em"}
       innerHTML={iconSrc.c}
