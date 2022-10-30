@@ -43,7 +43,7 @@
     "rollup": "^2.75.7",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-preset-solid": "^1.4.0",
-    "solid-js": "^1.4.7",
+    "solid-js": "latest",
     "solid-testing-library": "^0.3.0",
     "svgo": "1.3.2",
     "ts-node": "^10.8.2",

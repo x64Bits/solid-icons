@@ -11,6 +11,7 @@ const exampleIcon = {
 };
 
 const Icon = (props) => IconTemplate(exampleIcon, props);
+const initialColor = "#2c4f7c";
 
 describe("<IconTemplate />", () => {
   afterEach(cleanup);
@@ -24,10 +25,9 @@ describe("<IconTemplate />", () => {
   });
 
   test("reactive props", async () => {
-    const defaultColor = "#2c4f7c";
     const expectedColor = "#0CDC73";
 
-    const [color, setColor] = createSignal(defaultColor);
+    const [color, setColor] = createSignal(initialColor);
 
     render(() => (
       <Icon
@@ -63,5 +63,20 @@ describe("<IconTemplate />", () => {
 
     expect(defaultHeight).toBe("1em");
     expect(defaultColor).toBe("currentColor");
+  });
+
+  test("custom values", async () => {
+    const customSize = "3em";
+
+    render(() => <Icon role="svg" size={customSize} color={initialColor} />);
+    const svg = await screen.findByRole("svg");
+
+    const customHeight = svg.getAttribute("height");
+    const customWidth = svg.getAttribute("width");
+    const customColor = `#${rgbHex(getComputedStyle(svg).color)}`;
+
+    expect(customHeight).toBe(customSize);
+    expect(customWidth).toBe(customSize);
+    expect(customColor).toBe(initialColor);
   });
 });
