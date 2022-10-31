@@ -17,6 +17,7 @@
   },
   "rules": {
     "@typescript-eslint/quotes": ["error", "double"],
+    "@typescript-eslint/avoidEscape": false,
     "quotes": ["error", "double"],
     "no-unused-vars": ["warn"]
   },
