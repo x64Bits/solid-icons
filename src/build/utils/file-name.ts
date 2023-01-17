@@ -34,7 +34,7 @@ export function toPascalCase(fileName: string): string {
 }
 
 export function formatFileName(filePath: string, packInfo: PackItem) {
-  const splittedPath = filePath.split("/");
+  const splittedPath = filePath.replaceAll("\\", "/").split("/");
   const name = normalizeName(
     splittedPath[splittedPath.length - 1],
     packInfo.shortName

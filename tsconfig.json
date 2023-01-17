@@ -14,7 +14,8 @@
     "skipLibCheck": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "lib": ["ES2021"],
   },
   "include": ["src/lib", "src/build"],
   "exclude": [
@@ -22,6 +23,5 @@
     "**/__tests__/*",
     "scripts",
     "src/icons",
-    "src/build"
   ]
 }
