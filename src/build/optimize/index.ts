@@ -3,11 +3,12 @@ import {
   normalizeTb,
   normalizeTwoTone,
 } from "./normalize-packs";
-import { svgo } from "./svgo";
+import { svgoConfig } from "./svgo-config";
+import { optimize } from "svgo";
 import { NORMALIZE_PACK } from "../constants";
 
 export async function optimizeContents(contents: string, shortName: string) {
-  const optimizedFile = await svgo.optimize(contents);
+  const optimizedFile = optimize(contents, svgoConfig);
 
   switch (shortName) {
     case NORMALIZE_PACK.IO:
