@@ -14,7 +14,7 @@
     "coverage": "vitest --config ./vitest.config.ts --coverage",
     "submodule": "node --no-warnings --loader ts-node/esm --experimental-specifier-resolution=node ./src/build/submodule.ts",
     "build": "node --no-warnings --loader ts-node/esm --experimental-specifier-resolution=node ./src/build/index.ts",
-    "build:lib": "rollup -c",
+    "build:lib": "rollup --configPlugin @rollup/plugin-typescript -c",
     "build:all": "rm -rf ./dist_all && mkdir ./dist_all && yarn build --web && cp ./all_package.json ./dist_all/package.json"
   },
   "keywords": [
@@ -25,6 +25,7 @@
     "solid"
   ],
   "devDependencies": {
+    "@rollup/plugin-typescript": "^11.0.0",
     "@types/node": "^18.11.18",
     "@types/svg-parser": "^2.0.3",
     "@types/svgo": "2.6.4",
