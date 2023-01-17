@@ -1,12 +1,14 @@
 import type { JSX } from "solid-js";
 import { isServer, mergeProps } from "solid-js/web";
 
+type SVGSVGElementTags = JSX.SVGElementTags["svg"];
+
 export interface IconTree {
-  a: JSX.SvgSVGAttributes<SVGSVGElement>;
+  a: SVGSVGElementTags;
   c: string;
 }
 
-export interface IconProps extends JSX.SvgSVGAttributes<SVGSVGElement> {
+export interface IconProps extends SVGSVGElementTags {
   size?: string | number;
   color?: string;
   title?: string;
