@@ -2,19 +2,15 @@ import { Config } from "svgo";
 
 export const svgoConfig: Config = {
   plugins: [
-    "cleanupAttrs",
-    "removeDoctype",
-    "removeComments",
-    "removeMetadata",
-    "removeTitle",
-    "removeDesc",
-    "removeUselessDefs",
-    "removeEditorsNSData",
-    "removeEmptyAttrs",
-    "removeHiddenElems",
-    "removeEmptyText",
-    "removeEmptyContainers",
-    "cleanupEnableBackground",
+    {
+      name: "preset-default",
+      params: {
+        overrides: {
+          removeXMLProcInst: false,
+          removeViewBox: false,
+        },
+      },
+    },
     "convertStyleToAttrs",
     {
       name: "convertColors",
@@ -22,20 +18,6 @@ export const svgoConfig: Config = {
         currentColor: true,
       },
     },
-    "convertPathData",
-    "convertTransform",
-    "removeUnknownsAndDefaults",
-    "removeNonInheritableGroupAttrs",
-    "removeUselessStrokeAndFill",
-    "removeUnusedNS",
-    "cleanupIds",
-    "cleanupNumericValues",
-    "moveElemsAttrsToGroup",
-    "moveGroupAttrsToElems",
-    "collapseGroups",
-    "mergePaths",
-    "convertShapeToPath",
-    "sortAttrs",
     "removeDimensions",
     {
       name: "removeAttributesBySelector",
