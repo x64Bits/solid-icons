@@ -1,7 +1,5 @@
 import type { IconContent } from "./types";
-import { build, BuildOptions } from "esbuild";
-import { solidPlugin } from "esbuild-plugin-solid";
-import { unlink } from "fs/promises";
+import { Worker } from "worker_threads";
 
 function moduleTemplate(icon: IconContent) {
   return /* typescript */ `
@@ -43,31 +41,18 @@ export const fileTypes = [
 import { type IconProps, mergeProps } from "../lib/index";
 `,
     fileName: "index.tsx",
-    postBuild: async (filePath: string) => {
-      // build the tsx file with esbuild
-      const esbuildOptions: BuildOptions = {
-        entryPoints: [filePath],
-        bundle: false,
-        minify: true,
-        sourcemap: false,
-        target: "es2021",
-        plugins: [solidPlugin()],
-        write: true,
-      };
-      await Promise.all([
-        build({
-          ...esbuildOptions,
-          format: "esm",
-          outfile: filePath.replace(".tsx", ".js"),
-        }),
-        build({
-          ...esbuildOptions,
-          format: "cjs",
-          outfile: filePath.replace(".tsx", ".cjs"),
-        }),
-      ]);
-      // remove the tsx file
-      await unlink(filePath);
+    postBuild: function runService(filePath: string) {
+      return new Promise((resolve, reject) => {
+        const worker = new Worker("./src/build/post-build.mjs", { workerData: filePath });
+        worker.on("message", resolve);
+        worker.on("error", reject);
+        worker.on("exit", (code) => {
+          if (code !== 0)
+            reject(
+              new Error(`Stopped the post build with code ${code}`)
+            );
+        });
+      });
     },
   },
   {
