@@ -22,7 +22,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.20.10.tgz#9d92fa81b87542fff50e848ed585b4212c1d34ec"
   integrity sha512-sEnuDPpOJR/fcafHMjpcpGN5M2jbUGUHwmuWKM/YdPzeEDJg8bgmbcWQFUfE32MQjti1koACvoPVsDe8Uq+idg==
 
-"@babel/core@^7.16.5", "@babel/core@^7.20.2", "@babel/core@^7.20.5":
+"@babel/core@^7.20.12", "@babel/core@^7.20.2", "@babel/core@^7.20.5":
   version "7.20.12"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.20.12.tgz#7930db57443c6714ad216953d1356dac0eb8496d"
   integrity sha512-XsMfHovsUYHFMdrIHkZphTN/2Hzzi78R08NuHfDBehym2VsPDL6Zn/JAD/JQdnRvbSsbQc4mVaU1m6JgtTEElg==
@@ -1003,7 +1003,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/preset-typescript@^7.16.5", "@babel/preset-typescript@^7.18.6":
+"@babel/preset-typescript@^7.18.6":
   version "7.18.6"
   resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.18.6.tgz#ce64be3e63eddc44240c6358daefac17b3186399"
   integrity sha512-s9ik86kXBAnD760aybBucdpnLsAt0jK1xqJn2juOn9lkOvSHV60os5hxoVJsPzMQxvnUJFAlkont2DvvaYEBtQ==
@@ -1902,7 +1902,7 @@ babel-plugin-polyfill-regenerator@^0.4.1:
   dependencies:
     "@babel/helper-define-polyfill-provider" "^0.3.3"
 
-babel-preset-solid@^1.2.6, babel-preset-solid@^1.6.2, babel-preset-solid@^1.6.3:
+babel-preset-solid@^1.6.2, babel-preset-solid@^1.6.3, babel-preset-solid@^1.6.9:
   version "1.6.9"
   resolved "https://registry.yarnpkg.com/babel-preset-solid/-/babel-preset-solid-1.6.9.tgz#404c5c5a9e1232636964e1c8cba4106a519bcf67"
   integrity sha512-Dz4xROTGtAZ2B9+79KYUzi/bhjNGsx+8c+AD3VO/Cg1CisM1qq29XsnkWrRJeTMMn3XZkAI/Bf5Rz37d/gvPVQ==
@@ -2488,14 +2488,13 @@ esbuild-openbsd-64@0.15.18:
   resolved "https://registry.yarnpkg.com/esbuild-openbsd-64/-/esbuild-openbsd-64-0.15.18.tgz#79591a90aa3b03e4863f93beec0d2bab2853d0a8"
   integrity sha512-yK5NCcH31Uae076AyQAXeJzt/vxIo9+omZRKj1pauhk3ITuADzuOx5N2fdHrAKPxN+zH3w96uFKlY7yIn490xQ==
 
-esbuild-plugin-solid@^0.4.2:
+"esbuild-plugin-solid@https://github.com/aminya/esbuild-plugin-solid#8989487":
   version "0.4.2"
-  resolved "https://registry.yarnpkg.com/esbuild-plugin-solid/-/esbuild-plugin-solid-0.4.2.tgz#747942408e218b15e424e3ba344d0626a05685bb"
-  integrity sha512-T5GphLoud3RumjeNYO3K9WVjWDzVKG5evlS7hUEUI0n9tiCL+CnbvJh3SSwFi3xeeXpZRrnZc1gd6FWQsVobTg==
+  resolved "https://github.com/aminya/esbuild-plugin-solid#898948745d37bfe112ac13da618d7116d87aeda9"
   dependencies:
-    "@babel/core" "^7.16.5"
-    "@babel/preset-typescript" "^7.16.5"
-    babel-preset-solid "^1.2.6"
+    "@babel/core" "^7.20.12"
+    "@babel/preset-typescript" "^7.18.6"
+    babel-preset-solid "^1.6.9"
 
 esbuild-sunos-64@0.15.18:
   version "0.15.18"
