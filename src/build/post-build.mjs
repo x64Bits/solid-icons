@@ -20,7 +20,7 @@ async function postBuild(filePath) {
     minify: true,
     sourcemap: false,
     target: "es2021",
-    plugins: [solidPlugin()],
+    plugins: [solidPlugin({ babel: { compact: true } })],
     write: true,
   };
   await Promise.all([
@@ -37,4 +37,5 @@ async function postBuild(filePath) {
   ]);
   // remove the tsx file
   await unlink(filePath);
+  console.log(`Finished building ${filePath}`);
 }
