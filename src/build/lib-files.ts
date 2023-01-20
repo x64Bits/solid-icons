@@ -59,21 +59,28 @@ function writeAssetsFiles() {
     `${DIST_PATH}/package.json`,
     JSON.stringify(packageJson, null, 2)
   );
+
+  fs.copyFileSync(
+    `${ROOT_PATH}/tsconfig.dist.json`,
+    `${DIST_PATH}/tsconfig.json`
+  );
 }
 
-function writeEachPack(pack: PackAttachedIcons) {
+async function writeEachPack(pack: PackAttachedIcons) {
   const packFolder = `${DIST_PATH}/${pack.shortName}`;
 
   fs.mkdirSync(packFolder);
 
   for (let index = 0; index < fileTypes.length; index++) {
     const type = fileTypes[index];
-    const fileName = `${packFolder}/${type.fileName}`;
+    const filePath = `${packFolder}/${type.fileName}`;
 
-    fs.appendFileSync(fileName, type.header);
+    fs.appendFileSync(filePath, type.header);
     pack.icons.forEach((icon) => {
-      fs.appendFileSync(fileName, type.template(icon));
+      fs.appendFileSync(filePath, type.template(icon));
     });
+
+    await type.postBuild?.(filePath);
   }
 
   log(
@@ -84,7 +91,5 @@ function writeEachPack(pack: PackAttachedIcons) {
 }
 
 export async function writeLibFiles(iconsPayload: PackAttachedIcons[]) {
-  for (let index = 0; index < iconsPayload.length; index++) {
-    writeEachPack(iconsPayload[index]);
-  }
+  return Promise.all(iconsPayload.map(writeEachPack));
 }

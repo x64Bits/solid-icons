@@ -21,6 +21,7 @@ export interface PackAttachedIcons extends PackItem {
 export interface SVGAttribs {
   viewBox?: string;
   height?: string;
+  stroke?: string;
 }
 
 export interface PackageJSONExport {
