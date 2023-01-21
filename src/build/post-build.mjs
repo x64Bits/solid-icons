@@ -16,9 +16,9 @@ async function postBuild(filePath) {
   /** @type {import("esbuild").BuildOptions} */
   const esbuildOptions = {
     entryPoints: [filePath],
-    bundle: false,
+    bundle: true,
     minify: true,
-    sourcemap: false,
+    sourcemap: true,
     target: "es2021",
     plugins: [solidPlugin({ babel: { compact: true } })],
     write: true,
@@ -27,12 +27,12 @@ async function postBuild(filePath) {
     build({
       ...esbuildOptions,
       format: "esm",
-      outfile: filePath.replace(".tsx", ".js"),
+      outfile: filePath.replace(".ts", ".js"),
     }),
     build({
       ...esbuildOptions,
       format: "cjs",
-      outfile: filePath.replace(".tsx", ".cjs"),
+      outfile: filePath.replace(".ts", ".cjs"),
     }),
   ]);
   // remove the tsx file

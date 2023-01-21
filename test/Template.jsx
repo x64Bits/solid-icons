@@ -2,7 +2,7 @@ import { createSignal } from "solid-js";
 import rgbHex from "rgb-hex";
 import { afterEach, describe, expect, test } from "vitest";
 import { render, fireEvent, screen, cleanup } from "solid-testing-library";
-import { FiIconsCircle } from "../dist/fi/index.js";
+import { FiIconsCircle } from "../dist/fi/FiIconsCircle";
 
 describe("<FiIconsCircle />", () => {
   const initialColor = "#2c4f7c";

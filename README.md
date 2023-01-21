@@ -16,7 +16,7 @@ Modern solution for use icons on SolidJS
 <p>
 
 <p align="center">
- <a href="https://solid-icons.vercel.app/">Icons Explorer</a> | <a href="https://github.com/x64Bits/solid-icons-web">Example</a> 
+ <a href="https://solid-icons.vercel.app/">Icons Explorer</a> | <a href="https://github.com/x64Bits/solid-icons-web">Example</a>
 </p>
 
 <h4 align="center">
@@ -52,7 +52,7 @@ npm install solid-icons --save
 ## Usage
 
 ```jsx
-import { SiJavascript } from "solid-icons/si";
+import { SiJavascript } from "solid-icons/si/SiJavascript";
 
 <SiJavascript size={24} color="#2c4f7c" />;
 ```

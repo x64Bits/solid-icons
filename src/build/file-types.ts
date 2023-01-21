@@ -1,9 +1,8 @@
 import type { IconContent } from "./types";
-import { Worker } from "worker_threads";
 
 function moduleTemplate(icon: IconContent) {
-  return /* typescript */ `
-export function ${icon.fileName}(props: IconProps): JSX.Element {
+  return /* javascript */ `
+export function ${icon.fileName}(props) {
   const svgAttribs = ${JSON.stringify(icon.svgAttribs)};
   const mergedProps = mergeProps(svgAttribs, props);
 
@@ -34,33 +33,17 @@ function typesTemplate(icon: IconContent) {
 
 export const fileTypes = [
   {
-    type: "tsx",
     template: moduleTemplate,
     // eslint-disable-next-line quotes, @typescript-eslint/quotes
-    header: /* typescirpt */ `import type { JSX } from "solid-js";
-import { type IconProps, mergeProps } from "../lib/index";
+    header: /* javascript */ `import { mergeProps } from "../lib/index.js";
 `,
-    fileName: "index.tsx",
-    postBuild: function runService(filePath: string) {
-      return new Promise((resolve, reject) => {
-        const worker = new Worker("./src/build/post-build.mjs", { workerData: filePath });
-        worker.on("message", resolve);
-        worker.on("error", reject);
-        worker.on("exit", (code) => {
-          if (code !== 0)
-            reject(
-              new Error(`Stopped the post build with code ${code}`)
-            );
-        });
-      });
-    },
+    extension: ".jsx",
   },
   {
-    type: "types",
     template: typesTemplate,
-    header: /* typescirpt */ `import type { JSX } from "solid-js";
+    header: /* typescirpt */ `import { type JSX } from "solid-js";
 import { type IconProps } from "../lib/index";
 `,
-    fileName: "index.d.ts",
+    extension: ".d.ts",
   },
 ];

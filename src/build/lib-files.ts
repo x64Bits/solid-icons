@@ -15,6 +15,7 @@ import { fileTypes } from "./file-types";
 import { getFileByPath } from "./get-icons";
 import packages from "./packages.json" assert { type: "json" };
 import { PackageJSONExport, PackAttachedIcons, PackItem } from "./types";
+import { Worker } from "worker_threads";
 
 const execAsync = promisify(exec);
 
@@ -70,6 +71,22 @@ async function writeAssetsFiles() {
   );
 }
 
+function bundle(filePath: string) {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker("./src/build/post-build.mjs", {
+      workerData: filePath,
+    });
+    worker.on("message", resolve);
+    worker.on("error", reject);
+    worker.on("exit", (code) => {
+      if (code !== 0)
+        reject(new Error(`Stopped the post build with code ${code}`));
+    });
+  });
+}
+
+const ignoredIcons = ["ImPagebreak"]; // due to the name conflict with ImPagebreak
+
 async function writeEachPack(pack: PackAttachedIcons) {
   const packFolder = `${DIST_PATH}/${pack.shortName}`;
 
@@ -77,15 +94,38 @@ async function writeEachPack(pack: PackAttachedIcons) {
 
   for (let index = 0; index < fileTypes.length; index++) {
     const type = fileTypes[index];
-    const filePath = `${packFolder}/${type.fileName}`;
 
-    fs.appendFileSync(filePath, type.header);
-    pack.icons.forEach((icon) => {
-      fs.appendFileSync(filePath, type.template(icon));
-    });
+    // write each icon to a new file
+    await Promise.all(
+      pack.icons.map(async (icon) => {
+        if (ignoredIcons.includes(icon.fileName)) {
+          return;
+        }
 
-    await type.postBuild?.(filePath);
+        const filePath = `${packFolder}/${icon.fileName}${type.extension}`;
+        await fs.appendFile(filePath, type.header + type.template(icon));
+      })
+    );
   }
+
+  // create index.ts file
+  const bundlePath = `${packFolder}/index.ts`;
+  await fs.writeFile(
+    bundlePath,
+    pack.icons
+      .map((icon) =>
+        ignoredIcons.includes(icon.fileName)
+          ? ""
+          : `export { ${icon.fileName} } from "./${icon.fileName}";`
+      )
+      .join("\n")
+  );
+  // add types for the bundles
+  await fs.copyFile(bundlePath, `${packFolder}/index.d.ts`);
+  await fs.copyFile(bundlePath, `${packFolder}/index.d.cts`);
+
+  // replace the ts file with the web js bundle
+  await bundle(bundlePath);
 
   log(
     chalk.white(`📦 ${pack.packName}`) +
