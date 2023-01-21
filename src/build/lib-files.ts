@@ -117,7 +117,7 @@ async function writeEachPack(pack: PackAttachedIcons) {
   const postBuildWorker = await postBuildPool.proxy<{
     postBuild: typeof postBuild;
   }>();
-  await postBuildWorker.postBuild(bundlePath);
+  await await postBuildWorker.postBuild(bundlePath);
 
   log(
     chalk.white(`📦 ${pack.packName}`) +
@@ -127,5 +127,6 @@ async function writeEachPack(pack: PackAttachedIcons) {
 }
 
 export async function writeLibFiles(iconsPayload: PackAttachedIcons[]) {
-  return Promise.all(iconsPayload.map(writeEachPack));
+  await Promise.all(iconsPayload.map(writeEachPack));
+  await postBuildPool.terminate();
 }

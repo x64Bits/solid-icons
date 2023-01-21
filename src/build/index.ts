@@ -1,4 +1,6 @@
 import arg from "arg";
+import chalk from "chalk";
+import { pool } from "workerpool";
 
 import packages from "./packages.json" assert { type: "json" };
 import { getIcons } from "./get-icons";
@@ -6,7 +8,7 @@ import { prepareDist, writeLibFiles } from "./lib-files";
 import { writeWebFiles } from "./web-files";
 import { log, supportedArgs } from "./constants";
 import { PackAttachedIcons } from "./types";
-import chalk from "chalk";
+
 
 function isolatePack(shortName: string, isolateBy: string): boolean {
   return shortName === isolateBy;
@@ -24,6 +26,8 @@ function getArgs() {
   };
 }
 
+export const getIconContentPool = pool("./src/build/get-icon.js");
+
 async function main() {
   const { isIsolate, buildWeb } = getArgs();
 
@@ -40,6 +44,7 @@ async function main() {
       icons: await getIcons(pack),
     }))
   );
+  await getIconContentPool.terminate();
   log(
     chalk.dim("🗜️  Icons have been optimized and prepared") + chalk.green(" ✓")
   );
