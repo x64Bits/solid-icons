@@ -1,19 +1,24 @@
 import fs from "fs-extra";
 import { load } from "cheerio";
+import { pool } from "workerpool";
 
 import { getPackFiles } from "./get-files";
 import { formatFileName } from "./utils/file-name";
-import { optimizeContents } from "./optimize/index";
 import { IconContent, PackItem } from "./types";
+import { type optimizeContents } from "./optimize";
 
 export const getFileByPath = (path: string) => fs.readFile(path, "utf8");
+
+const optimizationPool = pool("./src/build/optimize/index.js");
 
 const getIconContent = async (
   path: string,
   pack: PackItem
 ): Promise<IconContent> => {
   const rawFile = await getFileByPath(path);
-  const optimizeFile = await optimizeContents(rawFile, pack.shortName);
+  const optimizeFile = await optimizationPool
+    .proxy<{ optimizeContents: typeof optimizeContents }>()
+    .then((worker) => worker.optimizeContents(rawFile, pack.shortName));
 
   const $ = load(optimizeFile.data, { xmlMode: true });
   const mountedElement = $("svg");

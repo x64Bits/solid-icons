@@ -5,7 +5,7 @@ import { unlink } from "fs/promises";
 import { workerData, parentPort } from "worker_threads";
 
 postBuild(workerData);
-parentPort.postMessage(undefined);
+parentPort?.postMessage(undefined);
 
 /**
  * @param {string} filePath

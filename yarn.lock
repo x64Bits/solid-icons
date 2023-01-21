@@ -1662,6 +1662,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/workerpool@^6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@types/workerpool/-/workerpool-6.1.1.tgz#33b7d9a6293edd5fd63f4f898504c4a48f9e3862"
+  integrity sha512-o7oSOSEiu8u9pCRv5+1AA61HlL7ruX07NrAQS3bufWXqH0fJSwP7e/1W/PFVCOY634Xz/JLHqXJAHwpogdRvNg==
+  dependencies:
+    "@types/node" "*"
+
 "@typescript-eslint/eslint-plugin@^5.48.2":
   version "5.48.2"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.48.2.tgz#112e6ae1e23a1dc8333ce82bb9c65c2608b4d8a3"
@@ -4562,6 +4569,11 @@ word-wrap@^1.2.3, word-wrap@~1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"
   integrity sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
+
+workerpool@^6.3.1:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/workerpool/-/workerpool-6.3.1.tgz#80a9b76e70556acfb1457a3984f8637717f7cdee"
+  integrity sha512-0x7gJm1rhpn5SPG9NENOxPtbfUZZtK/qOg6gEdSqeDBA3dTeR91RJqSPjccPRCkhNfrnnl/dWxSSj5w9CtdzNA==
 
 wrap-ansi@^7.0.0:
   version "7.0.0"
