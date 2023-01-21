@@ -20,7 +20,6 @@ async function postBuild(filePath) {
     minify: true,
     sourcemap: true,
     target: "es2021",
-    plugins: [solidPlugin({ babel: { compact: true } })],
     write: true,
   };
   await Promise.all([
@@ -28,11 +27,18 @@ async function postBuild(filePath) {
       ...esbuildOptions,
       format: "esm",
       outfile: filePath.replace(".ts", ".js"),
+      plugins: [solidPlugin({ babel: { compact: true } })],
     }),
     build({
       ...esbuildOptions,
       format: "cjs",
       outfile: filePath.replace(".ts", ".cjs"),
+      plugins: [
+        solidPlugin({
+          babel: { compact: true },
+          solid: { ssr: true, hydratable: true },
+        }),
+      ],
     }),
   ]);
   // remove the tsx file
