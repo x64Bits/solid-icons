@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs-extra";
 import chalk from "chalk";
 import { promisify } from "util";
 import { exec } from "child_process";
@@ -20,9 +20,9 @@ const execAsync = promisify(exec);
 
 export async function prepareDist() {
   await Promise.all([execAsync("yarn build:lib", { cwd: ROOT_PATH })]);
-  fs.appendFileSync(`${DIST_PATH}/lib/package.json`, LIB_PACKAGE_JSON);
+  await fs.appendFile(`${DIST_PATH}/lib/package.json`, LIB_PACKAGE_JSON);
 
-  writeAssetsFiles();
+  await writeAssetsFiles();
 
   log(chalk.dim("🍬 Lib artifacts has been bundled") + chalk.green(" ✓"));
 }
@@ -40,12 +40,16 @@ function getPackageExports(
   return { ...previousValue, [`./${current.shortName}`]: exportsPayload };
 }
 
-function writeAssetsFiles() {
-  includedFiles.forEach((file) => {
-    fs.cpSync(`${ROOT_PATH}/${file}`, `${DIST_PATH}/${file}`);
-  });
+async function writeAssetsFiles() {
+  await Promise.all(
+    includedFiles.map(async (file) => {
+      return fs.copy(`${ROOT_PATH}/${file}`, `${DIST_PATH}/${file}`);
+    })
+  );
 
-  const packageJson = JSON.parse(getFileByPath(`${ROOT_PATH}/package.json`));
+  const packageJson = JSON.parse(
+    await getFileByPath(`${ROOT_PATH}/package.json`)
+  );
 
   delete packageJson.devDependencies;
   delete packageJson.scripts;
@@ -55,12 +59,12 @@ function writeAssetsFiles() {
     ...packages.reduce(getPackageExports, {}),
   };
 
-  fs.appendFileSync(
+  await fs.appendFile(
     `${DIST_PATH}/package.json`,
     JSON.stringify(packageJson, null, 2)
   );
 
-  fs.copyFileSync(
+  await fs.copyFile(
     `${ROOT_PATH}/tsconfig.dist.json`,
     `${DIST_PATH}/tsconfig.json`
   );
@@ -69,7 +73,7 @@ function writeAssetsFiles() {
 async function writeEachPack(pack: PackAttachedIcons) {
   const packFolder = `${DIST_PATH}/${pack.shortName}`;
 
-  fs.mkdirSync(packFolder);
+  await fs.mkdir(packFolder);
 
   for (let index = 0; index < fileTypes.length; index++) {
     const type = fileTypes[index];

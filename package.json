@@ -26,6 +26,7 @@
   ],
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.0.0",
+    "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.11.18",
     "@types/svg-parser": "^2.0.3",
     "@types/svgo": "2.6.4",
@@ -40,6 +41,7 @@
     "esbuild-plugin-solid": "https://github.com/aminya/esbuild-plugin-solid#8989487",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
+    "fs-extra": "^11.1.0",
     "jsdom": "^21.0.0",
     "prettier": "2.8.3",
     "rgb-hex": "^4.0.0",
