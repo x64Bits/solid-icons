@@ -73,7 +73,7 @@ async function writeAssetsFiles() {
 
 function bundle(filePath: string) {
   return new Promise((resolve, reject) => {
-    const worker = new Worker("./src/build/post-build.mjs", {
+    const worker = new Worker("./src/build/post-build.js", {
       workerData: filePath,
     });
     worker.on("message", resolve);

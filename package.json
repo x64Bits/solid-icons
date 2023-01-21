@@ -39,7 +39,7 @@
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
     "esbuild": "^0.17.3",
-    "esbuild-plugin-solid": "https://github.com/aminya/esbuild-plugin-solid#8989487",
+    "esbuild-plugin-solid": "https://github.com/aminya/esbuild-plugin-solid#357784f",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "fs-extra": "^11.1.0",

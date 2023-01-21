@@ -1,20 +1,16 @@
-import { build } from "esbuild";
+import { build, BuildOptions } from "esbuild";
 import { solidPlugin } from "esbuild-plugin-solid";
 import { unlink } from "fs/promises";
-
 import { workerData, parentPort } from "worker_threads";
 
 postBuild(workerData);
 parentPort?.postMessage(undefined);
 
 /**
- * @param {string} filePath
- * @returns {Promise<void>}
  */
-async function postBuild(filePath) {
+export async function postBuild(filePath: string) {
   // build the tsx file with esbuild
-  /** @type {import("esbuild").BuildOptions} */
-  const esbuildOptions = {
+  const esbuildOptions: BuildOptions = {
     entryPoints: [filePath],
     bundle: true,
     minify: true,
@@ -36,7 +32,7 @@ async function postBuild(filePath) {
       plugins: [
         solidPlugin({
           babel: { compact: true },
-          solid: { ssr: true, hydratable: true },
+          solid: { generate: "ssr", hydratable: true },
         }),
       ],
     }),

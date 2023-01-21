@@ -2510,9 +2510,9 @@ esbuild-openbsd-64@0.15.18:
   resolved "https://registry.yarnpkg.com/esbuild-openbsd-64/-/esbuild-openbsd-64-0.15.18.tgz#79591a90aa3b03e4863f93beec0d2bab2853d0a8"
   integrity sha512-yK5NCcH31Uae076AyQAXeJzt/vxIo9+omZRKj1pauhk3ITuADzuOx5N2fdHrAKPxN+zH3w96uFKlY7yIn490xQ==
 
-"esbuild-plugin-solid@https://github.com/aminya/esbuild-plugin-solid#8989487":
+"esbuild-plugin-solid@https://github.com/aminya/esbuild-plugin-solid#357784f":
   version "0.4.2"
-  resolved "https://github.com/aminya/esbuild-plugin-solid#898948745d37bfe112ac13da618d7116d87aeda9"
+  resolved "https://github.com/aminya/esbuild-plugin-solid#357784f67a52053eb15f3a6c8cbd5b21bf727fc6"
   dependencies:
     "@babel/core" "^7.20.12"
     "@babel/preset-typescript" "^7.18.6"
