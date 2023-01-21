@@ -33,12 +33,16 @@ function getPackageExports(
   current: PackItem
 ): PackageJSONExport {
   const exportsPayload = JSON.parse(`{
-      "browser": "./${current.shortName}/index.js",
-      "node": "./${current.shortName}/index.cjs",
-      "default": "./${current.shortName}/index.cjs"
+      "import": "./${current.shortName}/index.js",
+      "require": "./${current.shortName}/index.cjs",
+      "default": "./${current.shortName}/index.js"
     }`);
 
-  return { ...previousValue, [`./${current.shortName}`]: exportsPayload };
+  return {
+    ...previousValue,
+    [`./${current.shortName}`]: exportsPayload,
+    [`./${current.shortName}/*`]: `./${current.shortName}/*.js`,
+  };
 }
 
 async function writeAssetsFiles() {
