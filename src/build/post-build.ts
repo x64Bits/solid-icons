@@ -1,10 +1,7 @@
 import { build, BuildOptions } from "esbuild";
 import { solidPlugin } from "esbuild-plugin-solid";
 import { unlink } from "fs/promises";
-import { workerData, parentPort } from "worker_threads";
-
-postBuild(workerData);
-parentPort?.postMessage(undefined);
+import { worker } from "workerpool";
 
 /**
  */
@@ -39,5 +36,8 @@ export async function postBuild(filePath: string) {
   ]);
   // remove the tsx file
   await unlink(filePath);
-  console.log(`Finished building ${filePath}`);
 }
+
+worker({
+  postBuild,
+});

@@ -2,6 +2,7 @@ import fs from "fs-extra";
 import chalk from "chalk";
 import { promisify } from "util";
 import { exec } from "child_process";
+import { pool } from "workerpool";
 
 import {
   DIST_PATH,
@@ -14,7 +15,7 @@ import {
 import { fileTypes } from "./file-types";
 import packages from "./packages.json" assert { type: "json" };
 import { PackageJSONExport, PackAttachedIcons, PackItem } from "./types";
-import { Worker } from "worker_threads";
+import type { postBuild } from "./post-build";
 
 const execAsync = promisify(exec);
 
@@ -71,21 +72,9 @@ async function writeAssetsFiles() {
   );
 }
 
-function bundle(filePath: string) {
-  return new Promise((resolve, reject) => {
-    const worker = new Worker("./src/build/post-build.js", {
-      workerData: filePath,
-    });
-    worker.on("message", resolve);
-    worker.on("error", reject);
-    worker.on("exit", (code) => {
-      if (code !== 0)
-        reject(new Error(`Stopped the post build with code ${code}`));
-    });
-  });
-}
-
 const ignoredIcons = ["ImPagebreak"]; // due to the name conflict with ImPagebreak
+
+const postBuildPool = pool("./src/build/post-build.js");
 
 async function writeEachPack(pack: PackAttachedIcons) {
   const packFolder = `${DIST_PATH}/${pack.shortName}`;
@@ -125,7 +114,10 @@ async function writeEachPack(pack: PackAttachedIcons) {
   await fs.copyFile(bundlePath, `${packFolder}/index.d.cts`);
 
   // replace the ts file with the web js bundle
-  await bundle(bundlePath);
+  const postBuildWorker = await postBuildPool.proxy<{
+    postBuild: typeof postBuild;
+  }>();
+  await postBuildWorker.postBuild(bundlePath);
 
   log(
     chalk.white(`📦 ${pack.packName}`) +
