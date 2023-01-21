@@ -9,7 +9,7 @@ function removeExtension(fileName: string) {
 
 function getStyle(packPath: string, splitPath: string[]): string {
   const removeFileName = splitPath.slice(0, -1).join("/");
-  const absolutePath = path.resolve(ROOT_PATH, packPath);
+  const absolutePath = path.resolve(ROOT_PATH, packPath).replaceAll("\\", "/");
 
   if (removeFileName !== absolutePath) {
     const styleName = capitalizeFirstLetter(
