@@ -33,9 +33,8 @@ function getPackageExports(
   current: PackItem
 ): PackageJSONExport {
   const exportsPayload = JSON.parse(`{
-      "import": "./${current.shortName}/index.js",
-      "require": "./${current.shortName}/index.cjs",
-      "default": "./${current.shortName}/index.js"
+      "browser": "./${current.shortName}/index.js",
+      "node": "./${current.shortName}/index.cjs"
     }`);
 
   return {
