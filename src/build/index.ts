@@ -4,8 +4,9 @@ import packages from "./packages.json" assert { type: "json" };
 import { getIcons } from "./get-icons";
 import { prepareDist, writeLibFiles } from "./lib-files";
 import { writeWebFiles } from "./web-files";
-import { supportedArgs } from "./constants";
+import { log, supportedArgs } from "./constants";
 import { PackAttachedIcons } from "./types";
+import chalk from "chalk";
 
 function isolatePack(shortName: string, isolateBy: string): boolean {
   return shortName === isolateBy;
@@ -38,6 +39,9 @@ async function main() {
       ...pack,
       icons: await getIcons(pack),
     }))
+  );
+  log(
+    chalk.dim("🗜️  Icons have been optimized and prepared") + chalk.green(" ✓")
   );
 
   writeLibFiles(attachedFiles);

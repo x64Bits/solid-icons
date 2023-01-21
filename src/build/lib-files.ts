@@ -12,7 +12,6 @@ import {
   LIB_PACKAGE_JSON,
 } from "./constants";
 import { fileTypes } from "./file-types";
-import { getFileByPath } from "./get-icons";
 import packages from "./packages.json" assert { type: "json" };
 import { PackageJSONExport, PackAttachedIcons, PackItem } from "./types";
 import { Worker } from "worker_threads";
@@ -51,9 +50,7 @@ async function writeAssetsFiles() {
     })
   );
 
-  const packageJson = JSON.parse(
-    await getFileByPath(`${ROOT_PATH}/package.json`)
-  );
+  const packageJson = await fs.readJson(`${ROOT_PATH}/package.json`);
 
   delete packageJson.devDependencies;
   delete packageJson.scripts;

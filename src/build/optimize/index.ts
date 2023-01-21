@@ -6,7 +6,6 @@ import {
 import { svgoConfig } from "./svgo-config";
 import { optimize } from "svgo";
 import { NORMALIZE_PACK } from "../constants";
-import { worker } from "workerpool";
 
 export async function optimizeContents(contents: string, shortName: string) {
   const optimizedFile = optimize(contents, svgoConfig);
@@ -28,7 +27,3 @@ export async function optimizeContents(contents: string, shortName: string) {
 
   return optimizedFile;
 }
-
-worker({
-  optimizeContents: optimizeContents,
-});
