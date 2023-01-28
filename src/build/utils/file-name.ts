@@ -9,7 +9,7 @@ function removeExtension(fileName: string) {
 
 function getStyle(packPath: string, splitPath: string[]): string {
   const removeFileName = splitPath.slice(0, -1).join("/");
-  const absolutePath = path.resolve(ROOT_PATH, packPath);
+  const absolutePath = path.resolve(ROOT_PATH, packPath).replaceAll("\\", "/");
 
   if (removeFileName !== absolutePath) {
     const styleName = capitalizeFirstLetter(
@@ -34,7 +34,7 @@ export function toPascalCase(fileName: string): string {
 }
 
 export function formatFileName(filePath: string, packInfo: PackItem) {
-  const splittedPath = filePath.split("/");
+  const splittedPath = filePath.replaceAll("\\", "/").split("/");
   const name = normalizeName(
     splittedPath[splittedPath.length - 1],
     packInfo.shortName
