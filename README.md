@@ -75,7 +75,7 @@ import { SiJavascript } from "solid-icons/si";
 | [VS Code Icons](https://github.com/microsoft/vscode-codicons)      | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)               | 0.0.27  |
 | [Weather Icons](https://erikflowers.github.io/weather-icons/)      | [SIL OFL 1.1](http://scripts.sil.org/OFL)                               | 2.0.12  |
 | [css.gg](https://github.com/astrit/css.gg)                         | [MIT](https://opensource.org/licenses/MIT)                              | 2.0.0   |
-| [Tabler Icons](https://github.com/tabler/tabler-icons)             | [MIT](https://opensource.org/licenses/MIT)                              | 1.70.0  |
+| [Tabler Icons](https://github.com/tabler/tabler-icons)             | [MIT](https://opensource.org/licenses/MIT)                              | 1.119.0  |
 | [Github Octicons](https://github.com/primer/octicons)              | [MIT](https://opensource.org/licenses/MIT)                              | 17.3.0  |
 
 ## ⚙️ Configuration
