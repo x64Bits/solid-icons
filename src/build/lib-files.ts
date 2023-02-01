@@ -2,7 +2,7 @@ import fs from "fs-extra";
 import chalk from "chalk";
 import { promisify } from "util";
 import { exec } from "child_process";
-import { pool } from "workerpool";
+import { cpus, pool } from "workerpool";
 
 import {
   DIST_PATH,
@@ -74,7 +74,9 @@ async function writeAssetsFiles() {
 
 const ignoredIcons = ["ImPagebreak"]; // due to the name conflict with ImPagebreak
 
-const postBuildPool = pool("./src/build/post-build.js");
+const postBuildPool = pool("./src/build/post-build.js", {
+  maxWorkers: Math.min(8, cpus - 1),
+});
 
 async function writeEachPack(pack: PackAttachedIcons) {
   const packFolder = `${DIST_PATH}/${pack.shortName}`;
