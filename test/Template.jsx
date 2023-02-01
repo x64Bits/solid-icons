@@ -2,9 +2,9 @@ import { createSignal } from "solid-js";
 import rgbHex from "rgb-hex";
 import { afterEach, describe, expect, test } from "vitest";
 import { render, fireEvent, screen, cleanup } from "solid-testing-library";
-import { FiIconsCircle } from "../dist/fi/FiIconsCircle";
+import { FiCircle } from "../dist/fi/FiCircle";
 
-describe("<FiIconsCircle />", () => {
+describe("<FiCircle />", () => {
   const initialColor = "#2c4f7c";
   const innerHTML = `<circle cx="12" cy="12" r="10"></circle>`;
   const viewBox = "0 0 24 24";
@@ -17,7 +17,7 @@ describe("<FiIconsCircle />", () => {
   afterEach(cleanup);
 
   test("render child", () => {
-    const { container, unmount } = render(() => <FiIconsCircle />);
+    const { container, unmount } = render(() => <FiCircle />);
     const children = container.getElementsByTagName("svg");
 
     expect(children.length).toBe(1);
@@ -41,7 +41,7 @@ describe("<FiIconsCircle />", () => {
     const [color, setColor] = createSignal(initialColor);
 
     render(() => (
-      <FiIconsCircle
+      <FiCircle
         color={color()}
         onClick={() => setColor(expectedColor)}
         role="svg"
@@ -58,7 +58,7 @@ describe("<FiIconsCircle />", () => {
   });
 
   test("viewBox defined", async () => {
-    render(() => <FiIconsCircle role="svg" />);
+    render(() => <FiCircle role="svg" />);
     const svg = await screen.findByRole("svg");
 
     const viewBox = svg.getAttribute("viewBox");
@@ -66,7 +66,7 @@ describe("<FiIconsCircle />", () => {
   });
 
   test("default values", async () => {
-    render(() => <FiIconsCircle role="svg" />);
+    render(() => <FiCircle role="svg" />);
     const svg = await screen.findByRole("svg");
 
     const defaultHeight = svg.getAttribute("height");
@@ -80,7 +80,7 @@ describe("<FiIconsCircle />", () => {
     const customSize = "3em";
 
     render(() => (
-      <FiIconsCircle role="svg" size={customSize} color={initialColor} />
+      <FiCircle role="svg" size={customSize} color={initialColor} />
     ));
     const svg = await screen.findByRole("svg");
 
