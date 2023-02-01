@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js";
 import rgbHex from "rgb-hex";
 import { afterEach, describe, expect, test } from "vitest";
-import { render, fireEvent, screen, cleanup } from "solid-testing-library";
+import { render, fireEvent, screen, cleanup } from "@solidjs/testing-library";
 import { FiCircle } from "../dist/fi/FiCircle";
 
 describe("<FiCircle />", () => {
