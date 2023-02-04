@@ -34,7 +34,7 @@ function getPackageExports(
 ): PackageJSONExport {
   const exportsPayload = JSON.parse(`{
       "browser": "./${current.shortName}/index.js",
-      "node": "./${current.shortName}/index.cjs"
+      "node": "./${current.shortName}/index.ssr.js"
     }`);
 
   return {
@@ -75,7 +75,7 @@ async function writeAssetsFiles() {
 const ignoredIcons = ["ImPagebreak"]; // due to the name conflict with ImPagebreak
 
 const postBuildPool = pool("./src/build/post-build.js", {
-  maxWorkers: Math.min(8, cpus - 1),
+  maxWorkers: Math.min(4, cpus - 1),
 });
 
 async function writeEachPack(pack: PackAttachedIcons) {
@@ -113,7 +113,7 @@ async function writeEachPack(pack: PackAttachedIcons) {
   );
   // add types for the bundles
   await fs.copyFile(bundlePath, `${packFolder}/index.d.ts`);
-  await fs.copyFile(bundlePath, `${packFolder}/index.d.cts`);
+  await fs.copyFile(bundlePath, `${packFolder}/index.ssr.d.ts`);
 
   // replace the ts file with the web js bundle
   const postBuildWorker = await postBuildPool.proxy<{

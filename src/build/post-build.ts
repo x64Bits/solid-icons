@@ -1,37 +1,52 @@
-import { build, BuildOptions } from "esbuild";
-import { solidPlugin } from "esbuild-plugin-solid";
+import { dirname } from "path";
+import { build, InlineConfig } from "vite";
+import solidPlugin from "vite-plugin-solid";
 import { worker } from "workerpool";
 
+function getOptions(filePath: string, server: boolean): InlineConfig {
+  return {
+    build: {
+      lib: {
+        entry: filePath,
+        formats: ["es"],
+      },
+      outDir: dirname(filePath),
+      minify: true,
+      sourcemap: true,
+      write: true,
+      emptyOutDir: false,
+      rollupOptions: {
+        input: filePath,
+        external: ["solid-js", "solid-js/web"],
+        output: {
+          entryFileNames: server ? "index.ssr.js" : "index.js",
+        },
+      },
+      ssr: server,
+    },
+    plugins: [
+      solidPlugin({
+        babel: { compact: true },
+        solid: { hydratable: !server, generate: server ? "ssr" : "dom" },
+        ssr: server,
+        dev: false,
+      }),
+    ],
+  };
+}
+
 /**
+ * Bundle the icons with vite and vite-plugin-solid
+ *
+ * This builds two bundles, one for the client and one for the server.
  */
 export async function postBuild(filePath: string) {
-  // build the tsx file with esbuild
-  const esbuildOptions: BuildOptions = {
-    entryPoints: [filePath],
-    bundle: true,
-    minify: true,
-    sourcemap: true,
-    target: "es2021",
-    write: true,
-  };
+  process.env.NODE_ENV = "production";
   await Promise.all([
-    build({
-      ...esbuildOptions,
-      format: "esm",
-      outfile: filePath.replace(".ts", ".js"),
-      plugins: [solidPlugin({ babel: { compact: true } })],
-    }),
-    build({
-      ...esbuildOptions,
-      format: "cjs",
-      outfile: filePath.replace(".ts", ".cjs"),
-      plugins: [
-        solidPlugin({
-          babel: { compact: true },
-          solid: { generate: "ssr", hydratable: true },
-        }),
-      ],
-    }),
+    // Build the client bundle
+    build(getOptions(filePath, false)),
+    // Build the server bundle
+    build(getOptions(filePath, true)),
   ]);
 }
 
