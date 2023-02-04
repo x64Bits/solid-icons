@@ -40,7 +40,7 @@ function getPackageExports(
   return {
     ...previousValue,
     [`./${current.shortName}`]: exportsPayload,
-    [`./${current.shortName}/*`]: `./${current.shortName}/*.js`,
+    [`./${current.shortName}/*`]: `./${current.shortName}/*.jsx`,
   };
 }
 
