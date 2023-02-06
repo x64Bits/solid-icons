@@ -55,7 +55,6 @@ async function writeAssetsFiles() {
 
   delete packageJson.devDependencies;
   delete packageJson.scripts;
-  delete packageJson.type;
   packageJson.exports = {
     ["."]: ROOT_EXPORT,
     ...packages.reduce(getPackageExports, {}),
