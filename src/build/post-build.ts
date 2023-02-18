@@ -27,7 +27,7 @@ function getOptions(filePath: string, server: boolean): InlineConfig {
     plugins: [
       solidPlugin({
         babel: { compact: true },
-        solid: { hydratable: server, generate: server ? "ssr" : "dom" },
+        solid: { hydratable: true, generate: server ? "ssr" : "dom" },
         ssr: server,
         dev: false,
       }),
