@@ -1,7 +1,8 @@
-import fs from "fs";
+import fs from "fs-extra";
 import chalk from "chalk";
 import { promisify } from "util";
 import { exec } from "child_process";
+import { cpus, pool } from "workerpool";
 
 import {
   DIST_PATH,
@@ -12,17 +13,17 @@ import {
   LIB_PACKAGE_JSON,
 } from "./constants";
 import { fileTypes } from "./file-types";
-import { getFileByPath } from "./get-icons";
 import packages from "./packages.json" assert { type: "json" };
 import { PackageJSONExport, PackAttachedIcons, PackItem } from "./types";
+import type { postBuild } from "./post-build";
 
 const execAsync = promisify(exec);
 
 export async function prepareDist() {
   await Promise.all([execAsync("yarn build:lib", { cwd: ROOT_PATH })]);
-  fs.appendFileSync(`${DIST_PATH}/lib/package.json`, LIB_PACKAGE_JSON);
+  await fs.appendFile(`${DIST_PATH}/lib/package.json`, LIB_PACKAGE_JSON);
 
-  writeAssetsFiles();
+  await writeAssetsFiles();
 
   log(chalk.dim("🍬 Lib artifacts has been bundled") + chalk.green(" ✓"));
 }
@@ -33,48 +34,91 @@ function getPackageExports(
 ): PackageJSONExport {
   const exportsPayload = JSON.parse(`{
       "browser": "./${current.shortName}/index.js",
-      "node": "./${current.shortName}/index.cjs",
-      "default": "./${current.shortName}/index.cjs"
+      "node": "./${current.shortName}/index.ssr.js"
     }`);
 
-  return { ...previousValue, [`./${current.shortName}`]: exportsPayload };
+  return {
+    ...previousValue,
+    [`./${current.shortName}`]: exportsPayload,
+    [`./${current.shortName}/*`]: `./${current.shortName}/*.jsx`,
+  };
 }
 
-function writeAssetsFiles() {
-  includedFiles.forEach((file) => {
-    fs.cpSync(`${ROOT_PATH}/${file}`, `${DIST_PATH}/${file}`);
-  });
+async function writeAssetsFiles() {
+  await Promise.all(
+    includedFiles.map(async (file) => {
+      return fs.copy(`${ROOT_PATH}/${file}`, `${DIST_PATH}/${file}`);
+    })
+  );
 
-  const packageJson = JSON.parse(getFileByPath(`${ROOT_PATH}/package.json`));
+  const packageJson = await fs.readJson(`${ROOT_PATH}/package.json`);
 
   delete packageJson.devDependencies;
   delete packageJson.scripts;
-  delete packageJson.type;
   packageJson.exports = {
     ["."]: ROOT_EXPORT,
     ...packages.reduce(getPackageExports, {}),
   };
 
-  fs.appendFileSync(
+  await fs.appendFile(
     `${DIST_PATH}/package.json`,
     JSON.stringify(packageJson, null, 2)
   );
+
+  await fs.copyFile(
+    `${ROOT_PATH}/tsconfig.dist.json`,
+    `${DIST_PATH}/tsconfig.json`
+  );
 }
 
-function writeEachPack(pack: PackAttachedIcons) {
+const ignoredIcons = ["ImPagebreak"]; // due to the name conflict with ImPagebreak
+
+const postBuildPool = pool("./src/build/post-build.js", {
+  maxWorkers: Math.min(4, cpus - 1),
+});
+
+async function writeEachPack(pack: PackAttachedIcons) {
   const packFolder = `${DIST_PATH}/${pack.shortName}`;
 
-  fs.mkdirSync(packFolder);
+  await fs.mkdir(packFolder);
 
   for (let index = 0; index < fileTypes.length; index++) {
     const type = fileTypes[index];
-    const fileName = `${packFolder}/${type.fileName}`;
 
-    fs.appendFileSync(fileName, type.header);
-    pack.icons.forEach((icon) => {
-      fs.appendFileSync(fileName, type.template(icon));
-    });
+    // write each icon to a new file
+    await Promise.all(
+      pack.icons.map(async (icon) => {
+        if (ignoredIcons.includes(icon.fileName)) {
+          return;
+        }
+
+        const filePath = `${packFolder}/${icon.fileName}${type.extension}`;
+        await fs.appendFile(filePath, type.header + type.template(icon));
+      })
+    );
   }
+
+  // create index.ts file
+  const bundlePath = `${packFolder}/index.ts`;
+  await fs.writeFile(
+    bundlePath,
+    pack.icons
+      .map((icon) =>
+        ignoredIcons.includes(icon.fileName)
+          ? ""
+          : `export { ${icon.fileName} } from "./${icon.fileName}";`
+      )
+      .join("\n")
+  );
+  // add types for the bundles
+  await fs.copyFile(bundlePath, `${packFolder}/index.d.ts`);
+  await fs.copyFile(bundlePath, `${packFolder}/index.ssr.d.ts`);
+
+  // replace the ts file with the web js bundle
+  const postBuildWorker = await postBuildPool.proxy<{
+    postBuild: typeof postBuild;
+  }>();
+  await await postBuildWorker.postBuild(bundlePath);
 
   log(
     chalk.white(`📦 ${pack.packName}`) +
@@ -84,7 +128,6 @@ function writeEachPack(pack: PackAttachedIcons) {
 }
 
 export async function writeLibFiles(iconsPayload: PackAttachedIcons[]) {
-  for (let index = 0; index < iconsPayload.length; index++) {
-    writeEachPack(iconsPayload[index]);
-  }
+  await Promise.all(iconsPayload.map(writeEachPack));
+  await postBuildPool.terminate();
 }

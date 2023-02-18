@@ -1,26 +1,37 @@
 import { createSignal } from "solid-js";
 import rgbHex from "rgb-hex";
 import { afterEach, describe, expect, test } from "vitest";
-import { render, fireEvent, screen, cleanup } from "solid-testing-library";
+import { render, fireEvent, screen, cleanup } from "@solidjs/testing-library";
+import { FiCircle } from "../dist/fi/FiCircle";
 
-import { IconTemplate } from "../src/lib/index";
+describe("<FiCircle />", () => {
+  const initialColor = "#2c4f7c";
+  const innerHTML = `<circle cx="12" cy="12" r="10"></circle>`;
+  const viewBox = "0 0 24 24";
+  const height = "1em";
+  const width = "1em";
+  const color = "currentColor";
+  const strokeWidth = "2";
+  const overflow = "visible";
 
-const exampleIcon = {
-  a: { fill: "currentColor", viewBox: "0 0 16 16" },
-  c: '<path d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm7.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312z"/>',
-};
-
-const Icon = (props) => IconTemplate(exampleIcon, props);
-const initialColor = "#2c4f7c";
-
-describe("<IconTemplate />", () => {
   afterEach(cleanup);
 
   test("render child", () => {
-    const { container, unmount } = render(() => <Icon />);
-    const children = container.getElementsByTagName("path");
+    const { container, unmount } = render(() => <FiCircle />);
+    const children = container.getElementsByTagName("svg");
 
-    expect(children).toHaveLength(1);
+    expect(children.length).toBe(1);
+    const svg = children[0];
+
+    expect(svg.innerHTML).toBe(innerHTML);
+    expect(svg.getAttribute("viewBox")).toBe(viewBox);
+    expect(svg.getAttribute("height")).toBe(height);
+    expect(svg.getAttribute("width")).toBe(width);
+    expect(svg.getAttribute("stroke-width")).toBe(strokeWidth);
+    const style = getComputedStyle(svg);
+    expect(style.color).toBe(color);
+    expect(style.overflow).toBe(overflow);
+
     unmount();
   });
 
@@ -30,7 +41,7 @@ describe("<IconTemplate />", () => {
     const [color, setColor] = createSignal(initialColor);
 
     render(() => (
-      <Icon
+      <FiCircle
         color={color()}
         onClick={() => setColor(expectedColor)}
         role="svg"
@@ -47,15 +58,15 @@ describe("<IconTemplate />", () => {
   });
 
   test("viewBox defined", async () => {
-    render(() => <Icon role="svg" />);
+    render(() => <FiCircle role="svg" />);
     const svg = await screen.findByRole("svg");
 
     const viewBox = svg.getAttribute("viewBox");
-    expect(viewBox).toBe(exampleIcon.a.viewBox);
+    expect(viewBox).toBe(viewBox);
   });
 
   test("default values", async () => {
-    render(() => <Icon role="svg" />);
+    render(() => <FiCircle role="svg" />);
     const svg = await screen.findByRole("svg");
 
     const defaultHeight = svg.getAttribute("height");
@@ -68,7 +79,9 @@ describe("<IconTemplate />", () => {
   test("custom values", async () => {
     const customSize = "3em";
 
-    render(() => <Icon role="svg" size={customSize} color={initialColor} />);
+    render(() => (
+      <FiCircle role="svg" size={customSize} color={initialColor} />
+    ));
     const svg = await screen.findByRole("svg");
 
     const customHeight = svg.getAttribute("height");

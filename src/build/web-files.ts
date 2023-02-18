@@ -1,11 +1,9 @@
-import fs from "fs";
+import fs from "fs-extra";
 import chalk from "chalk";
-import { promisify } from "util";
 
 import { log, WEB_ICONS_PATH, WEB_PATH } from "./constants";
 import { IconContent, PackAttachedIcons } from "./types";
 
-const rmAsync = promisify(fs.rm);
 
 function attachCountIcons(packs: PackAttachedIcons[]) {
   return packs.map((pack) => ({
@@ -26,11 +24,11 @@ export async function writeWebFiles(packs: PackAttachedIcons[]) {
     ),
   };
 
-  await rmAsync(WEB_ICONS_PATH, { recursive: true, force: true });
+  await fs.remove(WEB_ICONS_PATH);
   fs.mkdirSync(WEB_ICONS_PATH);
 
-  await rmAsync(`${WEB_PATH}/search.js`, { recursive: true, force: true });
-  await rmAsync(`${WEB_PATH}/meta.js`, { recursive: true, force: true });
+  await fs.remove(`${WEB_PATH}/search.js`);
+  await fs.remove(`${WEB_PATH}/meta.js`);
 
   fs.appendFileSync(
     `${WEB_PATH}/search.js`,

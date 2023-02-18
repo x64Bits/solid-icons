@@ -1,42 +1,20 @@
-import fs from "fs";
-import { load } from "cheerio";
-
 import { getPackFiles } from "./get-files";
-import { formatFileName } from "./utils/file-name";
-import { optimizeContents } from "./optimize/index";
-import { IconContent, PackItem } from "./types";
+import type { IconContent, PackItem } from "./types";
+import type { getIconContent } from "./get-icon";
+import { getIconContentPool } from "./index";
 
-export const getFileByPath = (path: string) => fs.readFileSync(path, "utf8");
+export async function getIcons(pack: PackItem): Promise<IconContent[]> {
+  const filesPath = await getPackFiles(pack.path);
 
-const getIconContent = async (
-  path: string,
-  pack: PackItem
-): Promise<IconContent> => {
-  const rawFile = getFileByPath(path);
-  const optimizeFile = await optimizeContents(rawFile, pack.shortName);
-
-  const $ = load(optimizeFile.data, { xmlMode: true });
-  const mountedElement = $("svg");
-
-  const { children, attribs } = mountedElement[0];
-
-  return {
-    fileName: formatFileName(path, pack),
-    contents: children
-      .reduce(
-        (prev: string[], current) =>
-          current.type === "tag" ? [...prev, $.html(current)] : prev,
-        []
-      )
-      .join(""),
-    svgAttribs: attribs,
-  };
-};
-
-export function getIcons(pack: PackItem): Promise<IconContent[]> {
-  const filesPath = getPackFiles(pack.path);
-
-  return Promise.all(
-    filesPath.map(async (path) => await getIconContent(path, pack))
+  const iconContents = await Promise.all(
+    filesPath.map(async (path) => {
+      const worker = await getIconContentPool.proxy<{
+        getIconContent: typeof getIconContent;
+      }>();
+      const content = await await worker.getIconContent(path, pack);
+      return content;
+    })
   );
+
+  return iconContents;
 }
