@@ -1,6 +1,6 @@
 {
   "name": "solid-icons",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Modern solution for use icons on SolidJS",
   "author": "Ignacio Zsabo",
   "license": "MIT",
@@ -38,9 +38,7 @@
     "dotenv": "^16.0.3",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
-    "jsdom": "^21.0.0",
     "prettier": "2.8.3",
-    "rgb-hex": "^4.0.0",
     "rollup": "^3.10.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-preset-solid": "^2.0.1",

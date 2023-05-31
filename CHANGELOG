@@ -1,6 +1,14 @@
+## CHANGELOG 1.0.5:
+
+- Fix csss color selector.
+- Add CustomIcon component.
+
 ## CHANGELOG 1.0.0:
 
-TODO
+- Replace build legacy build strategy.
+- Fix Octicons naming convention.
+- Standardize dist files with the ecosystem.
+- tabler only replace one stroke.
 
 ## CHANGELOG 0.4.2:
 

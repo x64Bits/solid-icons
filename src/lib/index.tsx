@@ -1,4 +1,4 @@
-import type { JSX } from "solid-js";
+import { JSX, splitProps } from "solid-js";
 import { isServer, mergeProps } from "solid-js/web";
 
 type SVGSVGElementTags = JSX.SVGElementTags["svg"];
@@ -21,20 +21,23 @@ export interface IconBaseProps extends IconProps {
 
 export declare type IconTypes = (props: IconProps) => JSX.Element;
 
+export const CustomIcon = (props: IconBaseProps) =>
+  IconTemplate(props.src, props);
+
 export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
-  const mergedProps = mergeProps(iconSrc.a, props);
+  const mergedProps = mergeProps(iconSrc.a, props) as IconBaseProps;
+  const [_, svgProps] = splitProps(mergedProps, ["src"]);
 
   return (
     <svg
       stroke={iconSrc.a.stroke}
-      fill="currentColor"
+      color={props.color || "currentColor"}
       stroke-width="0"
       style={{
         ...props.style,
         overflow: "visible",
-        color: props.color || "currentColor",
       }}
-      {...mergedProps}
+      {...svgProps}
       height={props.size || "1em"}
       width={props.size || "1em"}
       innerHTML={iconSrc.c}

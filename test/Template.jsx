@@ -1,5 +1,4 @@
 import { createSignal } from "solid-js";
-import rgbHex from "rgb-hex";
 import { afterEach, describe, expect, test } from "vitest";
 import { render, fireEvent, screen, cleanup } from "solid-testing-library";
 
@@ -42,8 +41,8 @@ describe("<IconTemplate />", () => {
     fireEvent.click(svg);
     await Promise.resolve();
 
-    const elementColor = rgbHex(getComputedStyle(svg).color);
-    expect(elementColor).toMatchSnapshot(expectedColor);
+    const elementColor = svg.getAttribute("color").toLowerCase();
+    expect(elementColor).toMatchSnapshot(`#${expectedColor}`);
   });
 
   test("viewBox defined", async () => {
@@ -59,7 +58,7 @@ describe("<IconTemplate />", () => {
     const svg = await screen.findByRole("svg");
 
     const defaultHeight = svg.getAttribute("height");
-    const defaultColor = getComputedStyle(svg).color;
+    const defaultColor = svg.getAttribute("color");
 
     expect(defaultHeight).toBe("1em");
     expect(defaultColor).toBe("currentColor");
@@ -73,7 +72,7 @@ describe("<IconTemplate />", () => {
 
     const customHeight = svg.getAttribute("height");
     const customWidth = svg.getAttribute("width");
-    const customColor = `#${rgbHex(getComputedStyle(svg).color)}`;
+    const customColor = svg.getAttribute("color");
 
     expect(customHeight).toBe(customSize);
     expect(customWidth).toBe(customSize);
