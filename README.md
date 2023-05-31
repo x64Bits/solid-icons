@@ -57,6 +57,30 @@ import { SiJavascript } from "solid-icons/si";
 <SiJavascript size={24} color="#2c4f7c" />;
 ```
 
+## Custom icon
+
+There are situations where you want to use your own set of icons, CustomIcon is a component exposed from the library that uses the IconTemplate that all the icons in the library already use. (Thanks [kdaquila](https://github.com/kdaquila) for the example).
+
+```jsx
+import { CustomIcon } from "solid-icons/lib";
+
+const iconContent = {
+  a: { fill: "currentColor", viewBox: "0 0 384 512" },
+  c: '<path d="M384 319.1C384 425.9 297.9 512 192 512S0 425.87 0 320c0-58.67 27.82-106.8 54.57-134.1C69.54 169.3 96 179.8 96 201.5V287c0 35.17 27.97 64.5 63.16 64.94C194.9 352.5 224 323.6 224 288c0-88-175.1-96.12-52.15-277.2C185.35-8.92 216 .03 216 23.83 215.1 127 384 149.7 384 319.1z"/>',
+}
+
+<CustomIcon src={iconContent} size={24} color="#2c4f7c" />;
+```
+
+### Props
+
+| Key     | Default     | Notes                                                                                            |
+| ------- | ----------- | ------------------------------------------------------------------------------------------------ |
+| `src`   | required    | format: `a` Attributes needed for the svg like `viewBox`, `c`: svg content, look at the example. |
+| `size`  | `1em`       |                                                                                                  |
+| `class` | `undefined` |                                                                                                  |
+| `title` | `undefined` | A icon title a11y                                                                                |
+
 ## 🔋 Included icons pack
 
 | Icon Library                                                       | License                                                                 | Version |
@@ -65,7 +89,7 @@ import { SiJavascript } from "solid-icons/si";
 | [Bootstrap Icons](https://github.com/twbs/icons)                   | [MIT](https://opensource.org/licenses/MIT)                              | 1.7.2   |
 | [BoxIcons](https://github.com/atisawd/boxicons)                    | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 2.1.1   |
 | [Feather](https://feathericons.com/)                               | [MIT](https://github.com/feathericons/feather/blob/master/LICENSE)      | 4.28.0  |
-| [Font Awesome](https://fontawesome.com/)                           | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 6.1.2  |
+| [Font Awesome](https://fontawesome.com/)                           | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 6.1.2   |
 | [Heroicons](https://github.com/refactoringui/heroicons)            | [MIT](https://github.com/tailwindlabs/heroicons/blob/master/LICENSE)    | 1.0.3   |
 | [IcoMoon Free](https://github.com/Keyamoon/IcoMoon-Free)           | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 1.0.0   |
 | [Ionicons](https://ionicons.com/)                                  | [MIT](https://github.com/ionic-team/ionicons/blob/master/LICENSE)       | 5.5.2   |
@@ -75,7 +99,7 @@ import { SiJavascript } from "solid-icons/si";
 | [VS Code Icons](https://github.com/microsoft/vscode-codicons)      | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)               | 0.0.27  |
 | [Weather Icons](https://erikflowers.github.io/weather-icons/)      | [SIL OFL 1.1](http://scripts.sil.org/OFL)                               | 2.0.12  |
 | [css.gg](https://github.com/astrit/css.gg)                         | [MIT](https://opensource.org/licenses/MIT)                              | 2.0.0   |
-| [Tabler Icons](https://github.com/tabler/tabler-icons)             | [MIT](https://opensource.org/licenses/MIT)                              | 1.119.0  |
+| [Tabler Icons](https://github.com/tabler/tabler-icons)             | [MIT](https://opensource.org/licenses/MIT)                              | 1.119.0 |
 | [Github Octicons](https://github.com/primer/octicons)              | [MIT](https://opensource.org/licenses/MIT)                              | 17.3.0  |
 
 ## ⚙️ Configuration
