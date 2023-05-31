@@ -31,7 +31,7 @@ export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
   return (
     <svg
       stroke={iconSrc.a.stroke}
-      fill={props.color || "currentColor"}
+      color={props.color || "currentColor"}
       stroke-width="0"
       style={{
         ...props.style,
