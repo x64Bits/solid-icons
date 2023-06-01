@@ -100,7 +100,7 @@
     "packName": "Heroicons",
     "license": "MIT",
     "url": "https://github.com/refactoringui/heroicons",
-    "path": "./src/icons/heroicons/src",
+    "path": "./src/icons/heroicons/src/24",
     "folderName": "heroicons"
   },
   {
