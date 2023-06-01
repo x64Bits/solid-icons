@@ -39,12 +39,15 @@ export function formatFileName(filePath: string, packInfo: PackItem) {
     splittedPath[splittedPath.length - 1],
     packInfo.shortName
   );
-  const appendStyle = getStyle(packInfo.path, splittedPath);
+  const appendStyle = getStyle(packInfo.path, splittedPath).replace(
+    /[^a-zA-Z0-9]/g,
+    ""
+  );
   const rawFileName = removeExtension(name);
 
   const nameTemplate = `${capitalizeFirstLetter(
     packInfo.shortName
-  )}${appendStyle}${toPascalCase(rawFileName)}`;
+  )}${toPascalCase(appendStyle)}${toPascalCase(rawFileName)}`;
 
   return nameTemplate;
 }

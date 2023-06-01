@@ -12,7 +12,7 @@ function cjsTemplate(icon: IconContent): string {
 
 function moduleTemplate(icon: IconContent) {
   return /* javascript */ `
-  export function ${icon.fileName} (props) {
+  export function ${icon.fileName}(props) {
       return IconTemplate({
         a: ${JSON.stringify(icon.svgAttribs)},
         c: '${icon.contents}'
