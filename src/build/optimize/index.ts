@@ -1,5 +1,6 @@
 import {
   normalizeOutline,
+  normalizeRi,
   normalizeTb,
   normalizeTwoTone,
 } from "./normalize-packs";
@@ -22,6 +23,9 @@ export async function optimizeContents(contents: string, shortName: string) {
       break;
     case NORMALIZE_PACK.AI:
       optimizedFile.data = normalizeTwoTone(optimizedFile.data);
+      break;
+    case NORMALIZE_PACK.RI:
+      optimizedFile.data = normalizeRi(optimizedFile.data);
       break;
   }
 
