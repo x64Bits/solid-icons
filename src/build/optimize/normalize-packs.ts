@@ -18,6 +18,13 @@ export function normalizeTb(iconData: string): string {
   return iconData.replace(regex, replacement);
 }
 
+export function normalizeRi(iconData: string): string {
+  const regex = /<path/i;
+  const replacement = '<path fill="currentColor"';
+
+  return iconData.replace(regex, replacement);
+}
+
 export function normalizeOutline(iconData: string): string {
   let normalized = iconData;
 

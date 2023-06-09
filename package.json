@@ -1,6 +1,6 @@
 {
   "name": "solid-icons",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Modern solution for use icons on SolidJS",
   "author": "Ignacio Zsabo",
   "license": "MIT",
@@ -15,7 +15,8 @@
     "submodule": "node --no-warnings --loader ts-node/esm --experimental-specifier-resolution=node ./src/build/submodule.ts",
     "build": "node --no-warnings --loader ts-node/esm --experimental-specifier-resolution=node ./src/build/index.ts",
     "build:lib": "rollup --configPlugin @rollup/plugin-typescript -c",
-    "build:all": "shx rm -rf ./dist_all && shx mkdir ./dist_all && yarn build --web && shx cp ./all_package.json ./dist_all/package.json"
+    "build:all": "shx rm -rf ./dist_all && shx mkdir ./dist_all && yarn build --web && shx cp ./all_package.json ./dist_all/package.json",
+    "publish": "yarn build && npm publish ./dist"
   },
   "keywords": [
     "solidjs",

@@ -52,9 +52,9 @@ npm install solid-icons --save
 ## Usage
 
 ```jsx
-import { SiJavascript } from "solid-icons/si";
+import { TbBrandSolidjs } from "solid-icons/tb";
 
-<SiJavascript size={24} color="#2c4f7c" />;
+<TbBrandSolidjs size={24} color="#2c4f7c" />;
 ```
 
 ## Custom icon
@@ -107,9 +107,9 @@ const iconContent = {
 solid-icons components receive props like any SVG, you also have a few custom ones.
 
 ```jsx
-import { SiJavascript } from "solid-icons/si";
+import { TbBrandSolidjs } from "solid-icons/tb";
 
-<SiJavascript size={24} color="#2c4f7c" class="custom-icon" title="a11y" />;
+<TbBrandSolidjs size={24} color="#2c4f7c" class="custom-icon" title="a11y" />;
 ```
 
 | Key     | Default                  | Notes             |
