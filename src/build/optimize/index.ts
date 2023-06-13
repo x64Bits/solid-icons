@@ -5,11 +5,27 @@ import {
   normalizeTwoTone,
 } from "./normalize-packs";
 import { svgoConfig } from "./svgo-config";
-import { optimize } from "svgo";
+import { Output, optimize } from "svgo";
 import { NORMALIZE_PACK } from "../constants";
 
 export async function optimizeContents(contents: string, shortName: string) {
-  const optimizedFile = optimize(contents, svgoConfig);
+  let optimizedFile: Output;
+  switch (shortName) {
+    case NORMALIZE_PACK.TB:
+      const tbSvgoConfig = {
+        ...svgoConfig,
+        plugins: svgoConfig.plugins?.filter((plugin) => {
+          if ((plugin as any).name == "removeAttributesBySelector") {
+            return false;
+          }
+        }),
+      };
+      optimizedFile = optimize(contents, tbSvgoConfig);
+      break;
+    default:
+      optimizedFile = optimize(contents, svgoConfig);
+      break;
+  }
 
   switch (shortName) {
     case NORMALIZE_PACK.IO:
