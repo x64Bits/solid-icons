@@ -1,3 +1,7 @@
+## CHANGELOG 1.0.9:
+
+- linkthai introduce a solution for latest tabler issue on `stroke-width=2` by default.
+
 ## CHANGELOG 1.0.8:
 
 - Fix remix color doesn't affect by `color` prop.
