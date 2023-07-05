@@ -1,5 +1,5 @@
 import { JSX, splitProps } from "solid-js";
-import { isServer, mergeProps } from "solid-js/web";
+import { isServer, mergeProps, ssr } from "solid-js/web";
 
 type SVGSVGElementTags = JSX.SVGElementTags["svg"];
 
@@ -43,7 +43,7 @@ export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
       innerHTML={iconSrc.c}
       xmlns="http://www.w3.org/2000/svg"
     >
-      {isServer && iconSrc.c}
+      {isServer && ssr(iconSrc.c)}
       {props.title && <title>{props.title}</title>}
     </svg>
   );
