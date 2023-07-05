@@ -33,6 +33,7 @@ function getPackageExports(
 ): PackageJSONExport {
   const exportsPayload = JSON.parse(`{
       "browser": "./${current.shortName}/index.js",
+      "types": "./${current.shortName}/index.d.ts",
       "node": "./${current.shortName}/index.cjs",
       "default": "./${current.shortName}/index.cjs"
     }`);

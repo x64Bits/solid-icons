@@ -25,6 +25,7 @@ export const PACK_PACKAGE_JSON = /* javascript */ `{
 
 export const ROOT_EXPORT = {
   browser: "./lib/index.js",
+  types: "./lib/index.d.ts",
   node: "./lib/index.cjs",
   default: "./lib/index.cjs",
 };
