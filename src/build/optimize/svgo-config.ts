@@ -3,13 +3,49 @@ import { Config } from "svgo";
 export const svgoConfig: Config = {
   plugins: [
     {
-      name: "preset-default",
-      params: {
-        overrides: {
-          removeXMLProcInst: false,
-          removeViewBox: false,
-        },
-      },
+      name: "cleanupAttrs",
+    },
+    {
+      name: "removeDoctype",
+    },
+    {
+      name: "removeXMLProcInst",
+    },
+    {
+      name: "removeComments",
+    },
+    {
+      name: "removeMetadata",
+    },
+    {
+      name: "removeTitle",
+    },
+    {
+      name: "removeDesc",
+    },
+    {
+      name: "removeUselessDefs",
+    },
+    {
+      name: "removeEditorsNSData",
+    },
+    {
+      name: "removeEmptyAttrs",
+    },
+    {
+      name: "removeHiddenElems",
+    },
+    {
+      name: "removeEmptyText",
+    },
+    {
+      name: "removeEmptyContainers",
+    },
+    {
+      name: "removeViewBox",
+    },
+    {
+      name: "cleanupEnableBackground",
     },
     "convertStyleToAttrs",
     {
@@ -18,7 +54,50 @@ export const svgoConfig: Config = {
         currentColor: true,
       },
     },
-    "removeDimensions",
+    "convertPathData",
+    "convertTransform",
+    {
+      name: "removeUnknownsAndDefaults",
+    },
+    {
+      name: "removeNonInheritableGroupAttrs",
+    },
+    {
+      name: "removeUselessStrokeAndFill",
+    },
+    {
+      name: "removeUnusedNS",
+    },
+    {
+      name: "cleanupNumericValues",
+    },
+    {
+      name: "moveElemsAttrsToGroup",
+    },
+    {
+      name: "moveGroupAttrsToElems",
+    },
+    {
+      name: "collapseGroups",
+    },
+    {
+      name: "removeRasterImages",
+    },
+    {
+      name: "mergePaths",
+    },
+    {
+      name: "convertShapeToPath",
+      params: {
+        convertArcs: true,
+      },
+    },
+    {
+      name: "sortAttrs",
+    },
+    {
+      name: "removeDimensions",
+    },
     {
       name: "removeAttributesBySelector",
       params: {
@@ -28,7 +107,9 @@ export const svgoConfig: Config = {
     },
     {
       name: "removeAttrs",
-      params: { attrs: "data.*|class|xmlns" },
-    },
-  ],
+      params: {
+        attrs: ["data.*", "class", "xmlns"],
+      },
+    },
+  ],
 };
