@@ -8,7 +8,11 @@ import { svgoConfig } from "./svgo-config";
 import { Output, optimize } from "svgo";
 import { NORMALIZE_PACK } from "../constants";
 
-export async function optimizeContents(contents: string, shortName: string) {
+export async function optimizeContents(
+  contents: string,
+  shortName: string,
+  path: string
+) {
   let optimizedFile: Output;
   switch (shortName) {
     case NORMALIZE_PACK.TB:
@@ -38,7 +42,7 @@ export async function optimizeContents(contents: string, shortName: string) {
       optimizedFile.data = normalizeOutline(optimizedFile.data);
       break;
     case NORMALIZE_PACK.AI:
-      optimizedFile.data = normalizeTwoTone(optimizedFile.data);
+      optimizedFile.data = normalizeTwoTone(optimizedFile.data, path);
       break;
     case NORMALIZE_PACK.RI:
       optimizedFile.data = normalizeRi(optimizedFile.data);
