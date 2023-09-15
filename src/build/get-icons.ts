@@ -13,7 +13,7 @@ const getIconContent = async (
   pack: PackItem
 ): Promise<IconContent> => {
   const rawFile = getFileByPath(path);
-  const optimizeFile = await optimizeContents(rawFile, pack.shortName);
+  const optimizeFile = await optimizeContents(rawFile, pack.shortName, path);
 
   const $ = load(optimizeFile.data, { xmlMode: true });
   const mountedElement = $("svg");
@@ -38,5 +38,5 @@ export function getIcons(pack: PackItem): Promise<IconContent[]> {
 
   return Promise.all(
     filesPath.map(async (path) => await getIconContent(path, pack))
-  );
+  ).then((contents) => contents.filter((icon) => !!icon.contents.length));
 }
