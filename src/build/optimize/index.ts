@@ -8,6 +8,16 @@ import { svgoConfig } from "./svgo-config";
 import { Output, optimize } from "svgo";
 import { NORMALIZE_PACK } from "../constants";
 
+const disablePlugins = (names: string[]) => {
+  return {
+    ...svgoConfig,
+    plugins: svgoConfig.plugins?.filter(
+      /** avoid type issue with `svgo` */
+      (plugin: any) => !names.includes(plugin.name)
+    ),
+  };
+};
+
 export async function optimizeContents(
   contents: string,
   shortName: string,
@@ -25,6 +35,13 @@ export async function optimizeContents(
         }),
       };
       optimizedFile = optimize(contents, tbSvgoConfig);
+      break;
+    case NORMALIZE_PACK.AI:
+      if (path.includes("twotone")) {
+        optimizedFile = optimize(contents, disablePlugins(["convertColors"]));
+      } else {
+        optimizedFile = optimize(contents, svgoConfig);
+      }
       break;
     default:
       optimizedFile = optimize(contents, svgoConfig);

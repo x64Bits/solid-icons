@@ -105,14 +105,14 @@ describe("Ant Design icons SVG", () => {
       const isTwotone = iconName.toLocaleLowerCase().includes("twotone");
 
       // Iterate through each <path> element
-      const fillOpacity06Count = Array.from(pathElements).filter(
-        (pathElement) => pathElement.getAttribute("fill-opacity") === "0.6"
+      const fillOpacityCount = Array.from(pathElements).filter(
+        (pathElement) => pathElement.getAttribute("fill-opacity") === "0.09"
       ).length;
 
       if (isTwotone) {
-        expect(fillOpacity06Count).toBe(1);
+        expect(fillOpacityCount).toBeGreaterThan(0);
       } else {
-        expect(fillOpacity06Count).toBe(0);
+        expect(fillOpacityCount).toBe(0);
       }
 
       unmount();

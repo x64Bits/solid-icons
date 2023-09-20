@@ -110,6 +110,6 @@ export const svgoConfig: Config = {
       params: {
         attrs: ["data.*", "class", "xmlns"],
       },
-    },
-  ],
+    },
+  ],
 };
