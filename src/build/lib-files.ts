@@ -10,6 +10,7 @@ import {
   ROOT_PATH,
   ROOT_EXPORT,
   LIB_PACKAGE_JSON,
+  EXPORTS_KEYS,
 } from "./constants";
 import { fileTypes } from "./file-types";
 import { getFileByPath } from "./get-icons";
@@ -31,14 +32,34 @@ function getPackageExports(
   previousValue: PackageJSONExport,
   current: PackItem
 ): PackageJSONExport {
-  const exportsPayload = JSON.parse(`{
-      "browser": "./${current.shortName}/index.js",
+  const exportsTemplate = JSON.parse(`{
+    "import": {
       "types": "./${current.shortName}/index.d.ts",
-      "node": "./${current.shortName}/index.cjs",
-      "default": "./${current.shortName}/index.cjs"
-    }`);
+      "default": "./${current.shortName}/index.js"
+    },
+    "require": "./${current.shortName}/index.cjs",
+    "browser": "./${current.shortName}/index.js",
+    "node": "./${current.shortName}/index.cjs",
+    "default": "./${current.shortName}/index.cjs"
+  }`);
 
-  return { ...previousValue, [`./${current.shortName}`]: exportsPayload };
+  const runtimeExports = [
+    ...EXPORTS_KEYS.map((key) => ({
+      [key]: exportsTemplate,
+    })),
+    {
+      browser: {
+        development: exportsTemplate,
+        ...exportsTemplate,
+      },
+      ...exportsTemplate,
+    },
+  ];
+
+  return {
+    ...previousValue,
+    [`./${current.shortName}`]: Object.assign({}, ...runtimeExports),
+  };
 }
 
 function writeAssetsFiles() {
@@ -46,19 +67,25 @@ function writeAssetsFiles() {
     fs.cpSync(`${ROOT_PATH}/${file}`, `${DIST_PATH}/${file}`);
   });
 
-  const packageJson = JSON.parse(getFileByPath(`${ROOT_PATH}/package.json`));
+  const packageDotJson = JSON.parse(getFileByPath(`${ROOT_PATH}/package.json`));
 
-  delete packageJson.devDependencies;
-  delete packageJson.scripts;
-  delete packageJson.type;
-  packageJson.exports = {
+  delete packageDotJson.devDependencies;
+  delete packageDotJson.scripts;
+  delete packageDotJson.type;
+  delete packageDotJson.engines;
+  packageDotJson.main = "./lib/index.cjs";
+  packageDotJson.types = "./lib/index.d.ts";
+  packageDotJson.module = "./lib/index.js";
+  packageDotJson.unpkg = "./lib/index.cjs";
+
+  packageDotJson.exports = {
     ["."]: ROOT_EXPORT,
     ...packages.reduce(getPackageExports, {}),
   };
 
   fs.appendFileSync(
     `${DIST_PATH}/package.json`,
-    JSON.stringify(packageJson, null, 2)
+    JSON.stringify(packageDotJson, null, 2)
   );
 }
 

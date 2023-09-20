@@ -24,13 +24,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - name: Install Git
-        run: apt-get update && apt install sudo && sudo apt-get install git -y
 
-      - run: yarn install --frozen-lockfile
+      - name: Clean install
+        run: yarn install --frozen-lockfile
 
       - name: Update Submodules
         run: yarn submodule
 
-      - run: yarn build
-      - run: yarn test
+      - name: Generate icons
+        run: yarn build
+
+      - name: Run all tests
+        run: yarn test

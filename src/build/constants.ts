@@ -57,3 +57,5 @@ export const NORMALIZE_FILE_NAME = {
   BI: "bi",
   OC: "oc",
 };
+
+export const EXPORTS_KEYS = ["worker", "deno", "node", "development"];
