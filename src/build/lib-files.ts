@@ -12,7 +12,7 @@ import {
   LIB_PACKAGE_JSON,
   EXPORTS_KEYS,
 } from "./constants";
-import { fileTypes } from "./file-types";
+import { fileTypes } from "./file-templates";
 import { getFileByPath } from "./get-icons";
 import packages from "./packages.json" assert { type: "json" };
 import { PackageJSONExport, PackAttachedIcons, PackItem } from "./types";
@@ -39,8 +39,9 @@ function getPackageExports(
     },
     "require": "./${current.shortName}/index.cjs",
     "browser": "./${current.shortName}/index.js",
-    "node": "./${current.shortName}/index.cjs",
-    "default": "./${current.shortName}/index.cjs"
+    "node": "./${current.shortName}/index.js",
+    "default": "./${current.shortName}/index.js",
+    "solid": "./${current.shortName}/index.js"
   }`);
 
   const runtimeExports = [
@@ -75,7 +76,7 @@ function writeAssetsFiles() {
   delete packageDotJson.engines;
   packageDotJson.main = "./lib/index.cjs";
   packageDotJson.types = "./lib/index.d.ts";
-  packageDotJson.module = "./lib/index.js";
+  packageDotJson.module = "./lib/index.jsx";
   packageDotJson.unpkg = "./lib/index.cjs";
 
   packageDotJson.exports = {
