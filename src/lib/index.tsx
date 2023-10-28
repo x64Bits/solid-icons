@@ -1,4 +1,10 @@
-import { JSX, splitProps } from "solid-js";
+import {
+  JSX,
+  createEffect,
+  createSignal,
+  onCleanup,
+  splitProps,
+} from "solid-js";
 import { isServer, mergeProps, ssr } from "solid-js/web";
 
 type SVGSVGElementTags = JSX.SVGElementTags["svg"];
@@ -28,6 +34,14 @@ export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
   const mergedProps = mergeProps(iconSrc.a, props) as IconBaseProps;
   const [_, svgProps] = splitProps(mergedProps, ["src"]);
 
+  const [content, setContent] = createSignal<string>("");
+
+  createEffect(() => setContent(iconSrc.c));
+
+  onCleanup(() => {
+    setContent("");
+  });
+
   return (
     <svg
       stroke={iconSrc.a?.stroke}
@@ -41,11 +55,10 @@ export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
       {...svgProps}
       height={props.size || "1em"}
       width={props.size || "1em"}
-      innerHTML={iconSrc.c}
       xmlns="http://www.w3.org/2000/svg"
+      innerHTML={content()}
     >
-      {isServer && ssr(iconSrc.c)}
-      {props.title && <title>{props.title}</title>}
+      {isServer && ssr(<g innerHTML={iconSrc.c} />)}
     </svg>
   );
 }
