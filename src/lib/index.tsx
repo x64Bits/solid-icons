@@ -1,6 +1,7 @@
 import {
   JSX,
   createEffect,
+  createMemo,
   createSignal,
   onCleanup,
   splitProps,
@@ -33,10 +34,12 @@ export const CustomIcon = (props: IconBaseProps) =>
 export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
   const mergedProps = mergeProps(iconSrc.a, props) as IconBaseProps;
   const [_, svgProps] = splitProps(mergedProps, ["src"]);
-
   const [content, setContent] = createSignal<string>("");
+  const rawContent = createMemo(() =>
+    props.title ? `${iconSrc.c}<title>${props.title}</title>` : iconSrc.c
+  );
 
-  createEffect(() => setContent(iconSrc.c));
+  createEffect(() => setContent(rawContent()));
 
   onCleanup(() => {
     setContent("");
@@ -58,7 +61,7 @@ export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
       xmlns="http://www.w3.org/2000/svg"
       innerHTML={content()}
     >
-      {isServer && ssr(<g innerHTML={iconSrc.c} />)}
+      {isServer && ssr(rawContent())}
     </svg>
   );
 }
