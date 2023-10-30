@@ -8,13 +8,16 @@ export default withSolid([
       file: "./dist/lib/index.js",
       format: "module",
     },
+    solidOptions: {
+      hydratable: true,
+    },
   },
   {
     input: "src/lib/index.tsx",
     mappingName: "lib",
     solidOptions: {
       generate: "ssr",
-      hydratable: false,
+      hydratable: true,
     },
     targets: ["cjs"],
     output: {

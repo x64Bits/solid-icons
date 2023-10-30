@@ -1,3 +1,6 @@
+import { optimize } from "svgo";
+import { svgoConfig } from "./svgo-config";
+
 const hiReplacements = [
   {
     // Stroke `currentColor` by default
@@ -24,7 +27,7 @@ const tbReplacements = [
   },
 ];
 
-export function normalizeTb(iconData: string): string {
+export function normalizeTb(iconData: string) {
   let normalized = iconData;
 
   for (let i = 0; i < tbReplacements.length; i++) {
@@ -35,14 +38,14 @@ export function normalizeTb(iconData: string): string {
   return normalized;
 }
 
-export function normalizeRi(iconData: string): string {
+export function normalizeRi(iconData: string) {
   const regex = /<path/i;
   const replacement = '<path fill="currentColor"';
 
   return iconData.replace(regex, replacement);
 }
 
-export function normalizeOutline(iconData: string): string {
+export function normalizeOutline(iconData: string) {
   let normalized = iconData;
 
   for (let i = 0; i < hiReplacements.length; i++) {
@@ -53,13 +56,17 @@ export function normalizeOutline(iconData: string): string {
   return normalized;
 }
 
-export function normalizeTwoTone(iconData: string, path: string): string {
+export function normalizeTwoTone(iconData: string, path: string) {
   if (!path.includes("twotone")) {
-    return iconData;
+    return optimize(iconData, svgoConfig).data;
   }
 
-  const regex = /fill="currentColor"/i;
-  const replacement = 'fill="currentColor" fill-opacity="0.6"';
+  const baseColorRegex = /fill="#(333)"/gi;
+  const baseColorReplacement = 'fill="currentColor"';
+  const secondaryColorRegex = /fill="#(E6E6E6|D9D9D9|D8D8D8)"/gi;
+  const secondaryColorReplacement = 'fill="currentColor" fill-opacity="0.09"';
 
-  return iconData.replace(regex, replacement);
+  return iconData
+    .replace(baseColorRegex, baseColorReplacement)
+    .replace(secondaryColorRegex, secondaryColorReplacement);
 }

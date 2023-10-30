@@ -36,7 +36,7 @@ export const fileTypes = [
     type: "mjs",
     template: (iconContent: IconContent) => moduleTemplate(iconContent),
     // eslint-disable-next-line quotes, @typescript-eslint/quotes
-    header: /* javascript */ `import { IconTemplate } from "../lib/index.js";`,
+    header: /* javascript */ `import { IconTemplate } from "../lib/index.jsx";`,
     fileName: "index.js",
   },
   {

@@ -45,6 +45,16 @@ export async function writeWebFiles(packs: PackAttachedIcons[]) {
   );
 
   packs.forEach(writeEachWebFiles);
+
+  const count = packs
+    .map((pack) => pack.icons.length)
+    .reduce((prev, crr) => Number(prev) + Number(crr), 0);
+
+  log(
+    chalk.white(`➕ ${count}`) +
+      chalk.dim(" icons generated") +
+      chalk.green(" ℹ️")
+  );
 }
 
 async function writeEachWebFiles(pack: PackAttachedIcons) {

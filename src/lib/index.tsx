@@ -1,4 +1,11 @@
-import { JSX, splitProps } from "solid-js";
+import {
+  JSX,
+  createEffect,
+  createMemo,
+  createSignal,
+  onCleanup,
+  splitProps,
+} from "solid-js";
 import { isServer, mergeProps, ssr } from "solid-js/web";
 
 type SVGSVGElementTags = JSX.SVGElementTags["svg"];
@@ -27,6 +34,16 @@ export const CustomIcon = (props: IconBaseProps) =>
 export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
   const mergedProps = mergeProps(iconSrc.a, props) as IconBaseProps;
   const [_, svgProps] = splitProps(mergedProps, ["src"]);
+  const [content, setContent] = createSignal<string>("");
+  const rawContent = createMemo(() =>
+    props.title ? `${iconSrc.c}<title>${props.title}</title>` : iconSrc.c
+  );
+
+  createEffect(() => setContent(rawContent()));
+
+  onCleanup(() => {
+    setContent("");
+  });
 
   return (
     <svg
@@ -41,11 +58,10 @@ export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
       {...svgProps}
       height={props.size || "1em"}
       width={props.size || "1em"}
-      innerHTML={iconSrc.c}
       xmlns="http://www.w3.org/2000/svg"
+      innerHTML={content()}
     >
-      {isServer && ssr(iconSrc.c)}
-      {props.title && <title>{props.title}</title>}
+      {isServer && ssr(rawContent())}
     </svg>
   );
 }

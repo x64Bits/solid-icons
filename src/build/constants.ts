@@ -15,19 +15,23 @@ export const log = console.log;
 
 export const LIB_PACKAGE_JSON = /* javascript */ `{
   "main": "./index.cjs",
-  "module": "./index.js"
-}`;
-
-export const PACK_PACKAGE_JSON = /* javascript */ `{
-  "sideEffects": false,
-  "module": "./index.js"
+  "module": "./index.jsx",
+  "solid": "./index.jsx",
+  "exports": {
+    ".": {
+      "default": "./index.jsx",
+      "solid": "./index.jsx"
+    }
+  }
 }`;
 
 export const ROOT_EXPORT = {
   browser: "./lib/index.js",
   types: "./lib/index.d.ts",
   node: "./lib/index.cjs",
-  default: "./lib/index.cjs",
+  default: "./lib/index.jsx",
+  solid: "./lib/index.jsx",
+  astro: "./lib/index.jsx",
 };
 
 export const includedFiles = ["LICENSE", "README.md"];
@@ -57,3 +61,5 @@ export const NORMALIZE_FILE_NAME = {
   BI: "bi",
   OC: "oc",
 };
+
+export const EXPORTS_KEYS = ["worker", "deno", "node", "development"];
