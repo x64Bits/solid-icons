@@ -6,7 +6,8 @@ import {
   onCleanup,
   splitProps,
 } from "solid-js";
-import { isServer, mergeProps, ssr } from "solid-js/web";
+import { mergeProps } from "solid-js";
+import { isServer, ssr } from "solid-js/web";
 
 type SVGSVGElementTags = JSX.SVGElementTags["svg"];
 
