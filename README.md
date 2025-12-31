@@ -85,22 +85,22 @@ const iconContent = {
 
 | Icon Library                                                       | License                                                                 | Version | Abbreviation |
 | ------------------------------------------------------------------ | ----------------------------------------------------------------------- | ------- | ------------ |
-| [Ant Design Icons](https://github.com/ant-design/ant-design-icons) | [MIT](https://opensource.org/licenses/MIT)                              | 4.2.1   | ai           |
-| [Bootstrap Icons](https://github.com/twbs/icons)                   | [MIT](https://opensource.org/licenses/MIT)                              | 1.10.5  | bs           |
+| [Ant Design Icons](https://github.com/ant-design/ant-design-icons) | [MIT](https://opensource.org/licenses/MIT)                              | 4.4.2   | ai           |
+| [Bootstrap Icons](https://github.com/twbs/icons)                   | [MIT](https://opensource.org/licenses/MIT)                              | 1.13.1  | bs           |
 | [BoxIcons](https://github.com/atisawd/boxicons)                    | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 2.1.4   | bi           |
-| [Feather](https://feathericons.com/)                               | [MIT](https://github.com/feathericons/feather/blob/master/LICENSE)      | 4.29.0  | fi           |
-| [Font Awesome](https://fontawesome.com/)                           | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 6.4.0   | fa           |
-| [Heroicons](https://github.com/refactoringui/heroicons)            | [MIT](https://github.com/tailwindlabs/heroicons/blob/master/LICENSE)    | 2.0.18  | hi           |
+| [Feather](https://feathericons.com/)                               | [MIT](https://github.com/feathericons/feather/blob/master/LICENSE)      | 4.29.2  | fi           |
+| [Font Awesome](https://fontawesome.com/)                           | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 6.7.0   | fa           |
+| [Heroicons](https://github.com/refactoringui/heroicons)            | [MIT](https://github.com/tailwindlabs/heroicons/blob/master/LICENSE)    | 2.2.0   | hi           |
 | [IcoMoon Free](https://github.com/Keyamoon/IcoMoon-Free)           | [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)       | 1.0.0   | im           |
-| [Ionicons](https://ionicons.com/)                                  | [MIT](https://github.com/ionic-team/ionicons/blob/master/LICENSE)       | 7.1.2   | io           |
-| [Remix Icon](https://github.com/Remix-Design/RemixIcon)            | [Apache License Version 2.0](http://www.apache.org/licenses/)           | 3.3.0   | ri           |
-| [Simple Icons](https://simpleicons.org/)                           | [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/) | 9.0.0   | si           |
+| [Ionicons](https://ionicons.com/)                                  | [MIT](https://github.com/ionic-team/ionicons/blob/master/LICENSE)       | 8.0.13  | io           |
+| [Remix Icon](https://github.com/Remix-Design/RemixIcon)            | [Apache License Version 2.0](http://www.apache.org/licenses/)           | 4.8.0   | ri           |
+| [Simple Icons](https://simpleicons.org/)                           | [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/) | 16.3.0  | si           |
 | [Typicons](http://s-ings.com/typicons/)                            | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)         | 2.1.2   | ti           |
-| [VS Code Icons](https://github.com/microsoft/vscode-codicons)      | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)               | 0.0.32  | vs           |
+| [VS Code Icons](https://github.com/microsoft/vscode-codicons)      | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)               | 0.0.44  | vs           |
 | [Weather Icons](https://erikflowers.github.io/weather-icons/)      | [SIL OFL 1.1](http://scripts.sil.org/OFL)                               | 2.0.12  | wi           |
-| [css.gg](https://github.com/astrit/css.gg)                         | [MIT](https://opensource.org/licenses/MIT)                              | 2.0.0   | cg           |
-| [Tabler Icons](https://github.com/tabler/tabler-icons)             | [MIT](https://opensource.org/licenses/MIT)                              | 2.20.0  | tb           |
-| [Github Octicons](https://github.com/primer/octicons)              | [MIT](https://opensource.org/licenses/MIT)                              | 19.1.0  | oc           |
+| [css.gg](https://github.com/astrit/css.gg)                         | [MIT](https://opensource.org/licenses/MIT)                              | 2.1.4   | cg           |
+| [Tabler Icons](https://github.com/tabler/tabler-icons)             | [MIT](https://opensource.org/licenses/MIT)                              | 3.36.0  | tb           |
+| [Github Octicons](https://github.com/primer/octicons)              | [MIT](https://opensource.org/licenses/MIT)                              | 19.21.1 | oc           |
 
 ## ⚙️ Configuration
 

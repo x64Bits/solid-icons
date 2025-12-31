@@ -46,3 +46,6 @@
 [submodule "src/icons/octicons"]
 	path = src/icons/octicons
 	url = https://github.com/primer/octicons
+[submodule "src/icons/material-design-icons"]
+	path = src/icons/material-design-icons
+	url = https://github.com/marella/material-design-icons

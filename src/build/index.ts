@@ -1,11 +1,15 @@
 import arg from "arg";
+import fs from "fs";
 
-import packages from "./packages.json" assert { type: "json" };
 import { getIcons } from "./get-icons";
 import { prepareDist, writeLibFiles } from "./lib-files";
 import { writeWebFiles } from "./web-files";
 import { supportedArgs } from "./constants";
-import { PackAttachedIcons } from "./types";
+import { PackAttachedIcons, PackItem } from "./types";
+
+const packages = JSON.parse(
+  fs.readFileSync(new URL("./packages.json", import.meta.url), "utf8")
+) as PackItem[];
 
 function isolatePack(shortName: string, isolateBy: string): boolean {
   return shortName === isolateBy;

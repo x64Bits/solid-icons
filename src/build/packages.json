@@ -126,5 +126,13 @@
     "url": "https://github.com/primer/octicons",
     "path": "./src/icons/octicons/icons",
     "folderName": "octicons"
+  },
+  {
+    "shortName": "md",
+    "packName": "Material Design Icons",
+    "license": "MIT",
+    "url": "https://github.com/marella/material-design-icons",
+    "path": "./src/icons/material-design-icons/svg",
+    "folderName": "octicons"
   }
 ]

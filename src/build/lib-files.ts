@@ -14,8 +14,11 @@ import {
 } from "./constants";
 import { fileTypes } from "./file-templates";
 import { getFileByPath } from "./get-icons";
-import packages from "./packages.json" assert { type: "json" };
 import { PackageJSONExport, PackAttachedIcons, PackItem } from "./types";
+
+const packages = JSON.parse(
+  fs.readFileSync(new URL("./packages.json", import.meta.url), "utf8")
+) as PackItem[];
 
 const execAsync = promisify(exec);
 
