@@ -11,6 +11,10 @@
     "icons:test": "yarn workspace solid-icons run test",
     "web:build": "yarn workspace solid-icons-web run build",
     "web:dev": "yarn workspace solid-icons-web run dev",
+    "astro:build": "yarn workspace astro-test run build",
+    "test:1.7": "yarn workspace test-solid-1.7 run dev",
+    "test:1.8": "yarn workspace test-solid-1.8 run dev",
+    "test:1.9": "yarn workspace test-solid-1.9 run dev",
     "icons:publish": "yarn workspace solid-icons run publish",
     "test:run": "yarn workspace solid-icons run test:run"
   }

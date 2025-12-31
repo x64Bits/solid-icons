@@ -1,0 +1,4 @@
+{
+  "extends": "../shared-test-src/tsconfig.json",
+  "include": ["src", "../shared-test-src"]
+}
