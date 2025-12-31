@@ -101,7 +101,7 @@ const iconContent = {
 | [css.gg](https://github.com/astrit/css.gg)                                | [MIT](https://opensource.org/licenses/MIT)                              | 2.1.4   | cg           |
 | [Tabler Icons](https://github.com/tabler/tabler-icons)                    | [MIT](https://opensource.org/licenses/MIT)                              | 3.36.0  | tb           |
 | [Github Octicons](https://github.com/primer/octicons)                     | [MIT](https://opensource.org/licenses/MIT)                              | 19.21.1 | oc           |
-| [Material Design Icons](https://github.com/marella/material-design-icons) | [Apache License Version 2.0](http://www.apache.org/licenses/)           | 19.21.1 | oc           |
+| [Material Design Icons](https://github.com/marella/material-design-icons) | [Apache License Version 2.0](http://www.apache.org/licenses/)           | 19.21.1 | md           |
 
 ## ⚙️ Configuration
 
