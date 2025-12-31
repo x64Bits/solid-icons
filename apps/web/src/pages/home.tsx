@@ -126,7 +126,10 @@ export default function Home() {
                   by{" "}
                   <Text color="accent">
                     <Box mx="0.25em">
-                      <a href="https://www.maite.design" target="_blank">
+                      <a
+                        href="https://www.linkedin.com/in/maite-sojo"
+                        target="_blank"
+                      >
                         Maite Sojo
                       </a>
                     </Box>

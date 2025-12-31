@@ -6,6 +6,29 @@
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
+  "main": "./dist/lib/index.cjs",
+  "module": "./dist/lib/index.jsx",
+  "types": "./dist/lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.jsx",
+      "require": "./dist/lib/index.cjs",
+      "solid": "./dist/lib/index.jsx"
+    },
+    "./lib": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.jsx",
+      "require": "./dist/lib/index.cjs",
+      "solid": "./dist/lib/index.jsx"
+    },
+    "./*": {
+        "types": "./dist/*/index.d.ts",
+        "import": "./dist/*/index.js",
+        "require": "./dist/*/index.cjs",
+        "solid": "./dist/*/index.js"
+    }
+  },
   "scripts": {
     "dev": "onchange -i -k 'src/build/**/*.ts' -- yarn build",
     "test": "vitest --config ./vitest.config.ts",

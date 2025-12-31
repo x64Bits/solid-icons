@@ -1,12 +1,4 @@
-import {
-  JSX,
-  createEffect,
-  createMemo,
-  createSignal,
-  onCleanup,
-  splitProps,
-} from "solid-js";
-import { isServer, mergeProps, ssr } from "solid-js/web";
+import type { JSX } from "solid-js";
 
 type SVGSVGElementTags = JSX.SVGElementTags["svg"];
 
@@ -28,40 +20,33 @@ export interface IconBaseProps extends IconProps {
 
 export declare type IconTypes = (props: IconProps) => JSX.Element;
 
-export const CustomIcon = (props: IconBaseProps) =>
-  IconTemplate(props.src, props);
+export const CustomIcon = (props: IconBaseProps) => {
+  return IconTemplate(props.src, props);
+};
 
-export function IconTemplate(iconSrc: IconTree, props: IconProps): JSX.Element {
-  const mergedProps = mergeProps(iconSrc.a, props) as IconBaseProps;
-  const [_, svgProps] = splitProps(mergedProps, ["src"]);
-  const [content, setContent] = createSignal<string>("");
-  const rawContent = createMemo(() =>
-    props.title ? `${iconSrc.c}<title>${props.title}</title>` : iconSrc.c
-  );
-
-  createEffect(() => setContent(rawContent()));
-
-  onCleanup(() => {
-    setContent("");
-  });
-
+export function IconTemplate(
+  iconSrc: IconTree,
+  props: IconBaseProps
+): JSX.Element {
   return (
     <svg
-      stroke={iconSrc.a?.stroke}
+      {...iconSrc.a}
+      {...props}
+      stroke-width="0"
       color={props.color || "currentColor"}
       fill={props.color || "currentColor"}
-      stroke-width="0"
-      style={{
-        ...props.style,
-        overflow: "visible",
-      }}
-      {...svgProps}
       height={props.size || "1em"}
       width={props.size || "1em"}
       xmlns="http://www.w3.org/2000/svg"
-      innerHTML={content()}
-    >
-      {isServer && ssr(rawContent())}
-    </svg>
+      style={{
+        ...(typeof props.style === "object" ? props.style : {}),
+        overflow: "visible",
+      }}
+      innerHTML={
+        props.title ? `${iconSrc.c}<title>${props.title}</title>` : iconSrc.c
+      }
+      // @ts-ignore
+      src={undefined}
+    />
   );
 }
