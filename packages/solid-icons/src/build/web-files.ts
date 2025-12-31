@@ -27,7 +27,7 @@ export async function writeWebFiles(packs: PackAttachedIcons[]) {
   };
 
   await rmAsync(WEB_ICONS_PATH, { recursive: true, force: true });
-  fs.mkdirSync(WEB_ICONS_PATH);
+  fs.mkdirSync(WEB_ICONS_PATH, { recursive: true });
 
   await rmAsync(`${WEB_PATH}/search.js`, { recursive: true, force: true });
   await rmAsync(`${WEB_PATH}/meta.js`, { recursive: true, force: true });

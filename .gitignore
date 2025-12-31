@@ -4,4 +4,6 @@ node_modules
 *.log
 dist
 dist_all
-src/icons/**
+packages/solid-icons/src/icons/**
+apps/**/node_modules
+apps/**/public/icons

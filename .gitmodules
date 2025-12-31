@@ -1,51 +1,51 @@
 [submodule "src/icons/ant-design-icons"]
-	path = src/icons/ant-design-icons
+	path = packages/solid-icons/src/icons/ant-design-icons
 	url = https://github.com/ant-design/ant-design-icons
 [submodule "src/icons/Font-Awesome"]
-	path = src/icons/Font-Awesome
+	path = packages/solid-icons/src/icons/Font-Awesome
 	url = https://github.com/FortAwesome/Font-Awesome
 [submodule "src/icons/weather-icons"]
-	path = src/icons/weather-icons
+	path = packages/solid-icons/src/icons/weather-icons
 	url = https://github.com/erikflowers/weather-icons
 [submodule "src/icons/feather"]
-	path = src/icons/feather
+	path = packages/solid-icons/src/icons/feather
 	url = https://github.com/feathericons/feather
 [submodule "src/icons/vscode-codicons"]
-	path = src/icons/vscode-codicons
+	path = packages/solid-icons/src/icons/vscode-codicons
 	url = https://github.com/microsoft/vscode-codicons
 [submodule "src/icons/icons"]
-	path = src/icons/icons
+	path = packages/solid-icons/src/icons/icons
 	url = https://github.com/twbs/icons
 [submodule "src/icons/boxicons"]
-	path = src/icons/boxicons
+	path = packages/solid-icons/src/icons/boxicons
 	url = https://github.com/atisawd/boxicons
 [submodule "src/icons/IcoMoon-Free"]
-	path = src/icons/IcoMoon-Free
+	path = packages/solid-icons/src/icons/IcoMoon-Free
 	url = https://github.com/Keyamoon/IcoMoon-Free
 [submodule "src/icons/ionicons"]
-	path = src/icons/ionicons
+	path = packages/solid-icons/src/icons/ionicons
 	url = https://github.com/ionic-team/ionicons
 [submodule "src/icons/RemixIcon"]
-	path = src/icons/RemixIcon
+	path = packages/solid-icons/src/icons/RemixIcon
 	url = https://github.com/Remix-Design/RemixIcon
 [submodule "src/icons/simple-icons"]
-	path = src/icons/simple-icons
+	path = packages/solid-icons/src/icons/simple-icons
 	url = https://github.com/simple-icons/simple-icons
 [submodule "src/icons/typicons.font"]
-	path = src/icons/typicons.font
+	path = packages/solid-icons/src/icons/typicons.font
 	url = https://github.com/stephenhutchings/typicons.font
 [submodule "src/icons/heroicons"]
-	path = src/icons/heroicons
+	path = packages/solid-icons/src/icons/heroicons
 	url = https://github.com/refactoringui/heroicons
 [submodule "src/icons/css.gg"]
-	path = src/icons/css.gg
+	path = packages/solid-icons/src/icons/css.gg
 	url = https://github.com/astrit/css.gg
 [submodule "src/icons/tabler"]
-	path = src/icons/tabler
+	path = packages/solid-icons/src/icons/tabler
 	url = https://github.com/tabler/tabler-icons
 [submodule "src/icons/octicons"]
-	path = src/icons/octicons
+	path = packages/solid-icons/src/icons/octicons
 	url = https://github.com/primer/octicons
 [submodule "src/icons/material-design-icons"]
-	path = src/icons/material-design-icons
+	path = packages/solid-icons/src/icons/material-design-icons
 	url = https://github.com/marella/material-design-icons

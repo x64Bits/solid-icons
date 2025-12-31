@@ -1,0 +1,33 @@
+{
+  "name": "solid-icons-web",
+  "version": "0.1.0",
+  "description": "Solid Icons explorer icons website",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "18.7.18",
+    "@types/prismjs": "1.26.0",
+    "typescript": "4.8.2",
+    "vite": "3.0.9",
+    "vite-plugin-solid": "^2.11.10"
+  },
+  "dependencies": {
+    "@solid-primitives/intersection-observer": "2.0.1",
+    "@solidjs/meta": "0.28.0",
+    "@solidjs/router": "0.8.4",
+    "@tanstack/solid-virtual": "^3.13.14",
+    "prismjs": "1.29.0",
+    "solid-icons": "*",
+    "solid-js": "1.7.12",
+    "solid-styled-components": "0.28.4",
+    "tiny-invariant": "1.3.1"
+  }
+}

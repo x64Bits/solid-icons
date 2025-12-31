@@ -2,7 +2,7 @@ import path from "path";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const DEFAULT_WEB_PATH = "../web/public";
+const DEFAULT_WEB_PATH = "../../apps/web/public";
 
 export const ROOT_PATH = path.resolve();
 export const DIST_PATH = path.resolve("./dist");
@@ -10,7 +10,7 @@ export const WEB_PATH = path.resolve(
   ROOT_PATH,
   process.env.WEB_PATH || DEFAULT_WEB_PATH
 );
-export const WEB_ICONS_PATH = path.resolve(WEB_PATH);
+export const WEB_ICONS_PATH = path.resolve(WEB_PATH, "icons");
 export const log = console.log;
 
 export const LIB_PACKAGE_JSON = /* javascript */ `{
