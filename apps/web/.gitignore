@@ -1,3 +1,6 @@
 node_modules
 dist
 public/dist_all
+.vercel
+.env*.local
+local-icons

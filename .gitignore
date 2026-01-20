@@ -7,3 +7,5 @@ dist_all
 packages/solid-icons/src/icons/**
 apps/**/node_modules
 apps/**/public/icons
+apps/**/local-icons
+.vercel

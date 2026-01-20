@@ -1,4 +1,4 @@
-import { IconTemplate, IconTree } from "solid-icons/lib/index.js";
+import { IconTemplate, IconTree } from "solid-icons";
 import { createEffect, createSignal } from "solid-js";
 import { IconPlaceholder } from "./styles";
 
