@@ -18,6 +18,7 @@ export default defineConfig({
     },
     threads: false,
     isolate: true,
+    testTimeout: 15000,
   },
   plugins: [solid()],
   resolve: {

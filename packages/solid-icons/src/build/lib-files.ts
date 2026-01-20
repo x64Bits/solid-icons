@@ -12,7 +12,7 @@ import {
   LIB_PACKAGE_JSON,
   EXPORTS_KEYS,
 } from "./constants";
-import { fileTypes } from "./file-templates";
+import { iconFileTypes, indexFileTypes } from "./file-templates";
 import { getFileByPath } from "./get-icons";
 import { PackageJSONExport, PackAttachedIcons, PackItem } from "./types";
 
@@ -95,17 +95,25 @@ function writeAssetsFiles() {
 
 function writeEachPack(pack: PackAttachedIcons) {
   const packFolder = `${DIST_PATH}/${pack.shortName}`;
+  const iconsFolder = `${packFolder}/icons`;
 
   fs.mkdirSync(packFolder);
+  fs.mkdirSync(iconsFolder);
 
-  for (let index = 0; index < fileTypes.length; index++) {
-    const type = fileTypes[index];
-    const fileName = `${packFolder}/${type.fileName}`;
-
-    fs.appendFileSync(fileName, type.header);
-    pack.icons.forEach((icon) => {
-      fs.appendFileSync(fileName, type.template(icon));
+  pack.icons.forEach((icon) => {
+    iconFileTypes.forEach((type) => {
+      const fileName = `${iconsFolder}/${icon.fileName}.${type.fileExt}`;
+      const header = type.header ? `${type.header}\n` : "";
+      fs.writeFileSync(fileName, `${header}${type.template(icon)}\n`);
     });
+  });
+
+  for (let index = 0; index < indexFileTypes.length; index++) {
+    const type = indexFileTypes[index];
+    const fileName = `${packFolder}/${type.fileName}`;
+    const header = type.header ? `${type.header}\n` : "";
+    const exports = pack.icons.map((icon) => type.template(icon)).join("\n");
+    fs.writeFileSync(fileName, `${header}${exports}\n`);
   }
 
   log(
