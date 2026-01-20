@@ -76,8 +76,8 @@ export default function Home() {
                           href="https://www.npmjs.com/package/solid-icons"
                           target="_blank"
                         >
-                          Version <b>1.2.0</b> now available with improvements
-                          and new icons.
+                          Version <b>1.2.0</b> adds Material Design Icons and
+                          more icons
                         </a>
                       </InformationBox>
                     </Flex>
@@ -85,7 +85,7 @@ export default function Home() {
                 </Show>
                 <ContentTitle>Solid Icons</ContentTitle>
                 <ContentDescription>
-                  A collection of <b>16</b> open source icon libraries packed
+                  A collection of <b>17</b> open source icon libraries packed
                   into one for easy use in your SolidJS project with over{" "}
                   <b>35797</b> icons.
                 </ContentDescription>
