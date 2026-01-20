@@ -6,27 +6,32 @@
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
-  "main": "./dist/lib/index.cjs",
-  "module": "./dist/lib/index.jsx",
-  "types": "./dist/lib/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/lib/index.d.ts",
-      "import": "./dist/lib/index.jsx",
-      "require": "./dist/lib/index.cjs",
-      "solid": "./dist/lib/index.jsx"
-    },
-    "./lib": {
-      "types": "./dist/lib/index.d.ts",
-      "import": "./dist/lib/index.jsx",
-      "require": "./dist/lib/index.cjs",
-      "solid": "./dist/lib/index.jsx"
-    },
-    "./*": {
-      "types": "./dist/*/index.d.ts",
-      "import": "./dist/*/index.js",
-      "require": "./dist/*/index.cjs",
-      "solid": "./dist/*/index.js"
+  "main": "./src/lib/index.tsx",
+  "module": "./src/lib/index.tsx",
+  "types": "./src/lib/index.tsx",
+  "publishConfig": {
+    "main": "./dist/lib/index.cjs",
+    "module": "./dist/lib/index.jsx",
+    "types": "./dist/lib/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/lib/index.d.ts",
+        "import": "./dist/lib/index.jsx",
+        "require": "./dist/lib/index.cjs",
+        "solid": "./dist/lib/index.jsx"
+      },
+      "./lib": {
+        "types": "./dist/lib/index.d.ts",
+        "import": "./dist/lib/index.jsx",
+        "require": "./dist/lib/index.cjs",
+        "solid": "./dist/lib/index.jsx"
+      },
+      "./*": {
+        "types": "./dist/*/index.d.ts",
+        "import": "./dist/*/index.js",
+        "require": "./dist/*/index.cjs",
+        "solid": "./dist/*/index.js"
+      }
     }
   },
   "scripts": {
