@@ -11,6 +11,10 @@ export default function Router() {
       <Route path="/" component={Home} />
       <Route path="/search/:term" component={SearchRoute} />
       <Route path="/search/package/:shortName" component={PackageRoute} />
+      <Route
+        path="/search/package/:shortName/:term"
+        component={PackageRoute}
+      />
       <Route path="/*" component={NoFound} />
     </Routes>
   );

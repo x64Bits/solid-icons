@@ -6,6 +6,7 @@
     "apps/*"
   ],
   "scripts": {
+    "prepare": "husky install",
     "icons:generate": "yarn workspace solid-icons run build",
     "icons:web:generate": "yarn workspace solid-icons run build --web",
     "icons:test": "yarn workspace solid-icons run test",

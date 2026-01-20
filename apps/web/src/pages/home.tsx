@@ -42,23 +42,14 @@ const basicUseSample = [
   },
 ];
 
-function isLessThanDays(numDays: number): boolean {
-  // Validate input for number of days
-  if (numDays < 0) {
-    throw new Error(
-      "Invalid number of days. It must be a non-negative number."
-    );
-  }
+const RELEASE_DATE = new Date("2026-01-20");
 
-  // Get the current date
+function isWithinDays(numDays: number): boolean {
   const now = new Date();
+  const expirationDate = new Date(RELEASE_DATE);
+  expirationDate.setDate(expirationDate.getDate() + numDays);
 
-  // Create the comparison date, which is 'numDays' in the past
-  const comparisonDate = new Date();
-  comparisonDate.setDate(now.getDate() - numDays);
-
-  // Check if the current date is beyond 'numDays' in the future compared to the comparison date
-  return now > comparisonDate;
+  return now < expirationDate;
 }
 
 export default function Home() {
@@ -77,7 +68,7 @@ export default function Home() {
             </GradientContainer>
             <ContentContainer>
               <Box px="1em">
-                <Show when={isLessThanDays(30)}>
+                <Show when={isWithinDays(30)}>
                   <Box mb="2rem">
                     <Flex justify="center">
                       <InformationBox>
@@ -85,7 +76,7 @@ export default function Home() {
                           href="https://www.npmjs.com/package/solid-icons"
                           target="_blank"
                         >
-                          Version <b>1.1.0</b> now available with improvements
+                          Version <b>1.2.0</b> now available with improvements
                           and new icons.
                         </a>
                       </InformationBox>

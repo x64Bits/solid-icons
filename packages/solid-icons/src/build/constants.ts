@@ -53,6 +53,7 @@ export const NORMALIZE_PACK: Record<string, string> = {
   HI: "hi",
   TB: "tb",
   RI: "ri",
+  FI: "fi",
 };
 
 export const NORMALIZE_FILE_NAME = {

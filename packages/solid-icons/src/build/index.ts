@@ -7,10 +7,6 @@ import { writeWebFiles } from "./web-files";
 import { supportedArgs } from "./constants";
 import { PackAttachedIcons, PackItem } from "./types";
 
-const packages = JSON.parse(
-  fs.readFileSync(new URL("./packages.json", import.meta.url), "utf8")
-) as PackItem[];
-
 function isolatePack(shortName: string, isolateBy: string): boolean {
   return shortName === isolateBy;
 }
@@ -28,6 +24,10 @@ function getArgs() {
 }
 
 async function main() {
+  const packages = JSON.parse(
+    fs.readFileSync(new URL("./packages.json", import.meta.url), "utf8")
+  ) as PackItem[];
+
   const { isIsolate, buildWeb } = getArgs();
 
   await prepareDist();

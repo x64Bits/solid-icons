@@ -24,17 +24,27 @@ export async function optimizeContents(
   path: string
 ) {
   let optimizedFile: Output;
+  const preserveStrokeConfig = {
+    ...svgoConfig,
+    plugins: svgoConfig.plugins?.filter((plugin) => {
+      if ((plugin as any).name == "removeAttributesBySelector") {
+        return false;
+      }
+      return true;
+    }),
+  };
+
   switch (shortName) {
     case NORMALIZE_PACK.TB:
-      const tbSvgoConfig = {
-        ...svgoConfig,
-        plugins: svgoConfig.plugins?.filter((plugin) => {
-          if ((plugin as any).name == "removeAttributesBySelector") {
-            return false;
-          }
-        }),
-      };
-      optimizedFile = optimize(contents, tbSvgoConfig);
+    case NORMALIZE_PACK.FI:
+      optimizedFile = optimize(contents, preserveStrokeConfig);
+      break;
+    case NORMALIZE_PACK.HI:
+      if (path.includes("outline")) {
+        optimizedFile = optimize(contents, preserveStrokeConfig);
+      } else {
+        optimizedFile = optimize(contents, svgoConfig);
+      }
       break;
     case NORMALIZE_PACK.AI:
       if (path.includes("twotone")) {

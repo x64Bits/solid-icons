@@ -20,8 +20,14 @@ export default function useIconList(term: Accessor<string>): TReturnProps {
   const [loading, setLoading] = createSignal(false);
 
   createEffect(() => {
+    const tVal = term();
+    if (!tVal) {
+      setIcons([]);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
-    const termLowerCase = term().toLocaleLowerCase();
+    const termLowerCase = tVal.toLocaleLowerCase();
 
     getSearchFile().then((data) => {
       const result = data.filter((iconName: string) =>
@@ -35,17 +41,33 @@ export default function useIconList(term: Accessor<string>): TReturnProps {
   return [icons, loading];
 }
 
-export function usePackageList(shortName: Accessor<string>) {
+export function usePackageList(
+  shortName: Accessor<string>,
+  term?: Accessor<string>,
+) {
   const [icons, setIcons] = createSignal([]);
 
   createEffect(() => {
-    const shortNameLowerCase = shortName().toLocaleLowerCase();
+    const sName = shortName();
+    const tVal = term ? term() : "";
+    
+    if (!sName) return;
+
+    const shortNameLowerCase = sName.toLocaleLowerCase();
+    const termLowerCase = tVal ? tVal.toLocaleLowerCase() : "";
 
     getSearchFile().then((data) => {
-      const result = data.filter(
-        (iconName: string) =>
-          iconName.toLowerCase().substring(0, 2) === shortNameLowerCase
-      );
+      const result = data.filter((iconName: string) => {
+        const belongsToPack =
+          iconName.toLowerCase().substring(0, 2) === shortNameLowerCase;
+        if (!belongsToPack) return false;
+
+        if (termLowerCase && !iconName.toLowerCase().includes(termLowerCase)) {
+          return false;
+        }
+
+        return true;
+      });
 
       setIcons(result);
     });

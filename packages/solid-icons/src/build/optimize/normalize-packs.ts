@@ -14,28 +14,10 @@ const hiReplacements = [
   },
 ];
 
-const tbReplacements = [
-  {
-    // Remove stroke attr
-    regex: /<path/i,
-    replace: '<path stroke="none"',
-  },
-  {
-    // Replace default stroke color
-    regex: /stroke="#010202"/gi,
-    replace: 'stroke="none"',
-  },
-];
+const tbReplacements = [];
 
 export function normalizeTb(iconData: string) {
-  let normalized = iconData;
-
-  for (let i = 0; i < tbReplacements.length; i++) {
-    const element = tbReplacements[i];
-    normalized = normalized.replace(element.regex, element.replace);
-  }
-
-  return normalized;
+  return iconData;
 }
 
 export function normalizeRi(iconData: string) {

@@ -25,15 +25,15 @@ function iconTypesTemplate(icon: IconContent) {
 }
 
 function indexCjsTemplate(icon: IconContent) {
-  return /* javascript */ `module.exports.${icon.fileName} = require("./icons/${icon.fileName}.cjs");`;
+  return `exports.${icon.fileName}=function(props){return IconTemplate({a:${JSON.stringify(icon.svgAttribs)},c:'${icon.contents}'},props)}`;
 }
 
 function indexModuleTemplate(icon: IconContent) {
-  return /* javascript */ `export { ${icon.fileName} } from "./icons/${icon.fileName}.js";`;
+  return `export function ${icon.fileName}(props){return IconTemplate({a:${JSON.stringify(icon.svgAttribs)},c:'${icon.contents}'},props)}`;
 }
 
 function indexTypesTemplate(icon: IconContent) {
-  return /* javascript */ `export { ${icon.fileName} } from "./icons/${icon.fileName}";`;
+  return `export declare const ${icon.fileName}: IconTypes;`;
 }
 
 export const iconFileTypes = [
@@ -64,19 +64,19 @@ export const indexFileTypes = [
   {
     type: "cjs",
     template: (iconContent: IconContent) => indexCjsTemplate(iconContent),
-    header: "",
+    header: "var IconTemplate = require('../lib/index.cjs').IconTemplate;",
     fileName: "index.cjs",
   },
   {
     type: "mjs",
     template: (iconContent: IconContent) => indexModuleTemplate(iconContent),
-    header: "",
+    header: "import { IconTemplate } from '../lib/index.jsx';",
     fileName: "index.js",
   },
   {
     type: "types",
     template: (iconContent: IconContent) => indexTypesTemplate(iconContent),
-    header: "",
+    header: "import type { IconTypes } from '../lib/index';",
     fileName: "index.d.ts",
   },
 ];

@@ -32,9 +32,7 @@ export function IconTemplate(
     <svg
       {...iconSrc.a}
       {...props}
-      stroke-width="0"
       color={props.color || "currentColor"}
-      fill={props.color || "currentColor"}
       height={props.size || "1em"}
       width={props.size || "1em"}
       xmlns="http://www.w3.org/2000/svg"

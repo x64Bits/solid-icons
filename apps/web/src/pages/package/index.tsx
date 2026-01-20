@@ -39,7 +39,8 @@ export default function PackageRoute() {
   const [listOffset, setListOffset] = createSignal(0);
   const [containerWidth, setContainerWidth] = createSignal(0);
   const shortName = createMemo(() => params.shortName);
-  const icons = usePackageList(shortName);
+  const term = createMemo(() => params.term);
+  const icons = usePackageList(shortName, term);
   const [state, { setVisibleNavSearch }] = useContext(AppContext);
   const useVisibilityObserver = createVisibilityObserver({
     threshold: 0.1,
@@ -131,7 +132,7 @@ export default function PackageRoute() {
           <Box px="1em">
             <SearchbarContent ref={searchWrapperRef}>
               <SearchbarWrapper width="50%">
-                <Searchbar />
+                <Searchbar initialValue={params.term} />
                 <Show when={icons().length}>
                   <Box mt="0.5em" ml="0.5em">
                     <Row justify="flex-start">

@@ -20,6 +20,10 @@ const getIconContent = async (
 
   const { children, attribs } = mountedElement[0];
 
+  if (!attribs.fill) {
+    attribs.fill = "currentColor";
+  }
+
   return {
     fileName: formatFileName(path, pack),
     contents: children

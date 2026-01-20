@@ -8,7 +8,7 @@ import {
   Switch,
   useContext,
 } from "solid-js";
-import { useNavigate } from "@solidjs/router";
+import { useNavigate, useLocation } from "@solidjs/router";
 
 import {
   SearchBarContainer,
@@ -33,6 +33,7 @@ interface SearchbarProps {
 export default function Searchbar(props: SearchbarProps) {
   let inputRef: HTMLInputElement | null = null;
   const navigate = useNavigate();
+  const location = useLocation();
   const [typing, setTyping] = createSignal(false);
   const [state, { setVisibleNavbar, setActiveIcon }] = useContext(AppContext);
 
@@ -43,6 +44,15 @@ export default function Searchbar(props: SearchbarProps) {
     if (state.visibleNavbar || state.activeIcon) {
       setVisibleNavbar(false);
       setActiveIcon(null);
+    }
+
+    if (location.pathname.includes("/search/package/")) {
+      const pathParts = location.pathname.split("/");
+      const shortName = pathParts[3];
+      if (shortName) {
+        navigate(`/search/package/${shortName}/${term}`);
+        return;
+      }
     }
 
     navigate(`/search/${term}`);
