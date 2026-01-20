@@ -52,9 +52,9 @@ npm install solid-icons --save
 ## Usage
 
 ```jsx
-import { TbBrandSolidjs } from "solid-icons/tb";
+import { FaSolidChartLine } from "solid-icons/fa";
 
-<TbBrandSolidjs size={24} color="#2c4f7c" />;
+<FaSolidChartLine size={24} color="#2c4f7c" />;
 ```
 
 ## Custom icon
@@ -101,16 +101,16 @@ const iconContent = {
 | [css.gg](https://github.com/astrit/css.gg)                                | [MIT](https://opensource.org/licenses/MIT)                              | 2.1.4   | cg           |
 | [Tabler Icons](https://github.com/tabler/tabler-icons)                    | [MIT](https://opensource.org/licenses/MIT)                              | 3.36.0  | tb           |
 | [Github Octicons](https://github.com/primer/octicons)                     | [MIT](https://opensource.org/licenses/MIT)                              | 19.21.1 | oc           |
-| [Material Design Icons](https://github.com/marella/material-design-icons) | [Apache License Version 2.0](http://www.apache.org/licenses/)           | 19.21.1 | md           |
+| [Material Design Icons](https://github.com/marella/material-design-icons) | [Apache License Version 2.0](http://www.apache.org/licenses/)           | 0.14.15 | md           |
 
 ## ⚙️ Configuration
 
 solid-icons components receive props like any SVG, you also have a few custom ones.
 
 ```jsx
-import { TbBrandSolidjs } from "solid-icons/tb";
+import { FaSolidChartLine } from "solid-icons/fa";
 
-<TbBrandSolidjs size={24} color="#2c4f7c" class="custom-icon" title="a11y" />;
+<FaSolidChartLine size={24} color="#2c4f7c" class="custom-icon" title="a11y" />;
 ```
 
 | Key     | Default                  | Notes             |
