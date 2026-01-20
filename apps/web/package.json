@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Solid Icons explorer icons website",
   "engines": {
-    "node": ">=16"
+    "node": ">=22"
   },
   "scripts": {
     "start": "vite",
