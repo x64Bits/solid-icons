@@ -71,7 +71,7 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
       </head>
       <body>
         <HeadContent />
-        <div class="p-2 flex flex-row gap-2 text-2xl">
+        <div class="p-2 flex flex-row gap-2 text-xl">
           <Link
             to="/"
             class="flex items-center gap-1"
@@ -80,7 +80,7 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
             }}
             activeOptions={{ exact: true }}
           >
-            <FiHome />
+            <FiHome color="#46cbffff" size={25} />
             Home
           </Link>{" "}
           <Link
@@ -90,7 +90,7 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
               class: "font-bold",
             }}
           >
-            <FiSmartphone />
+            <FiSmartphone color="#46cbffff" size={25} />
             Posts
           </Link>{" "}
           <Link
@@ -100,7 +100,7 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
               class: "font-bold",
             }}
           >
-            <FiUsers />
+            <FiUsers color="#46cbffff" size={25} />
             Users
           </Link>{" "}
           <Link
@@ -110,7 +110,7 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
               class: "font-bold",
             }}
           >
-            <IoMapOutline />
+            <IoMapOutline color="#46cbffff" size={25} />
             Layout
           </Link>{" "}
           <Link
@@ -120,7 +120,7 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
               class: "font-bold",
             }}
           >
-            <FiAtSign />
+            <FiAtSign color="#46cbffff" size={25} />
             Deferred
           </Link>{" "}
           <Link
@@ -131,7 +131,7 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
               class: "font-bold",
             }}
           >
-            <MdFillNot_listed_location />
+            <MdFillNot_listed_location color="#46cbffff" size={25} />
             Not found
           </Link>
         </div>
