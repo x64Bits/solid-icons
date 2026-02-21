@@ -15,7 +15,7 @@ import { seo } from "~/utils/seo";
 
 // Icons
 
-import { FiAtSign, FiCommand, FiHome, FiUsers } from "solid-icons/fi";
+import { FiAtSign, FiHome, FiUsers, FiSmartphone } from "solid-icons/fi";
 import { IoMapOutline } from "solid-icons/io";
 import { MdFillNot_listed_location } from "solid-icons/md";
 
@@ -71,62 +71,68 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
       </head>
       <body>
         <HeadContent />
-        <div class="p-2 flex gap-2 text-xl gap-2 items-center">
+        <div class="p-2 flex flex-row gap-2 text-2xl">
           <Link
             to="/"
+            class="flex items-center gap-1"
             activeProps={{
               class: "font-bold",
             }}
             activeOptions={{ exact: true }}
           >
-            Home
             <FiHome />
+            Home
           </Link>{" "}
           <Link
             to="/posts"
+            class="flex items-center gap-1"
             activeProps={{
               class: "font-bold",
             }}
           >
+            <FiSmartphone />
             Posts
-            <FiCommand />
           </Link>{" "}
           <Link
             to="/users"
+            class="flex items-center gap-1"
             activeProps={{
               class: "font-bold",
             }}
           >
-            Users
             <FiUsers />
+            Users
           </Link>{" "}
           <Link
             to="/route-a"
+            class="flex items-center gap-1"
             activeProps={{
               class: "font-bold",
             }}
           >
-            Layout
             <IoMapOutline />
+            Layout
           </Link>{" "}
           <Link
             to="/deferred"
+            class="flex items-center gap-1"
             activeProps={{
               class: "font-bold",
             }}
           >
-            Deferred
             <FiAtSign />
+            Deferred
           </Link>{" "}
           <Link
             // @ts-expect-error
             to="/this-route-does-not-exist"
+            class="flex items-center gap-1"
             activeProps={{
               class: "font-bold",
             }}
           >
-            Not found
             <MdFillNot_listed_location />
+            Not found
           </Link>
         </div>
         <hr />
