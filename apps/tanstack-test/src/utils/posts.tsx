@@ -1,40 +1,36 @@
-import { notFound } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
+import { notFound } from '@tanstack/solid-router';
+import { createServerFn } from '@tanstack/solid-start';
+import axios from 'redaxios';
 
 export type PostType = {
-  id: number
-  title: string
-  body: string
-}
+  id: string;
+  title: string;
+  body: string;
+};
 
-export const fetchPost = createServerFn({ method: 'POST' })
+export const fetchPost = createServerFn({ method: 'GET' })
   .inputValidator((d: string) => d)
   .handler(async ({ data }) => {
-    console.info(`Fetching post with id ${data}...`)
-    const res = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${data}`,
-    )
-    if (!res.ok) {
-      if (res.status === 404) {
-        throw notFound()
-      }
+    console.info(`Fetching post with id ${data}...`);
+    const post = await axios
+      .get<PostType>(`https://jsonplaceholder.typicode.com/posts/${data}`)
+      .then((r) => r.data)
+      .catch((err) => {
+        console.error(err);
+        if (err.status === 404) {
+          throw notFound();
+        }
+        throw err;
+      });
 
-      throw new Error('Failed to fetch post')
-    }
+    return post;
+  });
 
-    const post = await res.json()
-
-    return post as PostType
-  })
-
-export const fetchPosts = createServerFn().handler(async () => {
-  console.info('Fetching posts...')
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts')
-  if (!res.ok) {
-    throw new Error('Failed to fetch posts')
-  }
-
-  const posts = await res.json()
-
-  return (posts as Array<PostType>).slice(0, 10)
-})
+export const fetchPosts = createServerFn({
+  method: 'GET',
+}).handler(async () => {
+  console.info('Fetching posts...');
+  return axios
+    .get<Array<PostType>>('https://jsonplaceholder.typicode.com/posts')
+    .then((r) => r.data.slice(0, 10));
+});

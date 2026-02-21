@@ -1,9 +1,9 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { redirect, createFileRoute } from '@tanstack/solid-router';
 
 export const Route = createFileRoute('/redirect')({
-  beforeLoad: () => {
+  beforeLoad: async () => {
     throw redirect({
       to: '/posts',
-    })
+    });
   },
-})
+});

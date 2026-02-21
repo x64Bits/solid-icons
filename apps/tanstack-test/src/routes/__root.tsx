@@ -4,19 +4,20 @@ import {
   Link,
   Scripts,
   createRootRoute,
-} from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import * as React from 'react'
-import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary'
-import { NotFound } from '~/components/NotFound'
-import appCss from '~/styles/app.css?url'
-import { seo } from '~/utils/seo'
+} from '@tanstack/solid-router';
+import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools';
+import { HydrationScript } from 'solid-js/web';
+import type * as Solid from 'solid-js';
+import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary';
+import { NotFound } from '~/components/NotFound';
+import appCss from '~/styles/app.css?url';
+import { seo } from '~/utils/seo';
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       {
-        charSet: 'utf-8',
+        charset: 'utf-8',
       },
       {
         name: 'viewport',
@@ -50,30 +51,25 @@ export const Route = createRootRoute({
       { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
       { rel: 'icon', href: '/favicon.ico' },
     ],
-    scripts: [
-      {
-        src: '/customScript.js',
-        type: 'text/javascript',
-      },
-    ],
   }),
   errorComponent: DefaultCatchBoundary,
   notFoundComponent: () => <NotFound />,
   shellComponent: RootDocument,
-})
+});
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument({ children }: { children: Solid.JSX.Element }) {
   return (
     <html>
       <head>
-        <HeadContent />
+        <HydrationScript />
       </head>
       <body>
-        <div className="p-2 flex gap-2 text-lg">
+        <HeadContent />
+        <div class="p-2 flex gap-2 text-lg">
           <Link
             to="/"
             activeProps={{
-              className: 'font-bold',
+              class: 'font-bold',
             }}
             activeOptions={{ exact: true }}
           >
@@ -82,7 +78,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <Link
             to="/posts"
             activeProps={{
-              className: 'font-bold',
+              class: 'font-bold',
             }}
           >
             Posts
@@ -90,7 +86,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <Link
             to="/users"
             activeProps={{
-              className: 'font-bold',
+              class: 'font-bold',
             }}
           >
             Users
@@ -98,7 +94,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <Link
             to="/route-a"
             activeProps={{
-              className: 'font-bold',
+              class: 'font-bold',
             }}
           >
             Pathless Layout
@@ -106,7 +102,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <Link
             to="/deferred"
             activeProps={{
-              className: 'font-bold',
+              class: 'font-bold',
             }}
           >
             Deferred
@@ -115,7 +111,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             // @ts-expect-error
             to="/this-route-does-not-exist"
             activeProps={{
-              className: 'font-bold',
+              class: 'font-bold',
             }}
           >
             This Route Does Not Exist
@@ -127,5 +123,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }

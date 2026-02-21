@@ -1,33 +1,31 @@
 {
-  "name": "tanstack-start-example-basic",
+  "name": "tanstack-solid-start-example-basic",
   "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && tsc --noEmit",
-    "preview": "vite preview",
-    "start": "node .output/server/index.mjs"
+    "start": "vite start"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.161.1",
-    "@tanstack/react-router-devtools": "^1.161.1",
-    "@tanstack/react-start": "^1.161.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^2.6.0",
-    "zod": "^3.24.2"
+    "@tanstack/solid-router": "^1.135.0",
+    "@tanstack/solid-router-devtools": "^1.135.0",
+    "@tanstack/solid-start": "^1.135.0",
+    "redaxios": "^0.5.1",
+    "solid-icons": "^1.2.0",
+    "solid-js": "^1.9.10",
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/postcss": "^4.1.15",
     "@types/node": "^22.5.4",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "@vitejs/plugin-react": "^4.6.0",
-    "nitro": "3.0.1-alpha.2",
-    "tailwindcss": "^4.1.18",
+    "nitro": "3.0.1-alpha.1",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^4.1.15",
     "typescript": "^5.7.2",
-    "vite": "^7.3.1",
+    "vite": "^7.1.7",
+    "vite-plugin-solid": "^2.11.10",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
