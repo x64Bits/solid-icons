@@ -1,5 +1,6 @@
 {
   "name": "tanstack-solid-start-example-basic",
+  "version": "0.0.0",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -13,7 +14,7 @@
     "@tanstack/solid-router-devtools": "^1.135.0",
     "@tanstack/solid-start": "^1.135.0",
     "redaxios": "^0.5.1",
-    "solid-icons": "^1.2.0",
+    "solid-icons": "file:../../packages/solid-icons",
     "solid-js": "^1.9.10",
     "tailwind-merge": "^2.6.0"
   },
