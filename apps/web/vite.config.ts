@@ -20,7 +20,7 @@ export default defineConfig(({ mode, command }) => {
       {
         name: "serve-local-icons",
         configureServer(server) {
-          const packCache = new Map<string, string>();
+          const packCache = new Map<string, { mtime: number; code: string }>();
           const iconCache = new Map<string, string>();
 
           server.middlewares.use("/icons", (req, res, next) => {
@@ -43,6 +43,7 @@ export default defineConfig(({ mode, command }) => {
             for (const filePath of candidates) {
               if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
                 res.setHeader("Content-Type", "application/javascript");
+                res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                 return fs.createReadStream(filePath).pipe(res);
               }
             }
@@ -53,12 +54,6 @@ export default defineConfig(({ mode, command }) => {
               const packID = parts[0];
               const iconName = parts[1].slice(0, -3);
 
-              if (iconCache.has(cleanPath)) {
-                res.setHeader("Content-Type", "application/javascript");
-                res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
-                return res.end(iconCache.get(cleanPath));
-              }
-
               const distPackPath = path.resolve(
                 __dirname,
                 "../../packages/solid-icons/dist",
@@ -67,10 +62,27 @@ export default defineConfig(({ mode, command }) => {
               );
 
               if (fs.existsSync(distPackPath)) {
-                if (!packCache.has(packID)) {
-                  packCache.set(packID, fs.readFileSync(distPackPath, "utf8"));
+                const stat = fs.statSync(distPackPath);
+                const cachedPack = packCache.get(packID);
+                if (!cachedPack || cachedPack.mtime !== stat.mtimeMs) {
+                  packCache.set(packID, {
+                    mtime: stat.mtimeMs,
+                    code: fs.readFileSync(distPackPath, "utf8"),
+                  });
+                  for (const key of iconCache.keys()) {
+                    if (key.startsWith(`${packID}/`)) {
+                      iconCache.delete(key);
+                    }
+                  }
                 }
-                const code = packCache.get(packID)!;
+
+                if (iconCache.has(cleanPath)) {
+                  res.setHeader("Content-Type", "application/javascript");
+                  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                  return res.end(iconCache.get(cleanPath));
+                }
+
+                const code = packCache.get(packID)!.code;
                 const regex = new RegExp(
                   `export function ${iconName}\\(props\\)\\{return IconTemplate\\((\\{.+?\\}),props\\)\\}`
                 );
@@ -79,7 +91,7 @@ export default defineConfig(({ mode, command }) => {
                   const content = `export default ${match[1]};`;
                   iconCache.set(cleanPath, content);
                   res.setHeader("Content-Type", "application/javascript");
-                  res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+                  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                   return res.end(content);
                 }
               }
