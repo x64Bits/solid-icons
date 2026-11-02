@@ -14,8 +14,6 @@ const hiReplacements = [
   },
 ];
 
-const tbReplacements = [];
-
 export function normalizeTb(iconData: string) {
   return iconData;
 }
