@@ -16,7 +16,16 @@
     "test:1.7": "yarn workspace test-solid-1.7 run dev",
     "test:1.8": "yarn workspace test-solid-1.8 run dev",
     "test:1.9": "yarn workspace test-solid-1.9 run dev",
+    "test:2.0": "yarn workspace test-solid-2.0 run dev",
     "icons:publish": "yarn workspace solid-icons run publish",
-    "test:run": "yarn workspace solid-icons run test:run"
+    "test:run": "yarn workspace solid-icons run test:run",
+    "test:e2e": "node scripts/test-e2e.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "playwright": "^1.40.0"
+  },
+  "resolutions": {
+    "solid-js": "1.9.10"
   }
 }
