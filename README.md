@@ -27,9 +27,11 @@ Modern solution for use icons on SolidJS
 
 ## ✨ Features
 
+- Compatible with **SolidJS 2.0** and **SolidJS 1.x** (plus Astro, TanStack Start, and SolidStart).
 - [17 Icon packs](#-included-icons-pack) totally ready to use.
 - Compatible with [Solid Start](https://github.com/solidjs/solid-start) static generation and SSR.
 - Tree shakeable: What you take is what you get.
+- Built-in Vite plugin (`solid-icons/vite`) for blazing-fast dev server startup without bundle bottlenecks.
 - [Customizable](#%EF%B8%8F-configuration) - receive props to extend their usefulness.
 - [Reactivity](https://www.youtube.com/watch?v=J70HXl1KhWE), take advantage of SolidJS to react to changes in props.
 - [Just import and declare](#usage) in your JSX to work out-the-box
@@ -51,10 +53,35 @@ npm install solid-icons --save
 
 ## Usage
 
+Import icons directly from their pack prefix (e.g. `solid-icons/tb`, `solid-icons/fa`, `solid-icons/ai`):
+
 ```jsx
 import { TbBrandSolidjs } from "solid-icons/tb";
+import { FaSolidHeart } from "solid-icons/fa";
 
-<TbBrandSolidjs size={24} color="#2c4f7c" />;
+function App() {
+  return (
+    <div>
+      <TbBrandSolidjs size={24} color="#2c4f7c" />
+      <FaSolidHeart size={20} color="red" />
+    </div>
+  );
+}
+```
+
+### Vite Plugin (Recommended for development)
+
+Each icon pack contains thousands of icons. To prevent Vite from scanning or pre-bundling massive icon sets during `vite dev`, you can add the lightweight `solidIcons` plugin to your Vite config. It transforms icon imports on-the-fly, giving you instant cold starts:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import solid from "vite-plugin-solid";
+import { solidIcons } from "solid-icons/vite";
+
+export default defineConfig({
+  plugins: [solid(), solidIcons()],
+});
 ```
 
 ## Custom icon
