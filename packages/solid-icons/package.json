@@ -1,6 +1,6 @@
 {
   "name": "solid-icons",
-  "version": "1.2.0",
+  "version": "2.0.0-rc.1",
   "description": "Modern solution for use icons on SolidJS",
   "author": "Ignacio Zsabo",
   "license": "MIT",
@@ -9,28 +9,58 @@
   "main": "./src/lib/index.tsx",
   "module": "./src/lib/index.tsx",
   "types": "./src/lib/index.tsx",
+  "exports": {
+    ".": {
+      "types": "./dist/lib/index.d.ts",
+      "solid": "./dist/lib/index.jsx",
+      "import": "./dist/lib/index.jsx",
+      "default": "./dist/lib/index.jsx"
+    },
+    "./lib": {
+      "types": "./dist/lib/index.d.ts",
+      "solid": "./dist/lib/index.jsx",
+      "import": "./dist/lib/index.jsx",
+      "default": "./dist/lib/index.jsx"
+    },
+    "./vite": {
+      "types": "./dist/vite/index.d.ts",
+      "import": "./dist/vite/index.js",
+      "default": "./dist/vite/index.js"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "solid": "./dist/*/index.jsx",
+      "import": "./dist/*/index.js",
+      "default": "./dist/*/index.js"
+    }
+  },
   "publishConfig": {
-    "main": "./dist/lib/index.cjs",
+    "main": "./dist/lib/index.jsx",
     "module": "./dist/lib/index.jsx",
     "types": "./dist/lib/index.d.ts",
     "exports": {
       ".": {
         "types": "./dist/lib/index.d.ts",
+        "solid": "./dist/lib/index.jsx",
         "import": "./dist/lib/index.jsx",
-        "require": "./dist/lib/index.cjs",
-        "solid": "./dist/lib/index.jsx"
+        "default": "./dist/lib/index.jsx"
       },
       "./lib": {
         "types": "./dist/lib/index.d.ts",
+        "solid": "./dist/lib/index.jsx",
         "import": "./dist/lib/index.jsx",
-        "require": "./dist/lib/index.cjs",
-        "solid": "./dist/lib/index.jsx"
+        "default": "./dist/lib/index.jsx"
+      },
+      "./vite": {
+        "types": "./dist/vite/index.d.ts",
+        "import": "./dist/vite/index.js",
+        "default": "./dist/vite/index.js"
       },
       "./*": {
         "types": "./dist/*/index.d.ts",
+        "solid": "./dist/*/index.jsx",
         "import": "./dist/*/index.js",
-        "require": "./dist/*/index.cjs",
-        "solid": "./dist/*/index.js"
+        "default": "./dist/*/index.js"
       }
     }
   },
@@ -43,8 +73,7 @@
     "build": "tsx ./src/build/index.ts",
     "build:lib": "rollup --configPlugin @rollup/plugin-typescript -c",
     "build:all": "shx rm -rf ./dist_all && shx mkdir ./dist_all && yarn build --web && shx cp ./all_package.json ./dist_all/package.json",
-    "publish": "yarn build && npm publish ./dist",
-    "postinstall": "yarn submodule"
+    "publish": "yarn build && npm publish ./dist"
   },
   "keywords": [
     "solidjs",
@@ -89,7 +118,7 @@
     "node": ">= 16"
   },
   "peerDependencies": {
-    "solid-js": "*"
+    "solid-js": ">=1.7.0 || ^2.0.0"
   },
   "repository": {
     "type": "git",

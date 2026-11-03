@@ -37,12 +37,20 @@ async function main() {
       ? packages.filter((pack) => isolatePack(pack.shortName, isIsolate))
       : packages;
 
-  const attachedFiles: PackAttachedIcons[] = await Promise.all(
-    coditionalPack.map(async (pack) => ({
-      ...pack,
-      icons: await getIcons(pack),
-    }))
-  );
+  const attachedFiles: PackAttachedIcons[] = (
+    await Promise.all(
+      coditionalPack.map(async (pack) => {
+        if (!fs.existsSync(pack.path)) {
+          console.warn(`Skipping pack ${pack.shortName} as ${pack.path} does not exist`);
+          return null;
+        }
+        return {
+          ...pack,
+          icons: await getIcons(pack),
+        };
+      })
+    )
+  ).filter((pack): pack is PackAttachedIcons => pack !== null);
 
   writeLibFiles(attachedFiles);
 

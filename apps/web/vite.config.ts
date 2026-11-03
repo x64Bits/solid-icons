@@ -9,12 +9,10 @@ export default defineConfig(({ mode, command }) => {
     "~": path.resolve(__dirname, "./src"),
   };
 
-  if (mode === "development" && command === "serve") {
-    aliases["solid-icons"] = path.resolve(
-      __dirname,
-      "../../packages/solid-icons/dist",
-    );
-  }
+  aliases["solid-icons"] = path.resolve(
+    __dirname,
+    "../../packages/solid-icons/dist"
+  );
 
   return {
     plugins: [
@@ -22,21 +20,84 @@ export default defineConfig(({ mode, command }) => {
       {
         name: "serve-local-icons",
         configureServer(server) {
+          const packCache = new Map<string, { mtime: number; code: string }>();
+          const iconCache = new Map<string, string>();
+
           server.middlewares.use("/icons", (req, res, next) => {
             const url = req.url || "";
-            // req.url is relative to the mount point (/icons)
-            const filePath = path.resolve(
-              __dirname,
-              "local-icons",
-              url.startsWith("/") ? url.slice(1) : url
-            );
+            // req.url is relative to the mount point (/icons), e.g. "/ai/AiFillCamera.js"
+            const relPath = url.startsWith("/") ? url.slice(1) : url;
+            const cleanPath = relPath.split("?")[0];
 
-            if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-              res.setHeader("Content-Type", "application/javascript");
-              fs.createReadStream(filePath).pipe(res);
-            } else {
-              next();
+            // 1. Check if physical file exists in any candidate folder
+            const candidates = [
+              path.resolve(__dirname, "local-icons", cleanPath),
+              path.resolve(
+                __dirname,
+                "../../packages/solid-icons/dist_all/icons",
+                cleanPath
+              ),
+              path.resolve(__dirname, "public/icons", cleanPath),
+            ];
+
+            for (const filePath of candidates) {
+              if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+                res.setHeader("Content-Type", "application/javascript");
+                res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                return fs.createReadStream(filePath).pipe(res);
+              }
             }
+
+            // 2. On-the-fly extraction from packages/solid-icons/dist/${packID}/index.js
+            const parts = cleanPath.split("/");
+            if (parts.length === 2 && parts[1].endsWith(".js")) {
+              const packID = parts[0];
+              const iconName = parts[1].slice(0, -3);
+
+              const distPackPath = path.resolve(
+                __dirname,
+                "../../packages/solid-icons/dist",
+                packID,
+                "index.js"
+              );
+
+              if (fs.existsSync(distPackPath)) {
+                const stat = fs.statSync(distPackPath);
+                const cachedPack = packCache.get(packID);
+                if (!cachedPack || cachedPack.mtime !== stat.mtimeMs) {
+                  packCache.set(packID, {
+                    mtime: stat.mtimeMs,
+                    code: fs.readFileSync(distPackPath, "utf8"),
+                  });
+                  for (const key of iconCache.keys()) {
+                    if (key.startsWith(`${packID}/`)) {
+                      iconCache.delete(key);
+                    }
+                  }
+                }
+
+                if (iconCache.has(cleanPath)) {
+                  res.setHeader("Content-Type", "application/javascript");
+                  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                  return res.end(iconCache.get(cleanPath));
+                }
+
+                const code = packCache.get(packID)!.code;
+                const regex = new RegExp(
+                  `export function ${iconName}\\(props\\)\\{return IconTemplate\\((\\{.+?\\}),props\\)\\}`
+                );
+                const match = code.match(regex);
+                if (match && match[1]) {
+                  const content = `export default ${match[1]};`;
+                  iconCache.set(cleanPath, content);
+                  res.setHeader("Content-Type", "application/javascript");
+                  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                  return res.end(content);
+                }
+              }
+            }
+
+            next();
           });
         },
       },

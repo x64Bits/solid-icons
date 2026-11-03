@@ -32,14 +32,14 @@ export async function writeWebFiles(packs: PackAttachedIcons[]) {
   await rmAsync(`${WEB_PATH}/search.js`, { recursive: true, force: true });
   await rmAsync(`${WEB_PATH}/meta.js`, { recursive: true, force: true });
 
-  fs.appendFileSync(
+  fs.writeFileSync(
     `${WEB_PATH}/search.js`,
     `export default ${JSON.stringify(iconNames)}`
   );
 
   const metaFile = attachCountIcons(packs);
 
-  fs.appendFileSync(
+  fs.writeFileSync(
     `${WEB_PATH}/meta.js`,
     `export default ${JSON.stringify(metaFile)}`
   );
@@ -60,10 +60,10 @@ export async function writeWebFiles(packs: PackAttachedIcons[]) {
 async function writeEachWebFiles(pack: PackAttachedIcons) {
   const packFolder = `${WEB_ICONS_PATH}/${pack.shortName}`;
 
-  fs.mkdirSync(packFolder);
+  fs.mkdirSync(packFolder, { recursive: true });
 
   pack.icons.forEach((icon) => {
-    fs.appendFileSync(
+    fs.writeFileSync(
       `${packFolder}/${icon.fileName}.js`,
       `export default ${JSON.stringify({
         a: icon.svgAttribs,
