@@ -9,3 +9,10 @@ apps/**/node_modules
 apps/**/public/icons
 apps/**/local-icons
 .vercel
+measure-benchmark.mjs
+*.benchmark.mjs
+.pnpm-store/
+screenshots/
+tests/screenshots/
+playwright-report/
+test-results/

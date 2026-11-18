@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "noUnusedLocals": true,
-    "lib": ["ES2021"],
+    "lib": ["ES2021", "DOM"]
   },
   "include": ["src/lib", "src/build"],
   "exclude": [

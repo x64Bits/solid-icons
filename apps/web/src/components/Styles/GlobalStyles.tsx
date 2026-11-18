@@ -2,7 +2,13 @@ import { createGlobalStyles } from "solid-styled-components";
 
 const GlobalStyles = () => {
   const Styles = createGlobalStyles`    
+    * {
+      box-sizing: border-box;
+    }
+
     html, body {
+      margin: 0;
+      padding: 0;
       font-family: 'Inter', sans-serif;
       font-style: normal;
     }

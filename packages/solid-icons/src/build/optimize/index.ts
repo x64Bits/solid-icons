@@ -37,6 +37,7 @@ export async function optimizeContents(
   switch (shortName) {
     case NORMALIZE_PACK.TB:
     case NORMALIZE_PACK.FI:
+    case NORMALIZE_PACK.IO:
       optimizedFile = optimize(contents, preserveStrokeConfig);
       break;
     case NORMALIZE_PACK.HI:
@@ -59,9 +60,6 @@ export async function optimizeContents(
   }
 
   switch (shortName) {
-    case NORMALIZE_PACK.IO:
-      optimizedFile.data = normalizeOutline(optimizedFile.data);
-      break;
     case NORMALIZE_PACK.TB:
       optimizedFile.data = normalizeTb(optimizedFile.data);
       break;

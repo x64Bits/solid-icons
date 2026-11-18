@@ -14,23 +14,27 @@ export const WEB_ICONS_PATH = path.resolve(WEB_PATH, "icons");
 export const log = console.log;
 
 export const LIB_PACKAGE_JSON = /* javascript */ `{
-  "main": "./index.cjs",
+  "main": "./index.jsx",
   "module": "./index.jsx",
   "solid": "./index.jsx",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
-      "default": "./index.jsx",
-      "solid": "./index.jsx"
+      "types": "./index.d.ts",
+      "solid": "./index.jsx",
+      "import": "./index.jsx",
+      "default": "./index.jsx"
     }
   }
 }`;
 
 export const ROOT_EXPORT = {
-  browser: "./lib/index.js",
   types: "./lib/index.d.ts",
-  node: "./lib/index.cjs",
-  default: "./lib/index.jsx",
   solid: "./lib/index.jsx",
+  import: "./lib/index.jsx",
+  default: "./lib/index.jsx",
+  browser: "./lib/index.jsx",
+  node: "./lib/index.jsx",
   astro: "./lib/index.jsx",
 };
 

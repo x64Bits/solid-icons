@@ -1,6 +1,7 @@
 import { Config } from "svgo";
 
 export const svgoConfig: Config = {
+  multipass: true,
   plugins: [
     {
       name: "cleanupAttrs",
@@ -54,8 +55,19 @@ export const svgoConfig: Config = {
         currentColor: true,
       },
     },
-    "convertPathData",
-    "convertTransform",
+    {
+      name: "convertPathData",
+      params: {
+        floatPrecision: 3,
+        transformPrecision: 3,
+      },
+    },
+    {
+      name: "convertTransform",
+      params: {
+        floatPrecision: 3,
+      },
+    },
     {
       name: "removeUnknownsAndDefaults",
     },
@@ -70,6 +82,9 @@ export const svgoConfig: Config = {
     },
     {
       name: "cleanupNumericValues",
+      params: {
+        floatPrecision: 3,
+      },
     },
     {
       name: "moveElemsAttrsToGroup",

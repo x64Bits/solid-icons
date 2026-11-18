@@ -13,8 +13,9 @@ interface IGlyphProps {
 
 function getPath(name = DEFAULT_ICON) {
   const packID = name.slice(0, 2).toLowerCase();
+  const query = import.meta.env.PROD ? "" : `?v=${Date.now()}`;
 
-  const path = `${JS_DELIVR}/${packID}/${name}.js`;
+  const path = `${JS_DELIVR}/${packID}/${name}.js${query}`;
 
   return path;
 }

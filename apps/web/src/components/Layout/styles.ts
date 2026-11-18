@@ -5,14 +5,19 @@ import { HEADER_DEFAULT_HEIGHT } from "../Header/styles";
 export const LayoutContainer = styled("div")`
   display: grid;
   grid-template-columns: 0.4fr 1.6fr;
-  grid-template-rows: 0.15fr 1.85fr;
+  grid-template-rows: auto auto 1fr;
   gap: 0px 0px;
   grid-template-areas:
+    "Banner Banner"
     "Header Header"
     "Sidebar Content";
+  height: 100vh;
+  width: 100%;
   max-height: 100vh;
-  color: ${(props) => props.theme().colors.textPrimary};
-  background-color: ${(props) => props.theme().colors.background};
+  max-width: 100%;
+  overflow: hidden;
+  color: ${(props: any) => props.theme?.().colors?.textPrimary};
+  background-color: ${(props: any) => props.theme?.().colors?.background};
 
   @media (max-width: ${Breakpoints.sm}) {
     & {
@@ -33,6 +38,14 @@ export const LayoutContainer = styled("div")`
   }
 `;
 
+export const BannerLayout = styled("div")`
+  grid-area: Banner;
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  z-index: 10;
+`;
+
 export const HeaderLayout = styled("div")`
   grid-area: Header;
   max-height: fit-content;
@@ -48,6 +61,6 @@ export const NavbarLayout = styled("div")`
 
 export const ContentLayout = styled("div")`
   grid-area: Content;
-  max-height: calc(100vh - ${HEADER_DEFAULT_HEIGHT}px);
+  height: 100%;
   overflow-y: auto;
 `;
