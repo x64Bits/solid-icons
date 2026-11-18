@@ -247,6 +247,7 @@ function writeAssetsFiles() {
   delete packageDotJson.scripts;
   delete packageDotJson.engines;
   delete packageDotJson.type;
+  delete packageDotJson.publishConfig;
   packageDotJson.main = "./lib/index.jsx";
   packageDotJson.types = "./lib/index.d.ts";
   packageDotJson.module = "./lib/index.jsx";
